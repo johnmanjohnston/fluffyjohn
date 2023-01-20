@@ -10,21 +10,20 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-black border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">fluffyjohn</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">FluffyJohn</a>
+
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
+                    <ul class="nav navbar-nav">
+                        <li class="nav-item"><a class="nav-link" href="~/">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="~/">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="~/">Home</a></li>
                     </ul>
                 </div>
             </div>
@@ -36,9 +35,9 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2023 - fluffyjohn - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <footer class="footer border-top text-muted">
+        <div class="container text-center">
+            FluffyJohn, programmed by <a href="https://github.com/johnmanjohnston">Ethan John</a> is free and open source, available <a href="https://github.com/johnmanjohnston/fluffyjohn/">here</a>.
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
