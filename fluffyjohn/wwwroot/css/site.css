@@ -1,3 +1,7 @@
+:root {
+    --fluffyjohn-blue: rgb(20, 20, 23);
+}
+
 @media (min-width: 768px) {
   html {
     font-size: 16px;
@@ -16,7 +20,14 @@ html {
 body, html {
     padding: 0;
     margin: 0;
-    background: rgb(20, 20, 23);
     color: whitesmoke;
+    background-color: var(--fluffyjohn-blue);
 }
 
+.fluffyjohn-bg {
+    background-color: var(--fluffyjohn-blue);
+}
+
+.slight-dark {
+    background: rgba(0, 0, 10, 0.25);
+}
