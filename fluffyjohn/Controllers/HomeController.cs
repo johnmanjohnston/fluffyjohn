@@ -18,6 +18,8 @@ namespace fluffyjohn.Controllers
             return View();
         }
 
+        // Using [Route("route")] lets you use a custom route. remember this, future john.
+
         public IActionResult Privacy()
         {
             return View();
