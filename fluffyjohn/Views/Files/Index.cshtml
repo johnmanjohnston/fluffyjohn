@@ -1,7 +1,11 @@
-﻿
+﻿@using Microsoft.AspNetCore.Identity
+@using fluffyjohn.Areas.Identity.Data
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
 @{
     ViewData["Title"] = "Index";
 }
 
 <h1>Files Index</h1>
-
