@@ -1,4 +1,14 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using fluffyjohn.Areas.Identity.Data;
 var builder = WebApplication.CreateBuilder(args);
+var connectionString = builder.Configuration.GetConnectionString("ApplicationDbCtxConnection") ?? throw new InvalidOperationException("Connection string 'ApplicationDbCtxConnection' not found.");
+
+builder.Services.AddDbContext<ApplicationDbCtx>(options =>
+    options.UseSqlServer(connectionString));
+
+builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<ApplicationDbCtx>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -17,6 +27,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseAuthentication();;
 
 app.UseAuthorization();
 
@@ -24,5 +35,7 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}"
 );
+
+app.MapRazorPages();
 
 app.Run();
