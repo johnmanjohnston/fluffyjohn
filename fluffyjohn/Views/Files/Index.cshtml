@@ -1,11 +1,18 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using fluffyjohn.Areas.Identity.Data
+@using Microsoft.AspNetCore.Mvc;
+@using System;
 
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
 @{
     ViewData["Title"] = "Index";
-}
+
+    string? dirPath = Url.RouteUrl(ViewContext.RouteData.Values);
+}   
 
 <h1>Files Index</h1>
+@dirPath
+
+<br />
