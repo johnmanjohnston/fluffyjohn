@@ -6,16 +6,20 @@
 @inject UserManager<ApplicationUser> UserManager
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "View Files";
 
     string? dirPath = Url.RouteUrl(ViewContext.RouteData.Values);
-    string? pwd = Directory.GetCurrentDirectory();
-    
+    string? userFilesDir = "./UserFileStorer/";
+
+    string[] fileEntries = Directory.GetFiles(userFilesDir);
+
 }   
 
 <h1>Files Index</h1>
-@dirPath
+<div>Path: @dirPath</div>
 
 <br />
 
-@pwd
+<form method="post" enctype="multipart/form-data">
+
+</form>
