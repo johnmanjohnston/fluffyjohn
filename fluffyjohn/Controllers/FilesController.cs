@@ -4,6 +4,9 @@ using System.IO;
 using System;
 using Microsoft.AspNetCore.Http;
 using System.Text;
+using fluffyjohn.Utils.Security;
+using fluffyjohn.Areas.Identity.Data;
+using Microsoft.AspNetCore.Identity;
 
 namespace fluffyjohn.Controllers
 {
@@ -22,7 +25,7 @@ namespace fluffyjohn.Controllers
         [HttpPost]
         public async Task<IActionResult> Upload()
         {
-            var filePath = Directory.GetCurrentDirectory() + "/UserFileStorer/";
+            var filePath = Directory.GetCurrentDirectory() + "/UserFileStorer/" + SecurityUtils.MD5Hash(User.Identity!.Name!) + "/";
 
 
             foreach (var formFile in Request.Form.Files)
@@ -47,7 +50,7 @@ namespace fluffyjohn.Controllers
             {
                 ContentType = "text/html",
                 StatusCode = (int)HttpStatusCode.OK,
-                Content = $"<html><body>Welcome{filePath}</body></html>"
+                Content = $"<html><body>Welcome {User.Identity.Name}</body></html>"
             };
         }
     }
