@@ -1,6 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using fluffyjohn.Areas.Identity.Data
 @using Microsoft.AspNetCore.Mvc;
+@using fluffyjohn.Utils.Security;
 
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
@@ -8,15 +9,22 @@
 @{
     ViewData["Title"] = "View Files";
 
-    string? dirPath = Url.RouteUrl(ViewContext.RouteData.Values);
-    string? userFilesDir = "./UserFileStorer/";
+    string? reqDirPath = Url.RouteUrl(ViewContext.RouteData.Values);
+    string? userFilesDirPath = "./UserFileStorer/" + SecurityUtils.MD5Hash(User.Identity!.Name!);
 
-    string[] fileEntries = Directory.GetFiles(userFilesDir);
+    string[] fileEntries = Directory.GetFiles(userFilesDirPath);
 
+    string? fNames = "";
+
+    foreach (var file in fileEntries)
+    {
+        fNames += file;
+    }
 }   
 
+
 <h1>Files Index</h1>
-<div>Path: @dirPath</div>
+<div>Path: @reqDirPath</div>
 
 <br />
 
@@ -24,3 +32,5 @@
     <input type="file" name="uploads" multiple/>
     <input type="submit" />
 </form>
+
+@fNames
