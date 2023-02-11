@@ -14,7 +14,7 @@ namespace fluffyjohn.Controllers
         [Route("/ViewFiles/{**dirpath}")]
         public IActionResult Index()
         {
-            if (!User.Identity!.IsAuthenticated)
+            if (User.Identity!.IsAuthenticated == false)
             {
                 return Redirect("~/Identity/Account/Login");
             }
@@ -25,29 +25,24 @@ namespace fluffyjohn.Controllers
         [HttpPost]
         public async Task<IActionResult> Upload()
         {
-            var filePath = Directory.GetCurrentDirectory() + "/UserFileStorer/" + SecurityUtils.MD5Hash(User.Identity!.Name!) + "/";
+            var userDir = Directory.GetCurrentDirectory() + "/UserFileStorer/" + SecurityUtils.MD5Hash(User.Identity!.Name!) + "/";
+            var files = Request.Form.Files;
 
-
-            foreach (var formFile in Request.Form.Files)
+            foreach (var formFile in files)
             {
                 if (formFile.Length > 0) 
                 {
-                    using (var inputStream = new FileStream(filePath + formFile.FileName, FileMode.Create))
+                    using (var inputStream = new FileStream(userDir + formFile.FileName, FileMode.Create))
                     {
-                        // read file to stream
                         await formFile.CopyToAsync(inputStream);
-                        // stream to byte array
                         byte[] array = new byte[inputStream.Length];
                         inputStream.Seek(0, SeekOrigin.Begin);
                         inputStream.Read(array, 0, array.Length);
-                        // get file name
-                        string fName = formFile.FileName;
                     }
                 }
             }
 
-                    return new ContentResult
-            {
+            return new ContentResult {
                 ContentType = "text/html",
                 StatusCode = (int)HttpStatusCode.OK,
                 Content = $"<html><body>Welcome {User.Identity.Name}</body></html>"
