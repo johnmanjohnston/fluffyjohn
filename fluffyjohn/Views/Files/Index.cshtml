@@ -12,13 +12,12 @@
     string? reqDirPath = Url.RouteUrl(ViewContext.RouteData.Values);
     string? userFilesDirPath = "./UserFileStorer/" + SecurityUtils.MD5Hash(User.Identity!.Name!);
 
-    string[] fileEntries = Directory.GetFiles(userFilesDirPath);
+    string[] fileEntries = Directory.GetFiles(userFilesDirPath, "*", SearchOption.AllDirectories);
 
-    string? fNames = "";
-
-    foreach (var file in fileEntries)
+    // Prevent actual file path on server machine from being displayed to user
+    for (var i = 0; i < fileEntries.Length; i++)
     {
-        fNames += file;
+        fileEntries[i] = fileEntries[i].Replace(userFilesDirPath + "\\", "");
     }
 }   
 
@@ -33,4 +32,10 @@
     <input type="submit" />
 </form>
 
-@fNames
+@{
+    foreach (var file in fileEntries)
+    {
+        <div>@file</div>
+        <br />
+    }   
+}
