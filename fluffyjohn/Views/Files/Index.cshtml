@@ -9,18 +9,43 @@
 @{
     ViewData["Title"] = "View Files";
 
-    string? reqDirPath = Url.RouteUrl(ViewContext.RouteData.Values);
-    string? userFilesDirPath = "./UserFileStorer/" + SecurityUtils.MD5Hash(User.Identity!.Name!);
+    // Variables definitions
+    string? reqDirPath = Url!.RouteUrl(ViewContext.RouteData.Values);
+    string? userFilesDirPath = "./UserFileStorer/" + SecurityUtils.MD5Hash(User.Identity!.Name!) + reqDirPath!.Replace("/ViewFiles", "");
 
-    string[] fileEntries = Directory.GetFiles(userFilesDirPath, "*", SearchOption.AllDirectories);
+    string[] fileEntries = Directory.GetFiles(userFilesDirPath);
+    string[] dirEntries = Directory.GetDirectories(userFilesDirPath);
 
-    // Prevent actual file path on server machine from being displayed to user
-    for (var i = 0; i < fileEntries.Length; i++)
+    string[] processedFileEntries = fileEntries;
+    string[] processedDirEntries = dirEntries;
+
+    // Functions
+    void ProcessRequestDirName()
     {
-        fileEntries[i] = fileEntries[i].Replace(userFilesDirPath + "\\", "");
+        for (int i = 0; i < reqDirPath!.Length; i++)
+        {
+            reqDirPath = reqDirPath.Replace("//", "/");
+        }
     }
-}   
 
+    void ProcessPathNames()
+    {
+        // Prevent actual file path on server machine from being displayed to user
+        for (var i = 0; i < fileEntries.Length; i++)
+        {
+            processedFileEntries[i] = fileEntries[i].Replace(userFilesDirPath + "\\", "");
+        }
+
+        for (var i = 0; i < dirEntries.Length; i++)
+        {
+            processedDirEntries[i] = dirEntries[i].Replace(userFilesDirPath + "\\", "");
+        }
+    }
+
+    // Call
+    ProcessRequestDirName();
+    ProcessPathNames();
+}   
 
 <h1>Files Index</h1>
 <div>Path: @reqDirPath</div>
@@ -33,9 +58,15 @@
 </form>
 
 @{
-    foreach (var file in fileEntries)
+    foreach (var file in processedFileEntries)
     {
         <div>@file</div>
         <br />
     }   
+
+    for (int i = 0; i < processedDirEntries.Length; i++)
+    {
+        <a href="@dirEntries[i]">@processedDirEntries[i]</a>
+    }
 }
+<br /> <br />
