@@ -11,7 +11,7 @@
 
     // Variables definitions
     string? reqDirPath = Url!.RouteUrl(ViewContext.RouteData.Values);
-    string? userFilesDirPath = "./UserFileStorer/" + SecurityUtils.MD5Hash(User.Identity!.Name!) + reqDirPath!.Replace("/ViewFiles", "");
+    string? userFilesDirPath = "./UserFileStorer/" + SecurityUtils.MD5Hash(User.Identity!.Name!) + reqDirPath!.Substring("/ViewFiles".Length);
 
     string[] fileEntries = Directory.GetFiles(userFilesDirPath);
     string[] dirEntries = Directory.GetDirectories(userFilesDirPath);
