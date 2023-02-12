@@ -29,25 +29,16 @@ namespace fluffyjohn.Controllers
             var userDir = Directory.GetCurrentDirectory() + "/UserFileStorer/" + SecurityUtils.MD5Hash(User.Identity!.Name!) + "/";
             var files = Request.Form.Files;
 
-            foreach (var formFile in files)
+            foreach (var fl in files)
             {
-                if (formFile.Length > 0) 
+                if (fl.Length > 0) 
                 {
-                    using (var inputStream = new FileStream(userDir + formFile.FileName, FileMode.Create))
-                    {
-                        await formFile.CopyToAsync(inputStream);
-                        byte[] array = new byte[inputStream.Length];
-                        inputStream.Seek(0, SeekOrigin.Begin);
-                        inputStream.Read(array, 0, array.Length);
-                    }
+                    using var inputStream = new FileStream(userDir + fl.FileName, FileMode.Create);
+                    await fl.CopyToAsync(inputStream);
                 }
             }
 
-            return new ContentResult {
-                ContentType = "text/html",
-                StatusCode = (int)HttpStatusCode.OK,
-                Content = $"<html><body>Welcome {User.Identity.Name}</body></html>"
-            };
+            return Redirect(Request.Headers.Referer);
         }
     }
 }
