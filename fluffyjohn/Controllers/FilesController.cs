@@ -7,6 +7,7 @@ using System.Text;
 using fluffyjohn.Utils.Security;
 using fluffyjohn.Areas.Identity.Data;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace fluffyjohn.Controllers
 {

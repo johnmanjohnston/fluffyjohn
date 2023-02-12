@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using fluffyjohn.Areas.Identity.Data;
+using Microsoft.AspNetCore.Builder;
+
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("ApplicationDbCtxConnection") ?? throw new InvalidOperationException("Connection string 'ApplicationDbCtxConnection' not found.");
 
@@ -15,10 +17,9 @@ builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
+app.UseExceptionHandler("/Error");
 // Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
-{
-    app.UseExceptionHandler("/Home/Error");
+if (!app.Environment.IsDevelopment()) { 
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
@@ -37,5 +38,4 @@ app.MapControllerRoute(
 );
 
 app.MapRazorPages();
-
 app.Run();
