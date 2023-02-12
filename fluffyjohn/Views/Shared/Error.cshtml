@@ -1,11 +1,30 @@
 ﻿@model ErrorViewModel
 @{
-    ViewData["Title"] = $"Error {Context.Response.StatusCode}";
+    if (Context.Response.StatusCode != 200)
+    {
+        ViewData["Title"] = $"HTTP {Context.Response.StatusCode}";
+    }
 }
 
-<h1 class="text-danger">Welp, there was an error processing your request! Sorry 'bout that!</h1>
+@if (Context.Response.StatusCode != 200)
+{
+    <h1 class="text-danger">Welp, there was an error processing your request! Sorry 'bout that!</h1>
 
-<div>Here's some information about your request</div>
+    <div>Here's some information about your request</div>
 
-<div>Request ID:</div> <code>@Model.RequestId</code>
-<div>HTTP Status Code: </div><code>@Context.Response.StatusCode</code>
+    <div>Request ID:</div> <code>@Model.RequestId</code>
+    <div>HTTP Status Code: </div><code>@Context.Response.StatusCode</code>
+}
+
+else {
+    <h1 class="text-primary">You've landed on the error page, but there wasn't an error!</h1>
+    <div>Your browser did everything correctly, no error was detected?</div>
+    <div>Redirecting you to the homepage...</div>
+
+    <script>
+        setTimeout(() => {
+            window.location.href = "/";
+        }, 3 * 1000);
+    </script>
+}
+
