@@ -13,17 +13,8 @@ namespace fluffyjohn.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-        // Using [Route("route")] lets you use a custom route. remember this, future john.
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
+        public IActionResult Index() => View();
+        public IActionResult Privacy() => View();
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         [Route("/Error")]
