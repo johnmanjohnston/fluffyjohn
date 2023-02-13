@@ -26,17 +26,15 @@ namespace fluffyjohn.Controllers
         [HttpPost]
         public async Task<IActionResult> Upload()
         {
-            var userSubDir = ((string)Request.Headers.Referer).Split("ViewFiles")[1] + "/";
-            var userDir = Directory.GetCurrentDirectory() + "/UserFileStorer/" + SecurityUtils.MD5Hash(User.Identity!.Name!) + "/" + userSubDir;
-            var files = Request.Form.Files;
+            string userSubDir = ((string)Request.Headers.Referer).Split("ViewFiles")[1] + "/";
+            string userDir = Directory.GetCurrentDirectory() + "/UserFileStorer/" + SecurityUtils.MD5Hash(User.Identity!.Name!) + "/" + userSubDir;
+            IFormFileCollection files = Request.Form.Files;
 
-            Console.WriteLine(userDir);
-
-            foreach (var fl in files)
+            foreach (IFormFile fl in files)
             {
-                if (fl.Length > 0) 
+                if (fl.Length > 0)
                 {
-                    using var inputStream = new FileStream(userDir + fl.FileName, FileMode.Create);
+                    using FileStream inputStream = new FileStream(userDir + fl.FileName, FileMode.Create);
                     await fl.CopyToAsync(inputStream);
                 }
             }
