@@ -26,8 +26,11 @@ namespace fluffyjohn.Controllers
         [HttpPost]
         public async Task<IActionResult> Upload()
         {
-            var userDir = Directory.GetCurrentDirectory() + "/UserFileStorer/" + SecurityUtils.MD5Hash(User.Identity!.Name!) + "/";
+            var userSubDir = ((string)Request.Headers.Referer).Split("ViewFiles")[1] + "/";
+            var userDir = Directory.GetCurrentDirectory() + "/UserFileStorer/" + SecurityUtils.MD5Hash(User.Identity!.Name!) + "/" + userSubDir;
             var files = Request.Form.Files;
+
+            Console.WriteLine(userDir);
 
             foreach (var fl in files)
             {
