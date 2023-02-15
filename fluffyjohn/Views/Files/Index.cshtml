@@ -9,7 +9,7 @@
 @{
     ViewData["Title"] = "View Files";
 
-    string? reqDirPath = (string)Url!.RouteUrl(ViewContext.RouteData.Values)!.Substring("ViewFiles".Length + 1);
+    string? reqDirPath = (string)Url!.RouteUrl(ViewContext.RouteData.Values)!.Substring("ViewFiles".Length + 1).Replace("//", "/");
     string? encryptedUsername = SecurityUtils.MD5Hash(User.Identity!.Name!);
 
     string? rootUserDir = $"{Directory.GetCurrentDirectory()}/UserFileStorer/{encryptedUsername}/";
@@ -25,14 +25,36 @@
 <div>reqDirPath: @reqDirPath</div>
 <div>currentTargetDir: @currentTargetDir</div>
 
-@foreach(var file in fileEntries)
-{
-    @file.Replace(rootUserDir, "") <br />
+@{
+    for (int i = 0; i < fileEntries.Length; i++)
+    {
+        fileEntries[i] = fileEntries[i].Replace(rootUserDir, "");
+        fileEntries[i] = fileEntries[i].Replace("\\", "/");
+        fileEntries[i] = fileEntries[i].Replace("//", "/");
+
+        try
+        {
+            fileEntries[i] = fileEntries[i].Replace(reqDirPath, "");
+        } catch {}
+
+        <div>@fileEntries[i]</div>
+    }
 }
 
-@foreach(var dir in dirEntries)
-{
-    <a>@dir.Replace(rootUserDir, "")/</a>
+@{
+    for (int i = 0; i <  dirEntries.Length; i++)
+    {
+        dirEntries[i] = dirEntries[i].Replace(rootUserDir, "");
+        dirEntries[i] = dirEntries[i].Replace("\\", "/");
+        dirEntries[i] = dirEntries[i].Replace("//", "/");
+
+        try
+        {
+            dirEntries[i] = dirEntries[i].Replace(reqDirPath, "");
+        } catch {}
+
+        <a href="/ViewFiles/@reqDirPath/@dirEntries[i] ">@dirEntries[i]/</a>
+    }
 }
 
 <br />
