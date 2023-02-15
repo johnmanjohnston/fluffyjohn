@@ -35,7 +35,7 @@
         try
         {
             fileEntries[i] = fileEntries[i].Replace(reqDirPath, "");
-        } catch {}
+        } catch (ArgumentException) { }
 
         <div>@fileEntries[i]</div>
     }
@@ -51,7 +51,7 @@
         try
         {
             dirEntries[i] = dirEntries[i].Replace(reqDirPath, "");
-        } catch {}
+        } catch (ArgumentException) { }
 
         <a href="/ViewFiles/@reqDirPath/@dirEntries[i] ">@dirEntries[i]/</a>
     }
