@@ -13,4 +13,4 @@ TODO
 TODO
 
 ## Progress
-FluffyJohn is still under development, and isn't yet completed.
+FluffyJohn is still under development, and is not yet completed.
