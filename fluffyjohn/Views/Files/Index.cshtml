@@ -10,6 +10,8 @@
     ViewData["Title"] = "View Files";
 
     string? reqDirPath = (string)Url!.RouteUrl(ViewContext.RouteData.Values)!.Substring("ViewFiles".Length + 1).Replace("//", "/");
+    reqDirPath += "/"; // Hack to remove the "/" prefixed in files and directory names
+
     string? encryptedUsername = SecurityUtils.MD5Hash(User.Identity!.Name!);
 
     string? rootUserDir = $"{Directory.GetCurrentDirectory()}/UserFileStorer/{encryptedUsername}/";
@@ -53,7 +55,14 @@
             dirEntries[i] = dirEntries[i].Replace(reqDirPath, "");
         } catch (ArgumentException) { }
 
-        <a href="/ViewFiles/@reqDirPath/@dirEntries[i] ">@dirEntries[i]/</a>
+        string targetHref = $"/ViewFiles/{reqDirPath}/{dirEntries[i]}";
+
+        for (int j = 0; j < targetHref.Split("/").Length; j++)
+        {
+            targetHref = targetHref.Replace("//", "/");
+        }
+
+        <a href=@targetHref>@dirEntries[i]/</a>
     }
 }
 
