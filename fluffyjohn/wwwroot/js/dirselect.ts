@@ -1,11 +1,10 @@
 ﻿const DIR_SELECT_EL: HTMLElement = document.getElementById("dir-selector");
-const STORAGE_ROUTE: string = `${location.protocol}//${location.host}`;
-const PARENT_DIRS: string[] = window.location.href.replace(STORAGE_ROUTE + "/ViewFiles/", "").split("/");
 
-var pathProgression: string = "";
+const absoluteHomeURL: string = `${location.protocol}//${location.host}`;
+const dirs: string[] = window.location.href.replace(absoluteHomeURL + "/ViewFiles/", "").split("/");
+var path_progression: string = "";
 
-for (var i = 0; i < PARENT_DIRS.length; i++) {
-    pathProgression += PARENT_DIRS[i] + "/";
+for (var dirindex = 0; dirindex < dirs.length; dirindex++) {
+    path_progression += `${dirs[dirindex]}/`
+    DIR_SELECT_EL.innerHTML += path_progression + "<br>"
 }
-
-DIR_SELECT_EL.innerText = pathProgression;
