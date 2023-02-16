@@ -1,4 +1,4 @@
-﻿namespace fluffyjohn.Utility
+﻿namespace fluffyjohn
 {
     public static class Utility
     {
