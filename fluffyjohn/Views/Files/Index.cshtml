@@ -10,7 +10,7 @@
     ViewData["Title"] = "View Files";
 
     string? reqDirPath = (string)Url!.RouteUrl(ViewContext.RouteData.Values)!.Substring("ViewFiles".Length + 1).Replace("//", "/");
-    reqDirPath += "/"; // Hack to remove the "/" prefixed in files and directory names
+    reqDirPath += "/"; // Quick hack to remove the "/" prefixed in files and directory names
 
     string? encryptedUsername = SecurityUtils.MD5Hash(User.Identity!.Name!);
 
@@ -19,6 +19,9 @@
 
     string[] fileEntries = Directory.GetFiles(currentTargetDir);
     string[] dirEntries = Directory.GetDirectories(currentTargetDir);
+
+    PathFormatter.FormatEntries(ref fileEntries, reqDirPath, rootUserDir);
+    PathFormatter.FormatEntries(ref dirEntries, reqDirPath, rootUserDir);
 }   
 
 <h1>Files Index</h1>
@@ -28,17 +31,9 @@
 <div>currentTargetDir: @currentTargetDir</div>
 
 @{
+
     for (int i = 0; i < fileEntries.Length; i++)
     {
-        fileEntries[i] = fileEntries[i].Replace(rootUserDir, "");
-        fileEntries[i] = fileEntries[i].Replace("\\", "/");
-        fileEntries[i] = fileEntries[i].Replace("//", "/");
-
-        try
-        {
-            fileEntries[i] = fileEntries[i].Replace(reqDirPath, "");
-        } catch (ArgumentException) { }
-
         <div>@fileEntries[i]</div>
     }
 }
@@ -46,15 +41,6 @@
 @{
     for (int i = 0; i <  dirEntries.Length; i++)
     {
-        dirEntries[i] = dirEntries[i].Replace(rootUserDir, "");
-        dirEntries[i] = dirEntries[i].Replace("\\", "/");
-        dirEntries[i] = dirEntries[i].Replace("//", "/");
-
-        try
-        {
-            dirEntries[i] = dirEntries[i].Replace(reqDirPath, "");
-        } catch (ArgumentException) { }
-
         string targetHref = $"/ViewFiles/{reqDirPath}/{dirEntries[i]}";
 
         for (int j = 0; j < targetHref.Split("/").Length; j++)
