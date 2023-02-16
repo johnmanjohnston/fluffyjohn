@@ -20,26 +20,33 @@
     string[] fileEntries = Directory.GetFiles(currentTargetDir);
     string[] dirEntries = Directory.GetDirectories(currentTargetDir);
 
+    int fileEntryCount = fileEntries.Length;
+    int dirEntryCount = dirEntries.Length;
+
     PathFormatter.FormatEntries(ref fileEntries, reqDirPath, rootUserDir);
     PathFormatter.FormatEntries(ref dirEntries, reqDirPath, rootUserDir);
 }   
 
 <h1>Files Index</h1>
 
-<div id="dir-selector"></div>
+<div id="dir-selector">
+
+
+</div>
+
 <div>reqDirPath: @reqDirPath</div>
 <div>currentTargetDir: @currentTargetDir</div>
 
 @{
 
-    for (int i = 0; i < fileEntries.Length; i++)
+    for (int i = 0; i < fileEntryCount; i++)
     {
         <div>@fileEntries[i]</div>
     }
 }
 
 @{
-    for (int i = 0; i <  dirEntries.Length; i++)
+    for (int i = 0; i <  dirEntryCount; i++)
     {
         string targetHref = $"/ViewFiles/{reqDirPath}/{dirEntries[i]}";
         <a href=@Utility.ConfigureDirHref(targetHref)>@dirEntries[i]/</a>
@@ -49,10 +56,6 @@
 <br />
 
 <form action="/Files/Upload" method="post" enctype="multipart/form-data">
-    <input type="file" name="uploads" multiple/>
+    <input type="file" name="uploads" multiple />
     <input type="submit" />
 </form>
-
-
-<br /> <br />
-
