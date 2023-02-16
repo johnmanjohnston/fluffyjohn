@@ -42,13 +42,7 @@
     for (int i = 0; i <  dirEntries.Length; i++)
     {
         string targetHref = $"/ViewFiles/{reqDirPath}/{dirEntries[i]}";
-
-        for (int j = 0; j < targetHref.Split("/").Length; j++)
-        {
-            targetHref = targetHref.Replace("//", "/");
-        }
-
-        <a href=@targetHref>@dirEntries[i]/</a>
+        <a href=@Utility.ConfigureDirHref(targetHref)>@dirEntries[i]/</a>
     }
 }
 
