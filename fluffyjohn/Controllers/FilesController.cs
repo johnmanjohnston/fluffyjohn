@@ -24,8 +24,14 @@ namespace fluffyjohn.Controllers
         }
 
         [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> Upload()
         {
+            if (Request.Method.ToLower() == "get")
+            {
+                return Redirect("/ViewFiles/");
+            }
+
             string userSubDir = ((string)Request.Headers.Referer).Split("ViewFiles")[1] + "/";
             string userDir = Directory.GetCurrentDirectory() + "/UserFileStorer/" + SecurityUtils.MD5Hash(User.Identity!.Name!) + "/" + userSubDir;
             IFormFileCollection files = Request.Form.Files;
