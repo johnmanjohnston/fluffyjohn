@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace fluffyjohn.Utils.Security
+namespace fluffyjohn
 {
     public static class SecurityUtils
     {
