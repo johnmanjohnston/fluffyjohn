@@ -6,7 +6,8 @@
   padding: 0.1em 0.2em;
   border-radius: 0.1em;
   color: #b4b4b4;
-  font-size: 1.3em;
+  font-size: 1.2em;
+  cursor: pointer;
 }
 .item-entry-wrapper:hover {
   color: white;
