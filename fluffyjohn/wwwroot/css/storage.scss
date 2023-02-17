@@ -39,3 +39,19 @@
     }
 }
 
+.dir-select {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 0.1em;
+    color: rgb(180, 180, 180);
+
+    margin: 0.3em 0.3em;
+    padding: 0.3em 0.5em;
+    border-radius: 0.2em;
+
+    font-size: 1.1em;
+
+    &:hover {
+        color: white;
+        background: rgba(255, 255, 255, 0.2);
+    }
+}

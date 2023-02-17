@@ -35,4 +35,18 @@
   background: rgba(255, 255, 255, 0.2);
 }
 
+.dir-select {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 0.1em;
+  color: #b4b4b4;
+  margin: 0.3em 0.3em;
+  padding: 0.3em 0.5em;
+  border-radius: 0.2em;
+  font-size: 1.1em;
+}
+.dir-select:hover {
+  color: white;
+  background: rgba(255, 255, 255, 0.2);
+}
+
 /*# sourceMappingURL=storage.css.map */

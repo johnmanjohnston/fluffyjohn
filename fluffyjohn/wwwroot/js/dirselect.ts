@@ -6,5 +6,8 @@ var path_progression: string = "";
 
 for (var dirindex = 0; dirindex < dirs.length; dirindex++) {
     path_progression += `${dirs[dirindex]}/`
-    DIR_SELECT_EL.innerHTML += path_progression + "<br>"
+    // DIR_SELECT_EL.innerHTML += path_progression + "<br>"
+
+    if (dirs[dirindex].toString() !== "")
+        DIR_SELECT_EL.innerHTML += `<a class="dir-select" href="/ViewFiles/${path_progression}">${dirs[dirindex]}/</a>`
 }

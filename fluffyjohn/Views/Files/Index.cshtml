@@ -10,7 +10,13 @@
     ViewData["Title"] = "View Files";
 
     string? reqDirPath = (string)Url!.RouteUrl(ViewContext.RouteData.Values)!.Substring("ViewFiles".Length + 1).Replace("//", "/");
-    reqDirPath += "/"; // Quick hack to remove the "/" prefixed in files and directory names
+
+    foreach (var character in reqDirPath) {
+        reqDirPath = reqDirPath.Replace("//", "/");
+    }
+
+    if (reqDirPath.EndsWith("/") != true)
+        reqDirPath += "/"; // Quick hack to remove the "/" prefixed in files and directory names
 
     string? encryptedUsername = SecurityUtils.MD5Hash(User.Identity!.Name!);
 
@@ -33,7 +39,6 @@
 
 <h1>Contents</h1>
 
-<div>dir-selector:</div>
 <div id="dir-selector">
 
 
