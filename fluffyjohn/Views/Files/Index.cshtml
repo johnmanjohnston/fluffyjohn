@@ -27,7 +27,11 @@
     PathFormatter.FormatEntries(ref dirEntries, reqDirPath, rootUserDir);
 }   
 
-<h1>Files Index</h1>
+<head>
+    <link rel="stylesheet" href="~/css/storage.css" />
+</head>
+
+<h1>Contents</h1>
 
 <div>dir-selector:</div>
 <div id="dir-selector">
@@ -35,14 +39,11 @@
 
 </div>
 
-
-<div>Files: </div>
-
 @{
 
     for (int i = 0; i < fileEntryCount; i++)
     {
-        <div>@fileEntries[i]</div>
+        <div class="item-entry-wrapper">@fileEntries[i]</div>
     }
 }
 
@@ -50,7 +51,7 @@
     for (int i = 0; i <  dirEntryCount; i++)
     {
         string targetHref = $"/ViewFiles/{reqDirPath}/{dirEntries[i]}";
-        <a href=@Utility.ConfigureDirHref(targetHref)>@dirEntries[i]/</a>
+        <a class="item-entry-wrapper" href=@Utility.ConfigureDirHref(targetHref)>@dirEntries[i]/</a>
     }
 }
 
