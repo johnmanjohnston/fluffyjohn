@@ -39,6 +39,8 @@
 
 </div>
 
+<h1>also a note for you john. is your sass code not working? remember to compile with the right filenames, you monkey</h1>
+
 @{
 
     for (int i = 0; i < fileEntryCount; i++)
@@ -51,7 +53,10 @@
     for (int i = 0; i <  dirEntryCount; i++)
     {
         string targetHref = $"/ViewFiles/{reqDirPath}/{dirEntries[i]}";
-        <a class="item-entry-wrapper" href=@Utility.ConfigureDirHref(targetHref)>@dirEntries[i]/</a>
+
+        <div class="item-entry-wrapper">
+            <a href=@Utility.ConfigureDirHref(targetHref)>@dirEntries[i]/</a>
+        </div>
     }
 }
 
