@@ -4,10 +4,14 @@
 #include <string>
 #include <thread>
 
+// Variable definitions
 int iteration = 0;
-int iterationCap = -1; // Run infinitely 
+int iterationCap = 2;
+
+bool capIterations = false;
 bool countLogs = true;
 
+// Functions
 void Sleep() 
 {
     std::this_thread::sleep_for(std::chrono::seconds(5));
@@ -15,8 +19,10 @@ void Sleep()
 
 void RecursiveRun() 
 {
-    if (iteration >= iterationCap) 
+    // Verify if we want to run
+    if (iteration >= iterationCap && capIterations) 
     {
+        std::cout << "Exiting with " << iteration << " log(s)";
         exit(0);
     }
 
@@ -27,7 +33,7 @@ void RecursiveRun()
         std::cout << "Running iteration " << iteration << "...\n";
     }
 
-    system("sass storage.scss storage.css");
+    system("sass storage.scss storage.css"); // Main
     Sleep();
 
     RecursiveRun();
