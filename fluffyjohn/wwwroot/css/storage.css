@@ -1,15 +1,36 @@
 .item-entry-wrapper {
   background: rgba(255, 255, 255, 0.1);
-  color: white;
   display: inline-block;
   margin: 0.3em 0.15em;
-  padding: 0.1em 0.2em;
-  border-radius: 0.1em;
+  padding: 0.3em 0.5em;
+  border-radius: 0.2em;
+  width: 75%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   color: #b4b4b4;
-  font-size: 1.2em;
+  font-size: 1.32em;
   cursor: pointer;
 }
 .item-entry-wrapper:hover {
+  color: white;
+  background: rgba(255, 255, 255, 0.2);
+}
+.item-entry-wrapper a {
+  color: #b4b4b4;
+}
+.item-entry-wrapper a:hover {
+  color: white;
+}
+
+.item-action-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.2em;
+  height: 3em;
+  margin: 0.3em 0.15em;
+  width: 4em;
+  color: #b4b4b4;
+}
+.item-action-btn:hover {
   color: white;
   background: rgba(255, 255, 255, 0.2);
 }
