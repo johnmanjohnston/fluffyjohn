@@ -14,11 +14,9 @@ namespace fluffyjohn.Controllers
             return View();
         }
 
-        [HttpPost]
-        [HttpGet]
         public async Task<IActionResult> Upload()
         {
-            if (Request.Method.ToLower() == "get")
+            if (Request.Method.ToLower() != "post")
             {
                 return Redirect("/ViewFiles/");
             }
