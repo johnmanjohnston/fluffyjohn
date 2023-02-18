@@ -11,19 +11,25 @@ TODO
 TODO
 
 ## Demo
-FluffyJohn is still in progress, but here are some demo screenshots as of 16/2/2023
+FluffyJohn is still in progress, but here are some demo screenshots as of 19/2/2023
 
-https://localhost:7111/
-![image](https://user-images.githubusercontent.com/97091148/219450241-38a125f8-0cba-4b08-b81a-d02ecbb78cf6.png)
+/
+![image](https://user-images.githubusercontent.com/97091148/219895079-2a237191-c700-4609-90f2-369b25378fd5.png)
 
-https://localhost:7111/Identity/Account/Login
-![image](https://user-images.githubusercontent.com/97091148/219450454-920ef013-f9e9-4ca7-9aba-4e6fc7efa2cd.png)
+/Login
+![image](https://user-images.githubusercontent.com/97091148/219895135-88e74b55-f9bb-4a78-ae39-4c4ce2362844.png)
 
-https://localhost:7111/ViewFiles/
-![image](https://user-images.githubusercontent.com/97091148/219450265-8e93e4be-c97c-4387-acc2-57e2741023d0.png)
+/Register
+![image](https://user-images.githubusercontent.com/97091148/219895199-34b286b4-070d-45c4-ae8b-93be827598a3.png)
 
-https://localhost:7111/ViewFiles/testdir
-![image](https://user-images.githubusercontent.com/97091148/219450290-5f4a3f58-8d3a-4892-aa0a-329222e6f627.png)
+/ViewFiles
+![image](https://user-images.githubusercontent.com/97091148/219895279-b34381e6-843e-44f0-9504-0aa354060f93.png)
+
+/ViewFiles/testdir/subdir-test
+![image](https://user-images.githubusercontent.com/97091148/219895313-6835a7b8-adce-4814-826c-3cbf05c78b59.png)
+
+/ViewFiles/testdir on uploading 2 files
+![image](https://user-images.githubusercontent.com/97091148/219895506-a94be3d9-6914-416a-ac15-f93a6203dbce.png)
 
 Before migrating FluffyJohn to ASP.NET Core, and before deciding to redo everything, the UI used to look like this
 ![image](https://media.discordapp.net/attachments/881506129304256562/1048606715479851069/image.png)
