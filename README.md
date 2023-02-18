@@ -14,16 +14,16 @@ TODO
 FluffyJohn is still in progress, but here are some demo screenshots as of 19/2/2023
 
 /
-![image](https://user-images.githubusercontent.com/97091148/219895079-2a237191-c700-4609-90f2-369b25378fd5.png)
+![image](https://user-images.githubusercontent.com/97091148/219895733-33d424e5-f04f-48b9-9dfe-e30cc32878a4.png)
 
 /Login
-![image](https://user-images.githubusercontent.com/97091148/219895135-88e74b55-f9bb-4a78-ae39-4c4ce2362844.png)
+![image](https://user-images.githubusercontent.com/97091148/219895771-7648bfa8-ff49-4b1d-a627-1c5698479a47.png)
 
 /Register
-![image](https://user-images.githubusercontent.com/97091148/219895199-34b286b4-070d-45c4-ae8b-93be827598a3.png)
+![image](https://user-images.githubusercontent.com/97091148/219895786-c2c59046-81c2-4d6b-834b-2ebf64128bf7.png)
 
 /ViewFiles
-![image](https://user-images.githubusercontent.com/97091148/219895279-b34381e6-843e-44f0-9504-0aa354060f93.png)
+![image](https://user-images.githubusercontent.com/97091148/219895833-c7a85f26-91a6-4cf4-a46f-5e60703788f5.png)
 
 /ViewFiles/testdir/subdir-test
 ![image](https://user-images.githubusercontent.com/97091148/219895313-6835a7b8-adce-4814-826c-3cbf05c78b59.png)
