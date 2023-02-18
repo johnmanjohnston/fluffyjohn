@@ -35,13 +35,12 @@ namespace fluffyjohn.Controllers
             string userDir = Directory.GetCurrentDirectory() + "/UserFileStorer/" + SecurityUtils.MD5Hash(User.Identity!.Name!) + "/" + userSubDir;
             IFormFileCollection files = Request.Form.Files;
 
-            foreach (IFormFile fl in files)
+            int fCount = files.Count;
+            for (int i = 0; i < fCount; i++)
             {
-                if (fl.Length > 0)
-                {
-                    using FileStream inputStream = new FileStream(userDir + fl.FileName, FileMode.Create);
-                    await fl.CopyToAsync(inputStream);
-                }
+                IFormFile fl = files[i];
+                using FileStream inputStream = new FileStream(userDir + fl.FileName, FileMode.Create);
+                await fl.CopyToAsync(inputStream);
             }
 
             return Redirect(Request.Headers.Referer);
