@@ -47,10 +47,9 @@
 </div> <br />
 
 @{
-
     for (int i = 0; i < fileEntryCount; i++)
     {
-        <div class="item-entry-wrapper">@fileEntries[i]</div>
+        <div id="file-@i" class="item-entry-wrapper">@fileEntries[i]</div>
 
         <button class="item-action-btn">Modify</button>
         <button class="item-action-btn">Delete</button>
@@ -66,7 +65,7 @@
     {
         string targetHref = $"/viewfiles/{reqDirPath}/{dirEntries[i]}";
 
-        <div class="item-entry-wrapper itype-dir">
+        <div id="dir-@i" class="item-entry-wrapper itype-dir">
             <a href=@Utility.ConfigureDirHref(targetHref)>@dirEntries[i]/</a>
         </div>
 
