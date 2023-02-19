@@ -36,7 +36,11 @@ namespace fluffyjohn.Controllers
                 await fl.CopyToAsync(inputStream);
             }
 
-            Response.Cookies.Append("toast-content", $"upload-success.{fCount}");
+            if (fCount != 0)
+            {
+                Response.Cookies.Append("toast-content", $"upload-success.{fCount}");
+            }
+
             return Redirect(Request.Headers.Referer);
         }
 
