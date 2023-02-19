@@ -49,7 +49,8 @@ namespace fluffyjohn.Controllers
                 return Redirect("~/ViewFiles/");
             }
 
-            FileContentResult? fData = GetFileData(fpath);
+            FileContentResult? fData = GetFileData(fpath, false);
+
 
             if (fData != null) { return fData; }
             else { return Content("Not found"); }
@@ -58,11 +59,14 @@ namespace fluffyjohn.Controllers
         [Route("/DownloadFile/{**fpath}")]
         public IActionResult DownloadFile(string? fpath)
         {
-            return Content("TODO");
+            FileContentResult? fData = GetFileData(fpath, true);
+
+            if (fData != null) { return fData; }
+            else { return Content("Not found"); }
         }
 
         // Utility
-        private FileContentResult? GetFileData(string? fpath)
+        private FileContentResult? GetFileData(string? fpath, bool download = false)
         {
             string absolutePath = Directory.GetCurrentDirectory() + "/UserFileStorer/" + SecurityUtils.MD5Hash(User.Identity!.Name!) + "/" + fpath;
             string fname = fpath!;
@@ -87,7 +91,7 @@ namespace fluffyjohn.Controllers
                 var cd = new System.Net.Mime.ContentDisposition
                 {
                     FileName = fname,
-                    Inline = true,
+                    Inline = !download,
                 };
 
                 Response.Headers.Append("Content-Disposition", cd.ToString());
