@@ -9,7 +9,7 @@
 @{
     ViewData["Title"] = "View Files";
 
-    string? reqDirPath = (string)Url!.RouteUrl(ViewContext.RouteData.Values)!.ToLower().Substring("viewfiles".Length + 1).Replace("//", "/");
+    string? reqDirPath = (string)Url!.RouteUrl(ViewContext.RouteData.Values)!.Substring("viewfiles".Length + 1).Replace("//", "/");
 
     foreach (var character in reqDirPath) {
         reqDirPath = reqDirPath.Replace("//", "/");

@@ -26,7 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="UserFileStorer\27f711055116c6\testdir\UPPERCASENAME\" />
+    <Folder Include="UserFileStorer\27f711055116c6\testdir\UPPERCASENAME\anotherdir\" />
   </ItemGroup>
 
   <ItemGroup>
