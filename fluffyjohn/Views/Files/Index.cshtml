@@ -9,7 +9,7 @@
 @{
     ViewData["Title"] = "View Files";
 
-    string? reqDirPath = (string)Url!.RouteUrl(ViewContext.RouteData.Values)!.Substring("ViewFiles".Length + 1).Replace("//", "/");
+    string? reqDirPath = (string)Url!.RouteUrl(ViewContext.RouteData.Values)!.ToLower().Substring("viewfiles".Length + 1).Replace("//", "/");
 
     foreach (var character in reqDirPath) {
         reqDirPath = reqDirPath.Replace("//", "/");
@@ -42,7 +42,7 @@
 <h1>Contents</h1> <br />
 
 <div id="dir-selector">
-    <a class="dir-select" href="/ViewFiles/">Home/</a>
+    <a class="dir-select" href="/viewfiles/">Home/</a>
 
 </div> <br />
 
@@ -54,8 +54,8 @@
 
         <button class="item-action-btn">Modify</button>
         <button class="item-action-btn">Delete</button>
-        <button class="item-action-btn"><a href="/DownloadFile\@reqDirPath@fileEntries[i]"> Dl </a></button>
-        <button class="item-action-btn"><a href="/ViewContent\@reqDirPath@fileEntries[i]"> View </a></button>
+        <button class="item-action-btn"><a href="/downloadfile\@reqDirPath@fileEntries[i]"> Dl </a></button>
+        <button class="item-action-btn"><a href="/viewcontent\@reqDirPath@fileEntries[i]"> View </a></button>
 
         <br />
     }
@@ -64,7 +64,7 @@
 @{
     for (int i = 0; i <  dirEntryCount; i++)
     {
-        string targetHref = $"/ViewFiles/{reqDirPath}/{dirEntries[i]}";
+        string targetHref = $"/viewfiles/{reqDirPath}/{dirEntries[i]}";
 
         <div class="item-entry-wrapper itype-dir">
             <a href=@Utility.ConfigureDirHref(targetHref)>@dirEntries[i]/</a>
@@ -79,7 +79,7 @@
 
 <br />
 
-<form action="/Files/Upload" method="post" enctype="multipart/form-data">
+<form action="/files/upload" method="post" enctype="multipart/form-data">
     <input type="file" name="uploads" multiple />
     <input type="submit" />
 </form>

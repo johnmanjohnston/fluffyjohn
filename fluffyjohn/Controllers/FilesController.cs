@@ -6,12 +6,12 @@ using System.Web;
 namespace fluffyjohn.Controllers
 {
     public class FilesController : Controller { 
-        [Route("/ViewFiles/{**dirpath}")]
+        [Route("/viewfiles/{**dirpath}")]
         public IActionResult Index()
         {
             if (User.Identity!.IsAuthenticated == false)
             {
-                return Redirect("~/Login");
+                return Redirect("~/login");
             }
 
             return View();
@@ -21,10 +21,10 @@ namespace fluffyjohn.Controllers
         {
             if (Request.Method.ToLower() != "post")
             {
-                return Redirect("/ViewFiles/");
+                return Redirect("/viewfiles/");
             }
 
-            string userSubDir = ((string)Request.Headers.Referer).Split("ViewFiles")[1] + "/";
+            string userSubDir = ((string)Request.Headers.Referer).ToLower().Split("viewfiles")[1] + "/";
             string userDir = Directory.GetCurrentDirectory() + "/UserFileStorer/" + SecurityUtils.MD5Hash(User.Identity!.Name!) + "/" + userSubDir;
             IFormFileCollection files = Request.Form.Files;
 
@@ -46,7 +46,7 @@ namespace fluffyjohn.Controllers
             // Validate and get file path and name
             if (fpath == string.Empty)
             {
-                return Redirect("~/ViewFiles/");
+                return Redirect("~/viewfiles/");
             }
 
             FileContentResult? fData = GetFileData(fpath, false);
@@ -56,7 +56,7 @@ namespace fluffyjohn.Controllers
             else { return Content("Not found"); }
         }
 
-        [Route("/DownloadFile/{**fpath}")]
+        [Route("/downloadfile/{**fpath}")]
         public IActionResult DownloadFile(string? fpath)
         {
             FileContentResult? fData = GetFileData(fpath, true);

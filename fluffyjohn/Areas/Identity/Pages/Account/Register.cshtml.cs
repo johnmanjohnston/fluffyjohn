@@ -130,7 +130,7 @@ namespace fluffyjohn.Areas.Identity.Pages.Account
                     Directory.CreateDirectory(Directory.GetCurrentDirectory() + "/UserFileStorer/" + encrypterUsername);
 
 
-                    return LocalRedirect("/ViewFiles/");
+                    return LocalRedirect("/viewfiles/");
                 }
                 foreach (var error in result.Errors)
                 {
