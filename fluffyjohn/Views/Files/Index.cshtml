@@ -36,6 +36,7 @@
 <head>
     <link rel="stylesheet" href="~/css/storage.css" />
     <link rel="stylesheet" href="~/css/toast.css" />
+    <link rel="stylesheet" href="~/css/icons.css" />
 </head>
 
 <div id="toast-container"></div>
@@ -51,10 +52,10 @@
     {
         <div id="file-@i" class="item-entry-wrapper">@fileEntries[i]</div>
 
-        <button class="item-action-btn">Modify</button>
-        <button class="item-action-btn">Delete</button>
-        <button class="item-action-btn"><a href="/downloadfile\@reqDirPath@fileEntries[i]"> Dl </a></button>
-        <button class="item-action-btn"><a href="/viewcontent\@reqDirPath@fileEntries[i]"> View </a></button>
+        <a class="item-action-btn" href=""> <img class="icon" src="~/svg/edit.svg" /> </a>
+        <a class="item-action-btn" href=""> <img class="icon del-icon" src="~/svg/delete.svg" /> </a>
+        <a class="item-action-btn" href="/downloadfile\@reqDirPath@fileEntries[i]"> <img class="icon" src="~/svg/download.svg" /> </a>
+        <a class="item-action-btn" href="/viewcontent\@reqDirPath@fileEntries[i]"> <img class="icon" src="~/svg/view.svg" /> </a>
 
         <br />
     }
@@ -69,8 +70,8 @@
             <a href=@Utility.ConfigureDirHref(targetHref)>@dirEntries[i]/</a>
         </div>
 
-        <button class="item-action-btn">Modify</button>
-        <button class="item-action-btn">Delete</button>
+        <button class="item-action-btn"> <img class="icon" style="width: 60%;" src="~/svg/edit.svg" /> </button>
+        <button class="item-action-btn"> <img class="icon del-icon" style="width: 60%;" src="~/svg/delete.svg" /> </button>
 
         <br />
     }

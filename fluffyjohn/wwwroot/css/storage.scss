@@ -55,3 +55,18 @@
         background: rgba(255, 255, 255, 0.2);
     }
 }
+
+.item-action-btn {
+    height: 1.6em;
+    width: 1.6em;
+    padding: 0.8em;
+
+    text-decoration: none;
+
+    &:hover {
+        .icon {
+            transition: 0.1s;
+            opacity: 0.9;
+        }
+    }
+}
