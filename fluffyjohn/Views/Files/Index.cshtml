@@ -50,7 +50,7 @@
 @{
     for (int i = 0; i < fileEntryCount; i++)
     {
-        <div id="file-@i" class="item-entry-wrapper">@fileEntries[i]</div>
+        <div id="file-@i" class="item-entry-wrapper"><a href="/viewcontent\@reqDirPath@fileEntries[i]">@fileEntries[i]</a></div>
 
         <a class="item-action-btn" href=""> <img class="icon" src="~/svg/edit.svg" /> </a>
         <a class="item-action-btn" href=""> <img class="icon del-icon" src="~/svg/delete.svg" /> </a>
