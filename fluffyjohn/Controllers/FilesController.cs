@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.StaticFiles;
+using fluffyjohn;
 
 namespace fluffyjohn.Controllers
 {
@@ -45,7 +46,7 @@ namespace fluffyjohn.Controllers
         [Route("/delfile/{**fpath}")]
         public IActionResult DeleteFile(string? fpath)
         {
-            if (fpath == string.Empty)
+            if (PathFormatter.ValidFilePath(fpath) == false)
             {
                 return Redirect("~/viewfiles/");
             }
@@ -66,7 +67,7 @@ namespace fluffyjohn.Controllers
         public IActionResult ViewFileContent(string? fpath)
         {
             // Validate and get file path and name
-            if (fpath == string.Empty)
+            if (PathFormatter.ValidFilePath(fpath) == false)
             {
                 return Redirect("~/viewfiles/");
             }
@@ -80,9 +81,9 @@ namespace fluffyjohn.Controllers
         [Route("/downloadfile/{**fpath}")]
         public IActionResult DownloadFile(string? fpath)
         {
-            if (fpath == string.Empty)
+            if (PathFormatter.ValidFilePath(fpath) == false)
             {
-                return Redirect("~/viewfiles");
+                return Redirect("~/viewfiles/");
             }
 
             FileContentResult? fData = GetFileData(fpath, true);

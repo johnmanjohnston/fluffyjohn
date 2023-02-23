@@ -20,5 +20,15 @@
 
             return formattedEntries;
         }
+
+        public static bool ValidFilePath(string? fPath)
+        {
+            if (fPath == null || fPath == string.Empty)
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
 }
