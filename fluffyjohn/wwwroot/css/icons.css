@@ -1,9 +1,8 @@
 ﻿.icon {
     opacity: 0.3;
-    transition: 0.1s;
     width: 2%;
 }
 
-.del-icon:hover {
-    filter: invert(0.5) sepia(1) saturate(5) hue-rotate(10deg);
+.item-action-btn:hover .del-icon {
+    filter: invert(0.5) sepia(1) saturate(5) hue-rotate(320deg);
 }
