@@ -55,7 +55,6 @@ namespace fluffyjohn.Controllers
 
             FileContentResult? fData = GetFileData(fpath, false);
 
-
             if (fData != null) { return fData; }
             else { return Content("Not found"); }
         }
@@ -63,6 +62,11 @@ namespace fluffyjohn.Controllers
         [Route("/downloadfile/{**fpath}")]
         public IActionResult DownloadFile(string? fpath)
         {
+            if (fpath == string.Empty)
+            {
+                return Redirect("~/viewfiles");
+            }
+
             FileContentResult? fData = GetFileData(fpath, true);
 
             if (fData != null) { return fData; }
