@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 using Microsoft.AspNetCore.StaticFiles;
-using System.Drawing;
-using System.Web;
 
 namespace fluffyjohn.Controllers
 {
@@ -22,7 +19,7 @@ namespace fluffyjohn.Controllers
         {
             if (Request.Method.ToLower() != "post")
             {
-                return Redirect("/viewfiles/");
+                return Redirect("~/viewfiles/");
             }
 
             string userSubDir = ((string)Request.Headers.Referer).ToLower().Split("viewfiles")[1] + "/";
@@ -48,11 +45,16 @@ namespace fluffyjohn.Controllers
         [Route("/delfile/{**fpath}")]
         public IActionResult DeleteFile(string? fpath)
         {
+            if (fpath == string.Empty)
+            {
+                return Redirect("~/viewfiles/");
+            }
+
             string userSubDir = ((string)Request.Headers.Referer).ToLower().Split("viewfiles")[1] + "/";
             string userDir = Directory.GetCurrentDirectory() + "/UserFileStorer/" + SecurityUtils.MD5Hash(User.Identity!.Name!) + "/" + userSubDir;
             System.IO.File.Delete(userDir + "/" + fpath);
 
-            System.IO.FileInfo fileInfo = new System.IO.FileInfo(userDir + "/" + fpath);
+            FileInfo fileInfo = new FileInfo(userDir + "/" + fpath);
             string fName = fileInfo.Name;
 
             Response.Cookies.Append("toast-content", $"delete-success.{fName}");
@@ -95,9 +97,10 @@ namespace fluffyjohn.Controllers
             string absolutePath = Directory.GetCurrentDirectory() + "/UserFileStorer/" + SecurityUtils.MD5Hash(User.Identity!.Name!) + "/" + fpath;
             string fname = fpath!;
 
-            if (fname.Contains('/'))
+            char dirSplitter = '/';
+            if (fname.Contains(dirSplitter))
             {
-                fname = fpath!.Split('/')[fname.Split('/').Length - 1];
+                fname = fpath!.Split(dirSplitter)[fname.Split(dirSplitter).Length - 1];
             }
 
             else
@@ -115,7 +118,7 @@ namespace fluffyjohn.Controllers
                 var cd = new System.Net.Mime.ContentDisposition
                 {
                     FileName = fname,
-                    Inline = !download,
+                    Inline = download == false,
                 };
 
                 Response.Headers.Append("Content-Disposition", cd.ToString());
