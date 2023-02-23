@@ -53,7 +53,7 @@
         <div id="file-@i" class="item-entry-wrapper"><a href="/viewcontent\@reqDirPath@fileEntries[i]">@fileEntries[i]</a></div>
 
         <a class="item-action-btn" href=""> <img class="icon" src="~/svg/edit.svg" /> </a>
-        <a class="item-action-btn" href=""> <img class="icon del-icon" src="~/svg/delete.svg" /> </a>
+        <a onclick="confirmDelete('@fileEntries[i]', '@reqDirPath@fileEntries[i]', true)" class="item-action-btn" href="#"> <img class="icon del-icon" src="~/svg/delete.svg" /> </a>
         <a class="item-action-btn" href="/downloadfile\@reqDirPath@fileEntries[i]"> <img class="icon" src="~/svg/download.svg" /> </a>
         <a class="item-action-btn" href="/viewcontent\@reqDirPath@fileEntries[i]"> <img class="icon" src="~/svg/view.svg" /> </a>
 
@@ -87,3 +87,4 @@
 <script src="~/js/toast.js"></script>
 <script src="~/js/dirselect.js"></script>
 <script src="~/js/storage.js"></script>
+<script src="~/js/delete.js"></script>

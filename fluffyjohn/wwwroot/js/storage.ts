@@ -18,4 +18,10 @@ if (getCookie("toast-content")) {
         createToast(`Uploaded ${fCount} file(s)`);
         eraseCookie("toast-content");
     }
+
+    if (val.match("delete-success\.")) {
+        const fName = val.split(".")[1];
+        createToast(`Deleted ${fName}`);
+        eraseCookie("toast-content");
+    }
 }

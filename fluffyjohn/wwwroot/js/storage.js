@@ -14,5 +14,10 @@ if (getCookie("toast-content")) {
         createToast("Uploaded ".concat(fCount, " file(s)"));
         eraseCookie("toast-content");
     }
+    if (val.match("delete-success\.")) {
+        var fName = val.split(".")[1];
+        createToast("Deleted ".concat(fName));
+        eraseCookie("toast-content");
+    }
 }
 //# sourceMappingURL=storage.js.map

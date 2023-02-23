@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 using Microsoft.AspNetCore.StaticFiles;
+using System.Drawing;
 using System.Web;
 
 namespace fluffyjohn.Controllers
@@ -40,6 +41,21 @@ namespace fluffyjohn.Controllers
             {
                 Response.Cookies.Append("toast-content", $"upload-success.{fCount}");
             }
+
+            return Redirect(Request.Headers.Referer);
+        }
+
+        [Route("/delfile/{**fpath}")]
+        public IActionResult DeleteFile(string? fpath)
+        {
+            string userSubDir = ((string)Request.Headers.Referer).ToLower().Split("viewfiles")[1] + "/";
+            string userDir = Directory.GetCurrentDirectory() + "/UserFileStorer/" + SecurityUtils.MD5Hash(User.Identity!.Name!) + "/" + userSubDir;
+            System.IO.File.Delete(userDir + "/" + fpath);
+
+            System.IO.FileInfo fileInfo = new System.IO.FileInfo(userDir + "/" + fpath);
+            string fName = fileInfo.Name;
+
+            Response.Cookies.Append("toast-content", $"delete-success.{fName}");
 
             return Redirect(Request.Headers.Referer);
         }
