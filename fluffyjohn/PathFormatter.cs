@@ -21,7 +21,7 @@
             return formattedEntries;
         }
 
-        public static bool ValidFilePath(string? fPath)
+        public static bool ValidateEntryPath(string? fPath)
         {
             if (fPath == null || fPath == string.Empty)
             {

@@ -71,7 +71,7 @@
         </div>
 
         <a href="" class="item-action-btn"> <img class="icon" src="~/svg/edit.svg" /> </a>
-        <a href="" class="item-action-btn"> <img class="icon del-icon" src="~/svg/delete.svg" /> </a>
+        <a onclick="confirmDelete('@dirEntries[i]', '@reqDirPath@dirEntries[i]', false)" href="#" class="item-action-btn"> <img class="icon del-icon" src="~/svg/delete.svg" /> </a>
 
         <br />
     }
