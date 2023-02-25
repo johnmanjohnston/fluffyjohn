@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.StaticFiles;
 using fluffyjohn;
+using System.Xml.Linq;
 
 namespace fluffyjohn.Controllers
 {
@@ -28,6 +29,12 @@ namespace fluffyjohn.Controllers
             IFormFileCollection files = Request.Form.Files;
 
             int fCount = files.Count;
+
+            if (fCount  == 0)
+            {
+                return Redirect("~/viewfiles/");
+            }
+
             for (int i = 0; i < fCount; i++)
             {
                 IFormFile fl = files[i];
@@ -70,7 +77,12 @@ namespace fluffyjohn.Controllers
             }
 
             string absolutePath = Directory.GetCurrentDirectory() + "/UserFileStorer/" + SecurityUtils.MD5Hash(User.Identity!.Name!) + "/" + dirpath;
-            Directory.Delete(absolutePath, true);
+            
+            DirectoryInfo dirInfo = new DirectoryInfo(absolutePath);
+            dirInfo.Delete(true);
+            string dirName = dirInfo.Name;
+
+            Response.Cookies.Append("toast-content", $"delete-success.{dirName}");
 
             return Redirect(Request.Headers.Referer);
         }
