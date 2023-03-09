@@ -11,6 +11,7 @@
     ViewData["Title"] = "View Files";
 
     string? reqDirPath = (string)Url!.RouteUrl(ViewContext.RouteData.Values)!.Substring("viewfiles".Length + 1).Replace("//", "/");
+    reqDirPath = WebUtility.UrlDecode(reqDirPath);
 
     foreach (var character in reqDirPath) {
         reqDirPath = reqDirPath.Replace("//", "/");
