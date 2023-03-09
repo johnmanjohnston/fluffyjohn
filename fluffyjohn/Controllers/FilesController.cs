@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.StaticFiles;
-using fluffyjohn;
-using System.Xml.Linq;
 
 namespace fluffyjohn.Controllers
 {
@@ -46,6 +44,19 @@ namespace fluffyjohn.Controllers
             {
                 Response.Cookies.Append("toast-content", $"upload-success.{fCount}");
             }
+
+            return Redirect(Request.Headers.Referer);
+        }
+
+        [HttpPost]
+        [Route("/files/newdir/")]
+        public IActionResult NewDir(string? dirname) 
+        {
+            string userSubDir = ((string)Request.Headers.Referer).Split("viewfiles")[1] + "/";
+            string userDir = Directory.GetCurrentDirectory() + "/UserFileStorer/" + SecurityUtils.MD5Hash(User.Identity!.Name!) + "/" + userSubDir;
+
+            DirectoryInfo dirInfo = new DirectoryInfo($"{userDir}/{dirname}");
+            dirInfo.Create();
 
             return Redirect(Request.Headers.Referer);
         }

@@ -2,6 +2,7 @@
 @using fluffyjohn.Areas.Identity.Data
 @using Microsoft.AspNetCore.Mvc;
 @using fluffyjohn;
+@using System.Net;
 
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
@@ -86,7 +87,7 @@
 <br />
 <form action="/files/newdir" method="post">
     <label>Directory name: </label>  <br />
-    <input type="text" name="itemname" />
+    <input type="text" name="dirname" />
     <input type="submit" value="Create Directory" />
 </form>
 
