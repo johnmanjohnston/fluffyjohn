@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.StaticFiles;
 
 namespace fluffyjohn.Controllers
 {
-    public class FilesController : Controller { 
+    public class FilesController : Controller {
         [Route("/viewfiles/{**dirpath}")]
         public IActionResult Index()
         {
@@ -28,7 +28,7 @@ namespace fluffyjohn.Controllers
 
             int fCount = files.Count;
 
-            if (fCount  == 0)
+            if (fCount == 0)
             {
                 return Redirect("~/viewfiles/");
             }
@@ -50,8 +50,18 @@ namespace fluffyjohn.Controllers
 
         [HttpPost]
         [Route("/files/newdir/")]
-        public IActionResult NewDir(string? dirname) 
+        public IActionResult NewDir(string? dirname)
         {
+            if (null == dirname || string.Empty == dirname) 
+            {
+                return Redirect(Request.Headers.Referer);
+            }
+
+            foreach (var c in dirname!) 
+            {
+                dirname = dirname!.Replace(" ", "-");
+            }
+
             string userSubDir = ((string)Request.Headers.Referer).Split("viewfiles")[1] + "/";
             string userDir = Directory.GetCurrentDirectory() + "/UserFileStorer/" + SecurityUtils.MD5Hash(User.Identity!.Name!) + "/" + userSubDir;
 
