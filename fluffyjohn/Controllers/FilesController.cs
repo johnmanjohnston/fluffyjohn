@@ -65,6 +65,11 @@ namespace fluffyjohn.Controllers
             string userSubDir = ((string)Request.Headers.Referer).Split("viewfiles")[1] + "/";
             string userDir = Directory.GetCurrentDirectory() + "/UserFileStorer/" + SecurityUtils.MD5Hash(User.Identity!.Name!) + "/" + userSubDir;
 
+            if (Directory.Exists($"{userDir}/{dirname}") == true)
+            {
+                return Redirect(Request.Headers.Referer);
+            }
+
             DirectoryInfo dirInfo = new DirectoryInfo($"{userDir}/{dirname}");
             dirInfo.Create();
 

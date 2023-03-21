@@ -52,7 +52,8 @@
 @{
     for (int i = 0; i < fileEntryCount; i++)
     {
-        <div id="file-@i" class="item-entry-wrapper"><a href="/viewcontent\@reqDirPath@fileEntries[i]" target="_blank">@fileEntries[i]</a></div>
+        <div>
+            <div id="file-@i" class="item-entry-wrapper" onclick="javascript:document.location.href='/viewcontent\@reqDirPath@fileEntries[i]'"><a href="/viewcontent\@reqDirPath@fileEntries[i]" target="_blank">@fileEntries[i]</a></div>
 
         <a class="item-action-btn" href=""> <img class="icon" src="~/svg/edit.svg" /> </a>
         <a onclick="confirmDelete('@fileEntries[i]', '@reqDirPath@fileEntries[i]', true)" class="item-action-btn" href="#"> <img class="icon del-icon" src="~/svg/delete.svg" /> </a>
@@ -60,6 +61,7 @@
         <a class="item-action-btn" href="/viewcontent\@reqDirPath@fileEntries[i]"> <img class="icon" src="~/svg/view.svg" /> </a>
 
         <br />
+        </div>
     }
 }
 
@@ -68,14 +70,14 @@
     {
         string targetHref = $"/viewfiles/{reqDirPath}/{dirEntries[i]}";
 
-        <div id="dir-@i" class="item-entry-wrapper itype-dir">
+        <div>
+        <div id="dir-@i" class="item-entry-wrapper itype-dir" onclick="javascript:window.location.href = '@Utility.ConfigureDirHref(targetHref)'" >
             <a href=@Utility.ConfigureDirHref(targetHref)>@dirEntries[i]/</a>
         </div>
 
         <a href="" class="item-action-btn"> <img class="icon" src="~/svg/edit.svg" /> </a>
         <a onclick="confirmDelete('@dirEntries[i]', '@reqDirPath@dirEntries[i]', false)" href="#" class="item-action-btn"> <img class="icon del-icon" src="~/svg/delete.svg" /> </a>
-
-        <br />
+        </div>
     }
 }
 
