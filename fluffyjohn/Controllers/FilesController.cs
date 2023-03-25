@@ -79,30 +79,31 @@ namespace fluffyjohn.Controllers
         [Route("/delfile/{**fpath}")]
         public IActionResult DeleteFile(string? fpath)
         {
-            if (PathFormatter.ValidateEntryPath(fpath) == false)
+            if (PathFormatter.ValidateEntryPath(fpath) == false || User.Identity!.IsAuthenticated == false)
             {
                 return Redirect("~/viewfiles/");
             }
 
-            string absolutePath = Directory.GetCurrentDirectory() + "/UserFileStorer/" + SecurityUtils.MD5Hash(User.Identity!.Name!) + "/" + fpath;
+            string absolutePath = Directory.GetCurrentDirectory() + "/UserFileStorer/" + SecurityUtils.MD5Hash(User.Identity.Name!) + "/" + fpath;
             string fName = Path.GetFileName(absolutePath);
             FileInfo fileInfo = new FileInfo(absolutePath);
             fileInfo.Delete();
 
             Response.Cookies.Append("toast-content", $"delete-success.{fName}");
 
-            return Redirect(Request.Headers.Referer);
+            // Referer can sometimes be null, for now, just redirect to /viewfiles
+            return Redirect("~/viewfiles");
         }
 
         [Route("~/deldir/{**dirpath}")]
         public IActionResult DeleteDirectory(string? dirpath)
         {
-            if (PathFormatter.ValidateEntryPath(dirpath) == false)
+            if (PathFormatter.ValidateEntryPath(dirpath) == false || User.Identity!.IsAuthenticated == false)
             {
                 return Redirect("~/viewfiles");
             }
 
-            string absolutePath = Directory.GetCurrentDirectory() + "/UserFileStorer/" + SecurityUtils.MD5Hash(User.Identity!.Name!) + "/" + dirpath;
+            string absolutePath = Directory.GetCurrentDirectory() + "/UserFileStorer/" + SecurityUtils.MD5Hash(User.Identity.Name!) + "/" + dirpath;
             
             DirectoryInfo dirInfo = new DirectoryInfo(absolutePath);
             dirInfo.Delete(true);
@@ -110,14 +111,15 @@ namespace fluffyjohn.Controllers
 
             Response.Cookies.Append("toast-content", $"delete-success.{dirName}");
 
-            return Redirect(Request.Headers.Referer);
+            // Referer can sometimes be null, for now, just redirect to /viewfiles
+            return Redirect("~/viewfiles");
         }
 
         [Route("/viewcontent/{**fpath}")]
         public IActionResult ViewFileContent(string? fpath)
         {
             // Validate and get file path and name
-            if (PathFormatter.ValidateEntryPath(fpath) == false)
+            if (PathFormatter.ValidateEntryPath(fpath) == false || User.Identity!.IsAuthenticated == false)
             {
                 return Redirect("~/viewfiles/");
             }
@@ -131,7 +133,7 @@ namespace fluffyjohn.Controllers
         [Route("/downloadfile/{**fpath}")]
         public IActionResult DownloadFile(string? fpath)
         {
-            if (PathFormatter.ValidateEntryPath(fpath) == false)
+            if (PathFormatter.ValidateEntryPath(fpath) == false || User.Identity!.IsAuthenticated == false)
             {
                 return Redirect("~/viewfiles/");
             }
@@ -145,6 +147,11 @@ namespace fluffyjohn.Controllers
         // Utility
         private FileContentResult? GetFileData(string? fpath, bool download = false)
         {
+            if (User.Identity!.IsAuthenticated == false) 
+            {
+                return null;
+            }
+
             string absolutePath = Directory.GetCurrentDirectory() + "/UserFileStorer/" + SecurityUtils.MD5Hash(User.Identity!.Name!) + "/" + fpath;
             string fname = fpath!;
 
