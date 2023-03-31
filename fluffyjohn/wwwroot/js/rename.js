@@ -21,7 +21,12 @@ function renameFile(fullPath) {
         },
         body: JSON.stringify(data)
     }).then(function (res) {
-        console.log("Request complete! response:", res);
+        if (res.ok) {
+            location.reload();
+        }
+        else {
+            createToast("Couldn't rename file");
+        }
     });
 }
 //# sourceMappingURL=rename.js.map

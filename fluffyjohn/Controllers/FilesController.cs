@@ -124,6 +124,8 @@ namespace fluffyjohn.Controllers
         [Route("/renamef/")]    
         public IActionResult RenameFile([FromBody] RenameFileModel data) 
         {
+            if (User.Identity!.IsAuthenticated == false) { return Redirect("~/login"); }
+
             var orginalPath = data.orginalpath;
             var newpath = data.newpath;
 
@@ -132,9 +134,25 @@ namespace fluffyjohn.Controllers
             string fullOrginalPath = absolutePath + orginalPath;
             string fullNewPath = absolutePath + newpath;
 
-            System.IO.File.Move(fullOrginalPath, fullNewPath);
+            try 
+            { 
+                System.IO.File.Move(fullOrginalPath, fullNewPath);
+            } 
+            
+            catch (Exception e)
+            {
+                // https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/406
+                return StatusCode(406);
+            }
 
-            return Redirect("~/asuidghausdfhla");
+            if (Request.Headers.Referer != string.Empty)
+            {
+                return Redirect(Request.Headers.Referer);
+            }
+            else 
+            {
+                return Redirect("~/");
+            }
         }
 
         [Route("/viewcontent/{**fpath}")]

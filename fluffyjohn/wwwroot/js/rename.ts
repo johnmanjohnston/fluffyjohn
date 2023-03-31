@@ -30,6 +30,8 @@
         body: JSON.stringify(data)
 
     }).then(res => {
-        console.log("Request complete! response:", res);
+        if (res.ok) {
+            location.reload();
+        } else { createToast("Couldn't rename file"); }
     });
 }
