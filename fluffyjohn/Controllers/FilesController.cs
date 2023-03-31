@@ -4,15 +4,6 @@ using fluffyjohn.Models;
 using NuGet.Protocol;
 using System.IO;
 
-namespace fluffyjohn.Models 
-{
-    public class RenameFileModel 
-    {
-        public string orginalPath { get; set; }
-        public string newpath { get; set; }
-    }
-}
-
 namespace fluffyjohn.Controllers
 {
     public class FilesController : Controller {
@@ -133,7 +124,7 @@ namespace fluffyjohn.Controllers
         [Route("/renamef/")]    
         public IActionResult RenameFile([FromBody] RenameFileModel data) 
         {
-            var orginalPath = data.orginalPath;
+            var orginalPath = data.orginalpath;
             var newpath = data.newpath;
 
             Log($"orginalPath {orginalPath}");
