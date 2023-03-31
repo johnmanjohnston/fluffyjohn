@@ -127,8 +127,12 @@ namespace fluffyjohn.Controllers
             var orginalPath = data.orginalpath;
             var newpath = data.newpath;
 
-            Log($"orginalPath {orginalPath}");
-            Log($"newpath: {newpath}");
+            string absolutePath = Directory.GetCurrentDirectory() + "/UserFileStorer/" + SecurityUtils.MD5Hash(User.Identity!.Name!) + "/";
+
+            string fullOrginalPath = absolutePath + orginalPath;
+            string fullNewPath = absolutePath + newpath;
+
+            System.IO.File.Move(fullOrginalPath, fullNewPath);
 
             return Redirect("~/asuidghausdfhla");
         }
