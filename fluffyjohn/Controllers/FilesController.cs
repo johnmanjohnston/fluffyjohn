@@ -1,5 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.StaticFiles;
+using fluffyjohn.Models;
+using NuGet.Protocol;
+using System.IO;
+
+namespace fluffyjohn.Models 
+{
+    public class RenameFileModel 
+    {
+        public string orginalPath { get; set; }
+        public string newpath { get; set; }
+    }
+}
 
 namespace fluffyjohn.Controllers
 {
@@ -52,12 +64,12 @@ namespace fluffyjohn.Controllers
         [Route("/files/newdir/")]
         public IActionResult NewDir(string? dirname)
         {
-            if (null == dirname || string.Empty == dirname) 
+            if (null == dirname || string.Empty == dirname)
             {
                 return Redirect(Request.Headers.Referer);
             }
 
-            foreach (var c in dirname!) 
+            foreach (var c in dirname!)
             {
                 dirname = dirname!.Replace(" ", "-");
             }
@@ -104,7 +116,7 @@ namespace fluffyjohn.Controllers
             }
 
             string absolutePath = Directory.GetCurrentDirectory() + "/UserFileStorer/" + SecurityUtils.MD5Hash(User.Identity.Name!) + "/" + dirpath;
-            
+
             DirectoryInfo dirInfo = new DirectoryInfo(absolutePath);
             dirInfo.Delete(true);
             string dirName = dirInfo.Name;
@@ -113,6 +125,21 @@ namespace fluffyjohn.Controllers
 
             // Referer can sometimes be null, for now, just redirect to /viewfiles
             return Redirect("~/viewfiles");
+        }
+
+        private void Log(string msg) { System.Diagnostics.Debug.WriteLine(msg); }
+
+        [HttpPost]
+        [Route("/renamef/")]    
+        public IActionResult RenameFile([FromBody] RenameFileModel data) 
+        {
+            var orginalPath = data.orginalPath;
+            var newpath = data.newpath;
+
+            Log($"orginalPath {orginalPath}");
+            Log($"newpath: {newpath}");
+
+            return Redirect("~/asuidghausdfhla");
         }
 
         [Route("/viewcontent/{**fpath}")]
