@@ -1,4 +1,4 @@
-﻿function renameFile(fullPath: string)
+﻿function renameItem(fullPath: string, isFile: boolean = true)
 {
     var brokenPath = fullPath.split("/");
     var filename: string = brokenPath[brokenPath.length - 1]
@@ -17,11 +17,19 @@
         newpath: reconstructedPath
     }
 
-    console.log(data);
-
     const MIME_TYPE = 'application/json';
 
-    fetch("https://localhost:7111/renamef/", {
+    var fetchURL: string; 
+
+    if (isFile) {
+        fetchURL = "https://localhost:7111/renamef";
+    } else
+    {
+        fetchURL = "https://localhost:7111/renamed";
+    }
+
+
+    fetch(fetchURL, {
         method: "POST",
         headers: {
             'Content-Type': MIME_TYPE,

@@ -122,7 +122,7 @@ namespace fluffyjohn.Controllers
 
         [HttpPost]
         [Route("/renamef/")]    
-        public IActionResult RenameFile([FromBody] RenameFileModel data) 
+        public IActionResult RenameFile([FromBody] RenameItemModel data) 
         {
             if (User.Identity!.IsAuthenticated == false) { return Redirect("~/login"); }
 
@@ -150,6 +150,44 @@ namespace fluffyjohn.Controllers
                 return Redirect(Request.Headers.Referer);
             }
             else 
+            {
+                return Redirect("~/");
+            }
+        }
+
+        [HttpPost]
+        [Route("~/renamed")]
+        public IActionResult RenameDirectory([FromBody] RenameItemModel data) 
+        {
+            if (User.Identity!.IsAuthenticated == false) { return Redirect("~/login"); }
+
+            var orginalPath = data.orginalpath;
+            var newpath = data.newpath;
+
+            string absolutePath = Directory.GetCurrentDirectory() + "/UserFileStorer/" + SecurityUtils.MD5Hash(User.Identity!.Name!) + "/";
+
+            string fullOrginalPath = absolutePath + orginalPath;
+            string fullNewPath = absolutePath + newpath;
+
+            Log(fullOrginalPath);
+            Log(fullNewPath);
+
+            //try
+            //{
+                System.IO.Directory.Move(fullOrginalPath, fullNewPath);
+            //}
+
+            //catch (Exception e)
+            //{
+                // https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/406
+              //  return StatusCode(406);
+            //}
+
+            if (Request.Headers.Referer != string.Empty)
+            {
+                return Redirect(Request.Headers.Referer);
+            }
+            else
             {
                 return Redirect("~/");
             }
