@@ -139,7 +139,7 @@ namespace fluffyjohn.Controllers
                 System.IO.File.Move(fullOrginalPath, fullNewPath);
             } 
             
-            catch (Exception e)
+            catch
             {
                 // https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/406
                 return StatusCode(406);
@@ -172,16 +172,16 @@ namespace fluffyjohn.Controllers
             Log(fullOrginalPath);
             Log(fullNewPath);
 
-            //try
-            //{
+            try
+            {
                 System.IO.Directory.Move(fullOrginalPath, fullNewPath);
-            //}
+            }
 
-            //catch (Exception e)
-            //{
-                // https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/406
-              //  return StatusCode(406);
-            //}
+            catch
+            {
+                 https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/406
+                return StatusCode(406);
+            }
 
             if (Request.Headers.Referer != string.Empty)
             {
