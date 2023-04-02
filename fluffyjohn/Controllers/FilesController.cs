@@ -121,13 +121,14 @@ namespace fluffyjohn.Controllers
         private void Log(string msg) { System.Diagnostics.Debug.WriteLine(msg); }
 
         [HttpPost]
-        [Route("/renamef/")]    
+        [Route("/rename/")]    
         public IActionResult RenameFile([FromBody] RenameItemModel data) 
         {
             if (User.Identity!.IsAuthenticated == false) { return Redirect("~/login"); }
 
             var orginalPath = data.orginalpath;
             var newpath = data.newpath;
+            var isFile = data.isfile;
 
             string absolutePath = Directory.GetCurrentDirectory() + "/UserFileStorer/" + SecurityUtils.MD5Hash(User.Identity!.Name!) + "/";
 
@@ -135,8 +136,15 @@ namespace fluffyjohn.Controllers
             string fullNewPath = absolutePath + newpath;
 
             try 
-            { 
-                System.IO.File.Move(fullOrginalPath, fullNewPath);
+            {
+                if (isFile)
+                {
+                    System.IO.File.Move(fullOrginalPath, fullNewPath);
+                }
+                else 
+                {
+                    System.IO.Directory.Move(fullOrginalPath, fullNewPath);
+                }
             } 
             
             catch
@@ -150,44 +158,6 @@ namespace fluffyjohn.Controllers
                 return Redirect(Request.Headers.Referer);
             }
             else 
-            {
-                return Redirect("~/");
-            }
-        }
-
-        [HttpPost]
-        [Route("~/renamed")]
-        public IActionResult RenameDirectory([FromBody] RenameItemModel data) 
-        {
-            if (User.Identity!.IsAuthenticated == false) { return Redirect("~/login"); }
-
-            var orginalPath = data.orginalpath;
-            var newpath = data.newpath;
-
-            string absolutePath = Directory.GetCurrentDirectory() + "/UserFileStorer/" + SecurityUtils.MD5Hash(User.Identity!.Name!) + "/";
-
-            string fullOrginalPath = absolutePath + orginalPath;
-            string fullNewPath = absolutePath + newpath;
-
-            Log(fullOrginalPath);
-            Log(fullNewPath);
-
-            try
-            {
-                System.IO.Directory.Move(fullOrginalPath, fullNewPath);
-            }
-
-            catch
-            {
-                // https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/406
-                return StatusCode(406);
-            }
-
-            if (Request.Headers.Referer != string.Empty)
-            {
-                return Redirect(Request.Headers.Referer);
-            }
-            else
             {
                 return Redirect("~/");
             }

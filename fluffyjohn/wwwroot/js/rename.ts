@@ -14,19 +14,15 @@
 
     let data = {
         orginalpath: fullPath,
-        newpath: reconstructedPath
+        newpath: reconstructedPath,
+        isFile: isFile
     }
 
     const MIME_TYPE = 'application/json';
 
     var fetchURL: string; 
 
-    if (isFile) {
-        fetchURL = "https://localhost:7111/renamef";
-    } else
-    {
-        fetchURL = "https://localhost:7111/renamed";
-    }
+    fetchURL = "https://localhost:7111/rename";
 
 
     fetch(fetchURL, {
@@ -40,6 +36,6 @@
     }).then(res => {
         if (res.ok) {
             location.reload();
-        } else { createToast("Couldn't rename file"); }
+        } else { createToast("Couldn't rename item"); }
     });
 }
