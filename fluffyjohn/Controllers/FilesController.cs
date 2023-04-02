@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.StaticFiles;
 using fluffyjohn.Models;
 using NuGet.Protocol;
 using System.IO;
+using Microsoft.Build.Framework;
 
 namespace fluffyjohn.Controllers
 {
@@ -190,6 +191,32 @@ namespace fluffyjohn.Controllers
 
             if (fData != null) { return fData; }
             else { return Content("Not found"); }
+        }
+
+        [Route("/fcopy/")]
+        public IActionResult CopyFile([FromBody] CopyModel data) 
+        {
+            var path = data.path;
+
+            // Validate
+            if (User.Identity!.IsAuthenticated == false) { return Redirect("~/login/"); }
+
+            // Create clipboard dir
+            string userRootDir = Directory.GetCurrentDirectory() + "/UserFileStorer/" + SecurityUtils.MD5Hash(User.Identity!.Name!) + "/";
+
+            if (!Directory.Exists(userRootDir + ".fluffyjohn/clipboard")) 
+            {
+                Directory.CreateDirectory(userRootDir + ".fluffyjohn/clipboard");
+            }
+
+            // Clear clipboard and write
+            DirectoryInfo dirInfo = new DirectoryInfo(userRootDir + ".fluffyjohn/clipboard");
+            foreach (var file in dirInfo.GetFiles())
+            {
+                file.Delete();
+            }
+
+            return StatusCode(200);
         }
 
         // Utility
