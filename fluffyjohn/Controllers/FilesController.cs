@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.StaticFiles;
 using fluffyjohn.Models;
-using NuGet.Protocol;
-using System.IO;
-using Microsoft.Build.Framework;
 
 namespace fluffyjohn.Controllers
 {
