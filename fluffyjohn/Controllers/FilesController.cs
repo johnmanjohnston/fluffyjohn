@@ -215,6 +215,9 @@ namespace fluffyjohn.Controllers
 
             // Get reference to file to copy
             FileInfo fInfo = new FileInfo(userRootDir + path);
+
+            if (false == fInfo.Exists) { return StatusCode(404); }
+
             fInfo.CopyTo(userRootDir + ".fluffyjohn/clipboard/" + Path.GetFileName(fInfo.FullName), true);
 
             return StatusCode(200);
