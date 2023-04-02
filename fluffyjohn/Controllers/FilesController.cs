@@ -46,7 +46,14 @@ namespace fluffyjohn.Controllers
                 Response.Cookies.Append("toast-content", $"upload-success.{fCount}");
             }
 
-            return Redirect(Request.Headers.Referer);
+            if (Request.Headers.Referer != string.Empty)
+            {
+                return Redirect(Request.Headers.Referer);
+            }
+            else
+            {
+                return Redirect("~/viewfiles");
+            }
         }
 
         [HttpPost]
@@ -92,8 +99,14 @@ namespace fluffyjohn.Controllers
 
             Response.Cookies.Append("toast-content", $"delete-success.{fName}");
 
-            // Referer can sometimes be null, for now, just redirect to /viewfiles
-            return Redirect("~/viewfiles");
+            if (Request.Headers.Referer != string.Empty)
+            {
+                return Redirect(Request.Headers.Referer);
+            }
+            else 
+            {
+                return Redirect("~/viewfiles");
+            }
         }
 
         [Route("~/deldir/{**dirpath}")]
@@ -112,8 +125,14 @@ namespace fluffyjohn.Controllers
 
             Response.Cookies.Append("toast-content", $"delete-success.{dirName}");
 
-            // Referer can sometimes be null, for now, just redirect to /viewfiles
-            return Redirect("~/viewfiles");
+            if (Request.Headers.Referer != string.Empty)
+            {
+                return Redirect(Request.Headers.Referer);
+            }
+            else
+            {
+                return Redirect("~/viewfiles");
+            }
         }
 
         private void Log(string msg) { System.Diagnostics.Debug.WriteLine(msg); }
