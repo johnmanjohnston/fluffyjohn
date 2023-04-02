@@ -216,6 +216,10 @@ namespace fluffyjohn.Controllers
                 file.Delete();
             }
 
+            // Get reference to file to copy
+            FileInfo fInfo = new FileInfo(userRootDir + path);
+            fInfo.CopyTo(userRootDir + ".fluffyjohn/clipboard/" + Path.GetFileName(fInfo.FullName), true);
+
             return StatusCode(200);
         }
 
