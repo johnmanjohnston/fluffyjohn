@@ -37,7 +37,7 @@ namespace fluffyjohn.Controllers
             for (int i = 0; i < fCount; i++)
             {
                 IFormFile fl = files[i];
-                using FileStream inputStream = new FileStream(userDir + fl.FileName, FileMode.Create);
+                using FileStream inputStream = new(userDir + fl.FileName, FileMode.Create);
                 await fl.CopyToAsync(inputStream);
             }
 
@@ -78,7 +78,7 @@ namespace fluffyjohn.Controllers
                 return Redirect(Request.Headers.Referer);
             }
 
-            DirectoryInfo dirInfo = new DirectoryInfo($"{userDir}/{dirname}");
+            DirectoryInfo dirInfo = new($"{userDir}/{dirname}");
             dirInfo.Create();
 
             return Redirect(Request.Headers.Referer);
@@ -119,7 +119,7 @@ namespace fluffyjohn.Controllers
 
             string absolutePath = Directory.GetCurrentDirectory() + "/UserFileStorer/" + SecurityUtils.MD5Hash(User.Identity.Name!) + "/" + dirpath;
 
-            DirectoryInfo dirInfo = new DirectoryInfo(absolutePath);
+            DirectoryInfo dirInfo = new(absolutePath);
             dirInfo.Delete(true);
             string dirName = dirInfo.Name;
 
@@ -268,8 +268,7 @@ namespace fluffyjohn.Controllers
             {
                 // Return file
                 byte[] fData = System.IO.File.ReadAllBytes(absolutePath);
-                string? fmType;
-                new FileExtensionContentTypeProvider().TryGetContentType(fname, out fmType);
+                new FileExtensionContentTypeProvider().TryGetContentType(fname, out string? fmType);
 
                 var cd = new System.Net.Mime.ContentDisposition
                 {
