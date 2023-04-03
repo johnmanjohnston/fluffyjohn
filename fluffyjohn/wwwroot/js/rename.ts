@@ -3,6 +3,9 @@
     var brokenPath = fullPath.split("/");
     var filename: string = brokenPath[brokenPath.length - 1]
     var newName: string = prompt(`What do you want to rename ${filename} to?`, filename);
+
+    if (newName == null) { return; }
+
     brokenPath[brokenPath.length - 1] = newName;
 
     var reconstructedPath = "";
