@@ -84,55 +84,42 @@ namespace fluffyjohn.Controllers
             return Redirect(Request.Headers.Referer);
         }
 
-        [Route("/delfile/{**fpath}")]
-        public IActionResult DeleteFile(string? fpath)
+        [Route("/delete")]
+        public IActionResult Delete([FromBody] DeleteModel data) 
         {
-            if (PathFormatter.ValidateEntryPath(fpath) == false || User.Identity!.IsAuthenticated == false)
+            string path = data.path;
+            bool isFile = data.isFile;
+
+            if (PathFormatter.ValidateEntryPath(path) == false || User.Identity!.IsAuthenticated == false)
             {
-                return Redirect("~/viewfiles/");
+                // https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401
+                return StatusCode(401);
             }
 
-            string absolutePath = Directory.GetCurrentDirectory() + "/UserFileStorer/" + SecurityUtils.MD5Hash(User.Identity.Name!) + "/" + fpath;
-            string fName = Path.GetFileName(absolutePath);
-            FileInfo fileInfo = new FileInfo(absolutePath);
-            fileInfo.Delete();
+            string absolutePath = Directory.GetCurrentDirectory() + "/UserFileStorer/" + SecurityUtils.MD5Hash(User.Identity.Name!) + "/" + path;
 
-            Response.Cookies.Append("toast-content", $"delete-success.{fName}");
-
-            if (Request.Headers.Referer != string.Empty)
+            try 
             {
-                return Redirect(Request.Headers.Referer);
-            }
-            else 
-            {
-                return Redirect("~/viewfiles");
-            }
-        }
-
-        [Route("~/deldir/{**dirpath}")]
-        public IActionResult DeleteDirectory(string? dirpath)
-        {
-            if (PathFormatter.ValidateEntryPath(dirpath) == false || User.Identity!.IsAuthenticated == false)
-            {
-                return Redirect("~/viewfiles");
+                if (isFile)
+                {
+                    FileInfo fileInfo = new FileInfo(absolutePath);
+                    fileInfo.Delete();
+                }
+                else 
+                {
+                    DirectoryInfo dirInfo = new(absolutePath);
+                    dirInfo.Delete(true);
+                }
             }
 
-            string absolutePath = Directory.GetCurrentDirectory() + "/UserFileStorer/" + SecurityUtils.MD5Hash(User.Identity.Name!) + "/" + dirpath;
-
-            DirectoryInfo dirInfo = new(absolutePath);
-            dirInfo.Delete(true);
-            string dirName = dirInfo.Name;
-
-            Response.Cookies.Append("toast-content", $"delete-success.{dirName}");
-
-            if (Request.Headers.Referer != string.Empty)
+            catch 
             {
-                return Redirect(Request.Headers.Referer);
+
+                // https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500
+                return StatusCode(500);
             }
-            else
-            {
-                return Redirect("~/viewfiles");
-            }
+
+            return StatusCode(200);
         }
 
         private void Log(string msg) { System.Diagnostics.Debug.WriteLine(msg); }
