@@ -130,9 +130,9 @@ namespace fluffyjohn.Controllers
         {
             if (User.Identity!.IsAuthenticated == false) { return Redirect("~/login"); }
 
-            var orginalPath = data.orginalpath;
-            var newpath = data.newpath;
-            var isFile = data.isfile;
+            var orginalPath = data.orginalPath;
+            var newpath = data.newPath;
+            var isFile = data.isFile;
 
             string absolutePath = Directory.GetCurrentDirectory() + "/UserFileStorer/" + SecurityUtils.MD5Hash(User.Identity!.Name!) + "/";
 

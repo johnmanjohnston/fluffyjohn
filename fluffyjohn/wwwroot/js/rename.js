@@ -12,8 +12,8 @@ function renameItem(fullPath, isFile) {
         reconstructedPath += brokenPath[i] + "/";
     }
     var data = {
-        orginalpath: fullPath,
-        newpath: reconstructedPath,
+        orginalPath: fullPath,
+        newPath: reconstructedPath,
         isFile: isFile
     };
     fetch("https://localhost:7111/rename", {

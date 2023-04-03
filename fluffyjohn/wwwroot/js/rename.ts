@@ -16,8 +16,8 @@
     }
 
     let data = {
-        orginalpath: fullPath,
-        newpath: reconstructedPath,
+        orginalPath: fullPath,
+        newPath: reconstructedPath,
         isFile: isFile
     }
 
