@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.StaticFiles;
 using fluffyjohn.Models;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace fluffyjohn.Controllers
 {
@@ -200,6 +201,7 @@ namespace fluffyjohn.Controllers
         public IActionResult CopyFile([FromBody] CopyModel data) 
         {
             var path = data.path;
+            var isFile = data.isFile;
 
             // Validate
             if (User.Identity!.IsAuthenticated == false) { return Redirect("~/login/"); }
@@ -219,17 +221,53 @@ namespace fluffyjohn.Controllers
                 file.Delete();
             }
 
-            // Get reference to file to copy
-            FileInfo fInfo = new FileInfo(userRootDir + path);
+            var dirs = Directory.GetDirectories(userRootDir + ".fluffyjohn/clipboard");
 
-            if (false == fInfo.Exists) { return StatusCode(404); }
+            foreach (var dir in dirs) 
+            {
+                Directory.Delete(dir, true);
+            }
 
-            fInfo.CopyTo(userRootDir + ".fluffyjohn/clipboard/" + Path.GetFileName(fInfo.FullName), true);
+            if (isFile)
+            {
+                FileInfo fInfo = new FileInfo(userRootDir + path);
+                if (false == fInfo.Exists) { return StatusCode(404); }
+                fInfo.CopyTo(userRootDir + ".fluffyjohn/clipboard/" + Path.GetFileName(fInfo.FullName), true);
+            }
+            else {
+                DirectoryInfo dInfo = new DirectoryInfo(userRootDir + path);
+                if (false == dInfo.Exists) { return StatusCode(404);  }
+
+                if (CopyDirectory(userRootDir + path) == false) { return StatusCode(500); }
+            }
 
             return StatusCode(200);
         }
 
-        // Utility
+        // ==================================== UTILITY ====================================
+        private bool CopyDirectory(string source) 
+        {
+            string userRootDir = Directory.GetCurrentDirectory() + "/UserFileStorer/" + SecurityUtils.MD5Hash(User.Identity!.Name!) + "/";
+            string dest = userRootDir + ".fluffyjohn/clipboard";
+
+            try
+            {
+                foreach (string dPath in Directory.GetDirectories(source, "*", SearchOption.AllDirectories))
+                {
+                    Directory.CreateDirectory(dPath.Replace(source, dest));
+                }
+
+                foreach (string newFilePath in Directory.GetFiles(source, "*.*", SearchOption.AllDirectories))
+                {
+                    System.IO.File.Copy(newFilePath, newFilePath.Replace(source, dest), true);
+                }
+
+                return true;
+            }
+
+            catch { return false; }
+        }   
+
         private FileContentResult? GetFileData(string? fpath, bool download = false)
         {
             if (User.Identity!.IsAuthenticated == false) 
