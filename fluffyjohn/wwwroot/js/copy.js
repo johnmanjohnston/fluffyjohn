@@ -13,7 +13,7 @@ function copy(fPath, isFile) {
             location.reload();
         }
         else {
-            createToast("Coudln't copy item");
+            createToast("Couldn't copy item");
         }
     });
 }

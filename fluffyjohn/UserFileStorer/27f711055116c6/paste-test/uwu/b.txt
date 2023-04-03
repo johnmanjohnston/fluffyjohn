@@ -1,0 +1,3 @@
+
+this is some text inside of b.txt 12345
+owoawd

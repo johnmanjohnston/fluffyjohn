@@ -94,6 +94,7 @@ namespace fluffyjohn.Controllers
             if (PathFormatter.ValidateEntryPath(path) == false || User.Identity!.IsAuthenticated == false)
             {
                 // https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401
+                // Unauthorized
                 return StatusCode(401);
             }
 
@@ -117,6 +118,7 @@ namespace fluffyjohn.Controllers
             {
 
                 // https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500
+                // Internal Server Error
                 return StatusCode(500);
             }
 
@@ -155,6 +157,7 @@ namespace fluffyjohn.Controllers
             catch
             {
                 // https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/406
+                // Not Acceptable
                 return StatusCode(406);
             }
 
@@ -238,18 +241,37 @@ namespace fluffyjohn.Controllers
                 DirectoryInfo dInfo = new DirectoryInfo(userRootDir + path);
                 if (false == dInfo.Exists) { return StatusCode(404);  }
 
-                if (CopyDirectory(userRootDir + path) == false) { return StatusCode(500); }
+                string dest = userRootDir + ".fluffyjohn/clipboard";
+                if (CopyDirectory(userRootDir + path, dest) == false) { return StatusCode(500); }
+            }
+
+            return StatusCode(200);
+        }
+
+        [Route("/paste/")]
+        public IActionResult Paste([FromBody] PasteModel data) 
+        {
+            string targetPasteRoute = data.route + "/";
+            string userRootDir = Directory.GetCurrentDirectory() + "/UserFileStorer/" + SecurityUtils.MD5Hash(User.Identity!.Name!) + "/";
+
+            try
+            {
+                CopyDirectory(userRootDir + "/.fluffyjohn/clipboard/", userRootDir + "/" + targetPasteRoute);
+            } 
+            
+            catch 
+            {
+                // https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500
+                // Internal Server Error
+                StatusCode(500);
             }
 
             return StatusCode(200);
         }
 
         // ==================================== UTILITY ====================================
-        private bool CopyDirectory(string source) 
+        private bool CopyDirectory(string source, string dest) 
         {
-            string userRootDir = Directory.GetCurrentDirectory() + "/UserFileStorer/" + SecurityUtils.MD5Hash(User.Identity!.Name!) + "/";
-            string dest = userRootDir + ".fluffyjohn/clipboard";
-
             try
             {
                 foreach (string dPath in Directory.GetDirectories(source, "*", SearchOption.AllDirectories))

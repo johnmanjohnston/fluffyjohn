@@ -13,6 +13,6 @@
     }).then(res => {
         if (res.ok) {
             location.reload();
-        } else { createToast("Coudln't copy item"); }
+        } else { createToast("Couldn't copy item"); }
     });
 }
