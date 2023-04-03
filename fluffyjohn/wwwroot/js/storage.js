@@ -19,5 +19,9 @@ if (getCookie("toast-content")) {
         createToast("Deleted ".concat(fName));
         eraseCookie("toast-content");
     }
+    if (val.match("invalid-dirname")) {
+        createToast("Invalid directory name");
+        eraseCookie("toast-content");
+    }
 }
 //# sourceMappingURL=storage.js.map

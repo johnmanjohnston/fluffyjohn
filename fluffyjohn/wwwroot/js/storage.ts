@@ -24,4 +24,10 @@ if (getCookie("toast-content")) {
         createToast(`Deleted ${fName}`);
         eraseCookie("toast-content");
     }
+
+    if (val.match("invalid-dirname"))
+    {
+        createToast("Invalid directory name");
+        eraseCookie("toast-content");
+    }
 }

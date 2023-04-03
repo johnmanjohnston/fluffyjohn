@@ -1,6 +1,6 @@
 var DIR_SELECT_EL = document.getElementById("dir-selector");
 var absoluteHomeURL = "".concat(location.protocol, "//").concat(location.host);
-var dirs = window.location.href.replace(absoluteHomeURL + "/viewfiles", "").split("/");
+var dirs = window.location.href.replace(absoluteHomeURL + "/viewfiles", "").replace(/#/gm, "").split("/");
 var path_progression = "";
 for (var dirindex = 0; dirindex < dirs.length; dirindex++) {
     path_progression += "".concat(dirs[dirindex], "/");

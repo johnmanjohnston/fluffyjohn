@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.StaticFiles;
 using fluffyjohn.Models;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using System.Text.RegularExpressions;
 
 namespace fluffyjohn.Controllers
 {
@@ -80,9 +81,25 @@ namespace fluffyjohn.Controllers
             }
 
             DirectoryInfo dirInfo = new($"{userDir}/{dirname}");
+
+            Regex validPath = new (@"^(?:[a-zA-Z]\:|\\)(\\[^\\/:*?""<>|\r\n]*)+$");
+
+            if (!validPath.IsMatch(dirInfo.FullName))
+            {
+                Response.Cookies.Append("toast-content", "invalid-dirname");
+
+                if (Request.Headers.Referer != string.Empty)
+                { return Redirect(Request.Headers.Referer); }
+                else
+                { return Redirect("~/viewfiles"); }
+            }
+
             dirInfo.Create();
 
-            return Redirect(Request.Headers.Referer);
+            if (Request.Headers.Referer != string.Empty)
+            { return Redirect(Request.Headers.Referer); }
+            else
+            { return Redirect("~/viewfiles"); }
         }
 
         [Route("/delete")]
