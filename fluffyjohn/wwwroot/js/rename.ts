@@ -21,18 +21,11 @@
         isFile: isFile
     }
 
-    const MIME_TYPE = 'application/json';
-
-    var fetchURL: string; 
-
-    fetchURL = "https://localhost:7111/rename";
-
-
-    fetch(fetchURL, {
+    fetch("https://localhost:7111/rename", {
         method: "POST",
         headers: {
-            'Content-Type': MIME_TYPE,
-            'Accept': MIME_TYPE,
+            "Content-Type": "application/json",
+            "Accept": "application/json",
         },
         body: JSON.stringify(data)
 

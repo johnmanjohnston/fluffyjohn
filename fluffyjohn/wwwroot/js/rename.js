@@ -16,14 +16,11 @@ function renameItem(fullPath, isFile) {
         newpath: reconstructedPath,
         isFile: isFile
     };
-    var MIME_TYPE = 'application/json';
-    var fetchURL;
-    fetchURL = "https://localhost:7111/rename";
-    fetch(fetchURL, {
+    fetch("https://localhost:7111/rename", {
         method: "POST",
         headers: {
-            'Content-Type': MIME_TYPE,
-            'Accept': MIME_TYPE,
+            "Content-Type": "application/json",
+            "Accept": "application/json",
         },
         body: JSON.stringify(data)
     }).then(function (res) {
