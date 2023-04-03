@@ -59,7 +59,7 @@
         <a onclick="confirmDelete('@fileEntries[i]', '@reqDirPath@fileEntries[i]', true)" class="item-action-btn" href="#"> <img class="icon del-icon" src="~/svg/delete.svg" /> </a>
         <a class="item-action-btn" href="/downloadfile\@reqDirPath@fileEntries[i]"> <img class="icon" src="~/svg/download.svg" /> </a>
         <a class="item-action-btn" href="/viewcontent\@reqDirPath@fileEntries[i]"> <img class="icon" src="~/svg/view.svg" /> </a>
-        <a onclick="copyFile('@reqDirPath@fileEntries[i]');" class="item-action-btn"> <img class="icon" src="~/svg/copy.svg" /></a>
+        <a onclick="copy('@reqDirPath@fileEntries[i]');" class="item-action-btn"> <img class="icon" src="~/svg/copy.svg" /></a>
 
         <br />
         </div>
@@ -76,8 +76,10 @@
             <a href=@Utility.ConfigureDirHref(targetHref)>@dirEntries[i]/</a>
         </div>
 
-            <a onclick="renameItem('@reqDirPath/@dirEntries[i]', false)" class="item-action-btn"> <img class="icon" src="~/svg/edit.svg" /> </a>
+        <a onclick="renameItem('@reqDirPath/@dirEntries[i]', false)" class="item-action-btn"> <img class="icon" src="~/svg/edit.svg" /> </a>
         <a onclick="confirmDelete('@dirEntries[i]', '@reqDirPath@dirEntries[i]', false)" href="#" class="item-action-btn"> <img class="icon del-icon" src="~/svg/delete.svg" /> </a>
+        <a onclick="copy('@reqDirPath/@dirEntries[i]', false);" class="item-action-btn"> <img class="icon" src="~/svg/copy.svg" /></a>
+        
         </div>
     }
 }

@@ -209,7 +209,7 @@ namespace fluffyjohn.Controllers
             else { return Content("Not found"); }
         }
 
-        [Route("/fcopy/")]
+        [Route("/copy/")]
         public IActionResult CopyFile([FromBody] CopyModel data) 
         {
             var path = data.path;

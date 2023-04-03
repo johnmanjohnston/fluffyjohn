@@ -1,8 +1,8 @@
-﻿function copyFile(fPath: string)
+﻿function copy(fPath: string, isFile: boolean = true)
 {
-    var data = { path: fPath };
+    var data = { path: fPath, isFile: isFile };
 
-    fetch("https://localhost:7111/fcopy/", {
+    fetch("https://localhost:7111/copy/", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
