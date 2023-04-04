@@ -3,6 +3,16 @@
 }
 
 <div class="text-center">
-    <div class="display-1 fj-title">FluffyJohn</div>
+    <div class="display-1 fj-title">FluffyJohn</div> <br />
     <div class="h4">Your files, safe and sound, on a fluffy <strong>cloud</strong>.</div>
+
+    @if (User.Identity!.IsAuthenticated)
+    {
+        <div>Go to <a href="/viewfiles/">My Files</a></div>
+    }
+
+    else
+    {
+        <div><a href="/register/">Create an account</a> or <a href="/login/">Login to an existing account</a></div>
+    }
 </div>
