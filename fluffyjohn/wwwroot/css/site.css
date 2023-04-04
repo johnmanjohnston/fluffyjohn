@@ -9,8 +9,12 @@
   }
 }
 
+.navbar-brand {
+    color: rgba(240, 240, 240, 0.7) !important; /* Yes, it has to be !important-ed. KILL ME. */
+}
+
 .navbar-brand:hover {
-    color: rgba(240, 240, 240, 0.5) !important; /* css i fking hate you */
+    color: rgba(240, 240, 240, 1) !important;
 }
 
 html {

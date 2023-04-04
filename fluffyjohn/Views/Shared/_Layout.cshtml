@@ -7,12 +7,23 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/fluffyjohn.styles.css" asp-append-version="true" />
+
+    <style>
+        @@font-face {
+            font-family: "Krona One", sans-serif;
+            src: url("../../wwwroot/KronaOne-Regular.ttf");
+        }
+
+        .fj-title {
+            font-family: "Krona One", sans-serif;
+        }
+    </style>
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark fluffyjohn-bg slight-dark box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">FluffyJohn</a>
+                <a class="navbar-brand fj-title" asp-area="" asp-controller="Home" asp-action="Index">FluffyJohn</a>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
