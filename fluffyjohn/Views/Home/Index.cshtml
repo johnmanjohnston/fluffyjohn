@@ -2,17 +2,33 @@
     ViewData["Title"] = "Home Page";
 }
 
+<head>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+
 <div class="text-center">
-    <div class="display-1 fj-title">FluffyJohn</div> <br />
-    <div class="h4">Your files, safe and sound, on a fluffy <strong>cloud</strong>.</div>
 
-    @if (User.Identity!.IsAuthenticated)
-    {
-        <div>Go to <a href="/viewfiles/">My Files</a></div>
-    }
+    <div style="margin-top: 30vh;"></div>
 
-    else
-    {
-        <div><a href="/register/">Create an account</a> or <a href="/login/">Login to an existing account</a></div>
-    }
+    <div data-aos="fade-up">
+        <div class="display-1 fj-title">FluffyJohn</div> <br />
+        <div class="h4">Your files, safe and sound, on a fluffy <strong>cloud</strong>.</div>
+
+        @if (User.Identity!.IsAuthenticated)
+        {
+            <div>Go to <a href="/viewfiles/">My Files</a></div>
+        }
+
+        else
+        {
+            <div><a href="/register/">Create an account</a> or <a href="/login/">Login to an existing account</a></div>
+        }
+    </div>
 </div>
+
+<!-- https://michalsnik.github.io/aos/ -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+<script>
+    AOS.init();
+</script>

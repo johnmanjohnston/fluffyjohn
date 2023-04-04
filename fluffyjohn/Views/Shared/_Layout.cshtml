@@ -10,11 +10,20 @@
 
     <style>
         @@font-face {
-            font-family: "Krona One", sans-serif;
-            src: url("../../wwwroot/fonts/KronaOne-Regular.ttf");
+            font-family: "Krona One";
+            src: url("../../wwwroot/fonts/KronaOne-Regular.ttf") format("truetype");
+        }
+
+        @@font-face {
+            font-family: "Plus Jakarta Sans";
+            src: url("../../wwwroot/fonts/PlusJakartaSans-VariableFont_wght.ttf") format("truetype");
         }
         .fj-title {
-            font-family: "Krona One", sans-serif;
+            font-family: "Krona One", sans-serif !important;
+        }
+
+        body {
+            font-family: "Plus Jakarta Sans";
         }
     </style>
 </head>
