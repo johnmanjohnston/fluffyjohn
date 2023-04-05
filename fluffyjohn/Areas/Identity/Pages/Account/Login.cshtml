@@ -6,9 +6,9 @@
 }
 
 
-<h1 class="text-center">Login to FluffyJohn</h1>
+<h1 class="text-center">Log in to <span class="fj-title">FluffyJohn</span></h1>
 <br />
-<div class="row" style="width: 30%; position: absolute; left: 50%; transform:translateX(-50%); background: rgba(200, 200, 200, 0.05); padding: 2em 2.5em; border-radius: 2em; border: 2px solid rgba(200, 200, 200, 0.2);">
+<div class="row" style="width: 25%; position: absolute; left: 50%; transform:translateX(-50%); background: rgba(200, 200, 200, 0.05); padding: 2em 2.5em; border-radius: 2em; border: 2px solid rgba(200, 200, 200, 0.2);">
     <div>
         <section>
             <form id="account" method="post">
@@ -38,7 +38,7 @@
                 <div>
                     <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
                 </div> <br />
-                <div>
+                <div class="text-center">
                     <p> Don't have an account for FluffyJohn yet? You can 
                         <a asp-page="./Register" asp-route-returnUrl="@Model!.ReturnUrl">register as a new user</a>!
                     </p>
