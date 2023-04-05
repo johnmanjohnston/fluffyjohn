@@ -63,7 +63,7 @@ namespace fluffyjohn.Controllers
         [Route("/files/newdir/")]
         public IActionResult NewDir(string? dirname)
         {
-            if (null == dirname || string.Empty == dirname)
+            if (dirname == null || dirname == string.Empty)
             {
                 return Redirect(Request.Headers.Referer);
             }
@@ -134,7 +134,6 @@ namespace fluffyjohn.Controllers
 
             catch 
             {
-
                 // https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500
                 // Internal Server Error
                 return StatusCode(500);
@@ -164,6 +163,7 @@ namespace fluffyjohn.Controllers
                 {
                     System.IO.File.Move(fullOrginalPath, fullNewPath);
                 }
+
                 else 
                 {
                     System.IO.Directory.Move(fullOrginalPath, fullNewPath);
@@ -181,6 +181,7 @@ namespace fluffyjohn.Controllers
             {
                 return Redirect(Request.Headers.Referer);
             }
+
             else 
             {
                 return Redirect("~/");
@@ -250,12 +251,12 @@ namespace fluffyjohn.Controllers
             if (isFile)
             {
                 FileInfo fInfo = new FileInfo(userRootDir + path);
-                if (false == fInfo.Exists) { return StatusCode(404); }
+                if (fInfo.Exists == false) { return StatusCode(404); }
                 fInfo.CopyTo(userRootDir + ".fluffyjohn/clipboard/" + Path.GetFileName(fInfo.FullName), true);
             }
             else {
                 DirectoryInfo dInfo = new DirectoryInfo(userRootDir + path);
-                if (false == dInfo.Exists) { return StatusCode(404);  }
+                if (dInfo.Exists == false) { return StatusCode(404);  }
 
                 string dest = userRootDir + ".fluffyjohn/clipboard";
                 if (CopyDirectory(userRootDir + path, dest) == false) { return StatusCode(500); }
