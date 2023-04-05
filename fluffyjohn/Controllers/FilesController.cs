@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.StaticFiles;
-using fluffyjohn.Models;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Text.RegularExpressions;
+
+using fluffyjohn.Models;
 
 namespace fluffyjohn.Controllers
 {
@@ -18,6 +18,7 @@ namespace fluffyjohn.Controllers
             return View();
         }
 
+        #region Main
         public async Task<IActionResult> Upload()
         {
             if (Request.Method.ToLower() != "post")
@@ -141,8 +142,6 @@ namespace fluffyjohn.Controllers
 
             return StatusCode(200);
         }
-
-        private void Log(string msg) { System.Diagnostics.Debug.WriteLine(msg); }
 
         [HttpPost]
         [Route("/rename/")]    
@@ -285,8 +284,11 @@ namespace fluffyjohn.Controllers
 
             return StatusCode(200);
         }
-
+        #endregion
+        #region Utility
         // ==================================== UTILITY ====================================
+        private void Log(string msg) { System.Diagnostics.Debug.WriteLine(msg); }
+
         private bool CopyDirectory(string source, string dest) 
         {
             try
@@ -346,6 +348,7 @@ namespace fluffyjohn.Controllers
 
             return null;
         }
+        #endregion
     }
 }
     
