@@ -14,21 +14,30 @@
         <div class="display-1 fj-title">FluffyJohn</div> 
         <div class="h2">Your files, <strong>safe</strong> and sound, on a fluffy cloud.</div>
 
-        <br />
-
-        <div class="h5">
-            @if (User.Identity!.IsAuthenticated)
-            {
-                <div>Go to <a href="/viewfiles/">My Files</a></div>
-            }
-
-            else
-            {
-                <div><a href="/register/">Create an account</a> or <a href="/login/">Login to an existing account</a></div>
-            }
-        </div>
     </div>
+
+    <div class="h3" style="font-weight: 200;">
+        <div style="display: inline-block;" data-aos-delay="1000" data-aos="fade-up">Secure.</div>
+        <div style="display: inline-block;" data-aos-delay="1200" data-aos="fade-up">Reliable.</div>
+        <div style="display: inline-block;" data-aos-delay="1400" data-aos="fade-up">Open-source.</div>
+    </div>
+
+    <br />
+
+    <div class="h5">
+        @if (User.Identity!.IsAuthenticated)
+        {
+            <div>Go to <a href="/viewfiles/">My Files</a></div>
+        }
+
+        else
+        {
+            <div><a href="/register/">Create an account</a> or <a href="/login/">Login to an existing account</a></div>
+        }
+    </div>
+
 </div>
+
 
 <!-- https://michalsnik.github.io/aos/ -->
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
