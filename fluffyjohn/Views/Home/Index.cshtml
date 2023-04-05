@@ -16,15 +16,17 @@
 
         <br />
 
-        @if (User.Identity!.IsAuthenticated)
-        {
-            <div>Go to <a href="/viewfiles/">My Files</a></div>
-        }
+        <div class="h5">
+            @if (User.Identity!.IsAuthenticated)
+            {
+                <div>Go to <a href="/viewfiles/">My Files</a></div>
+            }
 
-        else
-        {
-            <div><a href="/register/">Create an account</a> or <a href="/login/">Login to an existing account</a></div>
-        }
+            else
+            {
+                <div><a href="/register/">Create an account</a> or <a href="/login/">Login to an existing account</a></div>
+            }
+        </div>
     </div>
 </div>
 
