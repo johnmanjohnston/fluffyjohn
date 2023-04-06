@@ -83,7 +83,7 @@ namespace fluffyjohn.Controllers
 
             DirectoryInfo dirInfo = new($"{userDir}/{dirname}");
 
-            Regex validPath = new (@"^(?:[a-zA-Z]\:|\\)(\\[^\\/:*?""<>|\r\n]*)+$");
+            Regex validPath = new(@"^(?!.*#)(?:[a-zA-Z]:|\\)(\\[^\\/:*?""<>|\r\n]*)+$");
 
             if (!validPath.IsMatch(dirInfo.FullName))
             {
