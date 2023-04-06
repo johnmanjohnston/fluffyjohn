@@ -83,6 +83,7 @@ namespace fluffyjohn.Controllers
 
             DirectoryInfo dirInfo = new($"{userDir}/{dirname}");
 
+            // Flag dirs containing "#" because same char is used to scroll to elements with ID
             Regex validPath = new(@"^(?!.*#)(?:[a-zA-Z]:|\\)(\\[^\\/:*?""<>|\r\n]*)+$");
 
             if (!validPath.IsMatch(dirInfo.FullName))
@@ -156,6 +157,17 @@ namespace fluffyjohn.Controllers
 
             string fullOrginalPath = absolutePath + orginalPath;
             string fullNewPath = absolutePath + newpath;
+
+            // Flag dirs containing "#" because same char is used to scroll to elements with ID
+            Regex validPath = new(@"^(?!.*#)(?:[a-zA-Z]:|\\)(\\[^\\/:*?""<>|\r\n]*)+$");
+
+            if (!validPath.IsMatch(fullNewPath)) 
+            {
+                if (Request.Headers.Referer != string.Empty)
+                { return Redirect(Request.Headers.Referer); }
+                else
+                { return Redirect("~/viewfiles"); }
+            }
 
             try 
             {
