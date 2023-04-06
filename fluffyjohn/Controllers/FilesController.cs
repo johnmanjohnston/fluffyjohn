@@ -10,7 +10,7 @@ namespace fluffyjohn.Controllers
         [Route("/viewfiles/{**dirpath}")]
         public IActionResult Index()
         {
-            if (User.Identity!.IsAuthenticated == false)
+            if (!User.Identity!.IsAuthenticated)
             {
                 return Redirect("~/login");
             }
@@ -107,7 +107,7 @@ namespace fluffyjohn.Controllers
             string path = data.path;
             bool isFile = data.isFile;
 
-            if (PathFormatter.ValidateEntryPath(path) == false || User.Identity!.IsAuthenticated == false)
+            if (!PathFormatter.ValidateEntryPath(path) || !User.Identity!.IsAuthenticated)
             {
                 // https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401
                 // Unauthorized
@@ -144,7 +144,7 @@ namespace fluffyjohn.Controllers
         [Route("/rename/")]    
         public IActionResult RenameFile([FromBody] RenameItemModel data) 
         {
-            if (User.Identity!.IsAuthenticated == false) { return Redirect("~/login"); }
+            if (!User.Identity!.IsAuthenticated) { return Redirect("~/login"); }
 
             var orginalPath = data.orginalPath;
             var newpath = data.newPath;
@@ -201,7 +201,7 @@ namespace fluffyjohn.Controllers
         public IActionResult ViewFileContent(string? fpath)
         {
             // Validate and get file path and name
-            if (PathFormatter.ValidateEntryPath(fpath) == false || User.Identity!.IsAuthenticated == false)
+            if (!PathFormatter.ValidateEntryPath(fpath) || !User.Identity!.IsAuthenticated)
             {
                 return Redirect("~/viewfiles/");
             }
@@ -215,7 +215,7 @@ namespace fluffyjohn.Controllers
         [Route("/downloadfile/{**fpath}")]
         public IActionResult DownloadFile(string? fpath)
         {
-            if (PathFormatter.ValidateEntryPath(fpath) == false || User.Identity!.IsAuthenticated == false)
+            if (!PathFormatter.ValidateEntryPath(fpath) || !User.Identity!.IsAuthenticated)
             {
                 return Redirect("~/viewfiles/");
             }
@@ -233,7 +233,7 @@ namespace fluffyjohn.Controllers
             var isFile = data.isFile;
 
             // Validate
-            if (User.Identity!.IsAuthenticated == false) { return Redirect("~/login/"); }
+            if (!User.Identity!.IsAuthenticated) { return Redirect("~/login/"); }
 
             // Create clipboard dir
             string userRootDir = Directory.GetCurrentDirectory() + "/UserFileStorer/" + SecurityUtils.MD5Hash(User.Identity!.Name!) + "/";
@@ -260,15 +260,15 @@ namespace fluffyjohn.Controllers
             if (isFile)
             {
                 FileInfo fInfo = new(userRootDir + path);
-                if (fInfo.Exists == false) { return StatusCode(404); }
+                if (!fInfo.Exists) { return StatusCode(404); }
                 fInfo.CopyTo(userRootDir + ".fluffyjohn/clipboard/" + Path.GetFileName(fInfo.FullName), true);
             }
             else {
                 DirectoryInfo dInfo = new(userRootDir + path);
-                if (dInfo.Exists == false) { return StatusCode(404);  }
+                if (!dInfo.Exists) { return StatusCode(404);  }
 
                 string dest = userRootDir + ".fluffyjohn/clipboard";
-                if (CopyDirectory(userRootDir + path, dest) == false) { return StatusCode(500); }
+                if (!CopyDirectory(userRootDir + path, dest)) { return StatusCode(500); }
             }
 
             return StatusCode(200);
@@ -349,7 +349,7 @@ namespace fluffyjohn.Controllers
                 var cd = new System.Net.Mime.ContentDisposition
                 {
                     FileName = fname,
-                    Inline = download == false,
+                    Inline = !download,
                 };
 
                 Response.Headers.Append("Content-Disposition", cd.ToString());
