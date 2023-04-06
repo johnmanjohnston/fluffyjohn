@@ -21,7 +21,7 @@ namespace fluffyjohn.Controllers
         #region Main
         public async Task<IActionResult> Upload()
         {
-            if (Request.Method.ToLower() != "post")
+            if (Request.Method.ToLower() != "post" || Request.Headers.Referer == string.Empty)
             {
                 return Redirect("~/viewfiles/");
             }
@@ -68,10 +68,7 @@ namespace fluffyjohn.Controllers
                 return Redirect(Request.Headers.Referer);
             }
 
-            foreach (var c in dirname!)
-            {
-                dirname = dirname!.Replace(" ", "-");
-            }
+            dirname = dirname!.Replace(" ", "-");
 
             string userSubDir = ((string)Request.Headers.Referer).Split("viewfiles")[1] + "/";
             string userDir = Directory.GetCurrentDirectory() + "/UserFileStorer/" + SecurityUtils.MD5Hash(User.Identity!.Name!) + "/" + userSubDir;
@@ -123,7 +120,7 @@ namespace fluffyjohn.Controllers
             {
                 if (isFile)
                 {
-                    FileInfo fileInfo = new FileInfo(absolutePath);
+                    FileInfo fileInfo = new(absolutePath);
                     fileInfo.Delete();
                 }
                 else 
@@ -178,7 +175,7 @@ namespace fluffyjohn.Controllers
 
                 else 
                 {
-                    System.IO.Directory.Move(fullOrginalPath, fullNewPath);
+                    Directory.Move(fullOrginalPath, fullNewPath);
                 }
             } 
             
@@ -247,7 +244,7 @@ namespace fluffyjohn.Controllers
             }
 
             // Clear clipboard and write
-            DirectoryInfo dirInfo = new DirectoryInfo(userRootDir + ".fluffyjohn/clipboard");
+            DirectoryInfo dirInfo = new(userRootDir + ".fluffyjohn/clipboard");
             foreach (var file in dirInfo.GetFiles())
             {
                 file.Delete();
@@ -262,12 +259,12 @@ namespace fluffyjohn.Controllers
 
             if (isFile)
             {
-                FileInfo fInfo = new FileInfo(userRootDir + path);
+                FileInfo fInfo = new(userRootDir + path);
                 if (fInfo.Exists == false) { return StatusCode(404); }
                 fInfo.CopyTo(userRootDir + ".fluffyjohn/clipboard/" + Path.GetFileName(fInfo.FullName), true);
             }
             else {
-                DirectoryInfo dInfo = new DirectoryInfo(userRootDir + path);
+                DirectoryInfo dInfo = new(userRootDir + path);
                 if (dInfo.Exists == false) { return StatusCode(404);  }
 
                 string dest = userRootDir + ".fluffyjohn/clipboard";
