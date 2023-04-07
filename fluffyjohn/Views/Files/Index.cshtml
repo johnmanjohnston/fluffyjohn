@@ -59,6 +59,7 @@
             <a class="item-action-btn" href="/downloadfile\@reqDirPath@fileEntries[i]"> <img class="icon" src="~/svg/download.svg" /> </a>
             <a class="item-action-btn" href="/viewcontent\@reqDirPath@fileEntries[i]"> <img class="icon" src="~/svg/view.svg" /> </a>
             <a onclick="copy('@reqDirPath@fileEntries[i]');" class="item-action-btn"> <img class="icon" src="~/svg/copy.svg" /></a>
+            <a onclick="javascript:handleSelect('@reqDirPath@fileEntries[i]', 'file-@i')" class="item-action-btn">S</a>
 
             <br />
         </div>
@@ -82,7 +83,9 @@
         <a onclick="renameItem('@reqDirPath/@dirEntries[i]', false)" class="item-action-btn"> <img class="icon" src="~/svg/edit.svg" /> </a>
         <a onclick="confirmDelete('@dirEntries[i]', '@reqDirPath@dirEntries[i]', false)" href="#" class="item-action-btn"> <img class="icon del-icon" src="~/svg/delete.svg" /> </a>
         <a onclick="copy('@reqDirPath/@dirEntries[i]', false);" class="item-action-btn"> <img class="icon" src="~/svg/copy.svg" /></a>
-        
+
+            <a onclick="javascript:handleSelect('@reqDirPath@dirEntries[i]/', 'dir-@i')" class="item-action-btn">S</a>
+
         </div>
     }
 }
@@ -109,3 +112,4 @@
 <script src="~/js/rename.js"></script>
 <script src="~/js/copy.js"></script>
 <script src="~/js/paste.js"></script>
+<script src="~/js/select.js"></script>
