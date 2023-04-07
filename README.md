@@ -14,25 +14,19 @@ TODO
 FluffyJohn is still in progress, but here are some demo screenshots as of 19/2/2023
 
 /
-![image](https://user-images.githubusercontent.com/97091148/219895733-33d424e5-f04f-48b9-9dfe-e30cc32878a4.png)
+![image](https://user-images.githubusercontent.com/97091148/230357747-e3b1becd-96f3-41a1-8bf5-243cea98ac45.png)
 
 /Login
-![image](https://user-images.githubusercontent.com/97091148/219895771-7648bfa8-ff49-4b1d-a627-1c5698479a47.png)
-
-/Register
-![image](https://user-images.githubusercontent.com/97091148/219895786-c2c59046-81c2-4d6b-834b-2ebf64128bf7.png)
+![image](https://user-images.githubusercontent.com/97091148/230357885-b9f2bf2d-758f-4295-a985-1add03cf78ea.png)
 
 /ViewFiles
-![image](https://user-images.githubusercontent.com/97091148/219895833-c7a85f26-91a6-4cf4-a46f-5e60703788f5.png)
+![image](https://user-images.githubusercontent.com/97091148/230357981-5adaf771-6f7a-4284-8d87-9283e5a7f287.png)
 
-/ViewFiles/testdir/subdir-test
-![image](https://user-images.githubusercontent.com/97091148/219895313-6835a7b8-adce-4814-826c-3cbf05c78b59.png)
+/ViewFiles/abc/
+![image](https://user-images.githubusercontent.com/97091148/230358064-12878726-6320-4e8c-b4a3-9da5b4ca5f4b.png)
 
-/ViewFiles/testdir on uploading 2 files
-![image](https://user-images.githubusercontent.com/97091148/219895506-a94be3d9-6914-416a-ac15-f93a6203dbce.png)
-
-Before migrating FluffyJohn to ASP.NET Core, and before deciding to redo everything, the UI used to look like this
-![image](https://media.discordapp.net/attachments/881506129304256562/1048606715479851069/image.png)
+/ViewFiles/abc on uploading 2 files
+![image](https://user-images.githubusercontent.com/97091148/230358307-03c02101-27e2-4f6a-98d4-9c1324923976.png)
 
 ## Progress
 FluffyJohn is still under development, and is not yet completed.
