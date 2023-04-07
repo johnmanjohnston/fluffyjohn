@@ -21,7 +21,8 @@ namespace fluffyjohn.Controllers
         #region Main
         public async Task<IActionResult> Upload()
         {
-            if (Request.Method.ToLower() != "post" || Request.Headers.Referer == string.Empty)
+            if (Request.Method.ToLower() != "post" || Request.Headers.Referer == string.Empty 
+                || !User.Identity!.IsAuthenticated)
             {
                 return Redirect("~/viewfiles/");
             }
