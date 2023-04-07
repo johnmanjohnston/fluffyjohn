@@ -66,8 +66,13 @@ namespace fluffyjohn.Controllers
         {
             if (dirname == null || dirname == string.Empty)
             {
-                return Redirect(Request.Headers.Referer);
+                if (Request.Headers.Referer != string.Empty)
+                { return Redirect(Request.Headers.Referer); }
+                else
+                { return Redirect("~/viewfiles"); }
             }
+
+            if (!User.Identity!.IsAuthenticated) { return Redirect("~/login/"); }
 
             dirname = dirname!.Replace(" ", "-");
 
@@ -83,8 +88,8 @@ namespace fluffyjohn.Controllers
 
             // Flag dirs containing "#" because same char is used to scroll to elements with ID
             Regex validPath = new(@"^(?!.*#)(?:[a-zA-Z]:|\\)(\\[^\\/:*?""<>|\r\n]*)+$");
-
-            if (!validPath.IsMatch(dirInfo.FullName))
+                
+            if (!validPath.IsMatch(dirInfo.FullName) || !dirInfo.FullName.Contains(SecurityUtils.MD5Hash(User!.Identity!.Name!)))
             {
                 Response.Cookies.Append("toast-content", "invalid-dirname");
 
@@ -102,7 +107,7 @@ namespace fluffyjohn.Controllers
             { return Redirect("~/viewfiles"); }
         }
 
-        [Route("/delete")]
+        [Route("/delete/")]
         public IActionResult Delete([FromBody] DeleteModel data) 
         {
             string path = data.path;
@@ -145,6 +150,7 @@ namespace fluffyjohn.Controllers
         [Route("/rename/")]    
         public IActionResult RenameFile([FromBody] RenameItemModel data) 
         {
+            Log("RenameFile() called");
             if (!User.Identity!.IsAuthenticated) { return Redirect("~/login"); }
 
             var orginalPath = data.orginalPath;
@@ -156,18 +162,29 @@ namespace fluffyjohn.Controllers
             string fullOrginalPath = absolutePath + orginalPath;
             string fullNewPath = absolutePath + newpath;
 
-            // Flag dirs containing "#" because same char is used to scroll to elements with ID
-            Regex validPath = new(@"^(?!.*#)(?:[a-zA-Z]:|\\)(\\[^\\/:*?""<>|\r\n]*)+$");
-
-            if (!validPath.IsMatch(fullNewPath)) 
+            if (isFile)
             {
-                if (Request.Headers.Referer != string.Empty)
-                { return Redirect(Request.Headers.Referer); }
-                else
-                { return Redirect("~/viewfiles"); }
+                FileInfo newFileInfo = new(fullNewPath);
+                if (!newFileInfo.FullName.Contains(SecurityUtils.MD5Hash(User!.Identity!.Name!))) 
+                {
+                    return StatusCode(400);
+                }
+            }
+            else
+            {
+                DirectoryInfo newDirInfo = new(fullNewPath);
+                if (!newDirInfo.FullName.Contains(SecurityUtils.MD5Hash(User!.Identity!.Name!))) 
+                {
+                    return StatusCode(400);
+                }
             }
 
-            try 
+            if (!fullNewPath.Contains(SecurityUtils.MD5Hash(User.Identity!.Name!)) || newpath.Contains('#'))
+            {
+                return StatusCode(400);
+            }
+
+            try
             {
                 if (isFile)
                 {
@@ -187,15 +204,7 @@ namespace fluffyjohn.Controllers
                 return StatusCode(406);
             }
 
-            if (Request.Headers.Referer != string.Empty)
-            {
-                return Redirect(Request.Headers.Referer);
-            }
-
-            else 
-            {
-                return Redirect("~/");
-            }
+            return StatusCode(200);
         }
 
         [Route("/viewcontent/{**fpath}")]
@@ -224,7 +233,7 @@ namespace fluffyjohn.Controllers
             FileContentResult? fData = GetFileData(fpath, true);
 
             if (fData != null) { return fData; }
-            else { return Content("Not found"); }
+            else { return StatusCode(404, "404 Not Found"); }
         }
 
         [Route("/copy/")]
