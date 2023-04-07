@@ -73,7 +73,7 @@
             if (dirEntries[i] == ".fluffyjohn")
                 continue;
 
-        string targetHref = $"/viewfiles/{reqDirPath}/{dirEntries[i]}";
+        string targetHref = $"/viewfiles/{reqDirPath}/{dirEntries[i]}/";
 
         <div>
         <div id="dir-@i" class="item-entry-wrapper itype-dir" onclick="javascript:window.location.href = '@Utility.ConfigureDirHref(targetHref)'" >
