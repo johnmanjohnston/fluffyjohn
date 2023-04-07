@@ -4,7 +4,7 @@ function handleSelect(path, id) {
     if (currentlySelected.indexOf(path) == -1) {
         currentlySelected.push(path);
         normalBG = document.getElementById(id).style.background;
-        document.getElementById(id).style.background = "red";
+        document.getElementById(id).style.background = "rgba(255, 255, 255, 0.3)";
     }
     else {
         currentlySelected.splice(currentlySelected.indexOf(path), 1);
