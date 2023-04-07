@@ -11,7 +11,7 @@ TODO
 TODO
 
 ## Demo
-FluffyJohn is still in progress, but here are some demo screenshots as of 19/2/2023
+FluffyJohn is still in progress, but here are some demo screenshots as of 5/4/2023
 
 /
 ![image](https://user-images.githubusercontent.com/97091148/230357747-e3b1becd-96f3-41a1-8bf5-243cea98ac45.png)
