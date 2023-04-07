@@ -297,7 +297,7 @@ namespace fluffyjohn.Controllers
         #endregion
         #region Utility
         // ==================================== UTILITY ====================================
-        private void Log(string msg) { System.Diagnostics.Debug.WriteLine(msg); }
+        private void Log(string msg) => System.Diagnostics.Debug.WriteLine(msg);
 
         private bool CopyDirectory(string source, string dest) 
         {
