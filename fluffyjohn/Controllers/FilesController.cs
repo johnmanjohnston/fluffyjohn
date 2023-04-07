@@ -209,7 +209,7 @@ namespace fluffyjohn.Controllers
             FileContentResult? fData = GetFileData(fpath, false);
 
             if (fData != null) { return fData; }
-            else { return Content("Not found"); }
+            else { return StatusCode(404, "404 Not Found"); }
         }
 
         [Route("/downloadfile/{**fpath}")]
