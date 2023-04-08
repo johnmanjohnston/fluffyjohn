@@ -43,6 +43,22 @@
 
 <div id="toast-container"></div>
 
+
+<h1>New Item</h1>
+
+<form action="/files/upload" method="post" enctype="multipart/form-data">
+    <label>Upload file(s): </label>
+    <input type="file" name="uploads" multiple />
+    <input type="submit" />
+</form>
+
+<form action="/files/newdir" method="post">
+    <label>Directory name: </label>  <br />
+    <input type="text" name="dirname" />
+    <input type="submit" value="Create Directory" />
+</form>
+
+<br /> 
 <div id="dir-selector">
     <a class="dir-select" href="/viewfiles/">Home/</a>
 
@@ -93,16 +109,7 @@
 
 <br />
 
-<form action="/files/upload" method="post" enctype="multipart/form-data">
-    <input type="file" name="uploads" multiple />
-    <input type="submit" />
-</form>
-<br />
-<form action="/files/newdir" method="post">
-    <label>Directory name: </label>  <br />
-    <input type="text" name="dirname" />
-    <input type="submit" value="Create Directory" />
-</form>
+
 
 <button onclick="paste()">Paste</button>
 
