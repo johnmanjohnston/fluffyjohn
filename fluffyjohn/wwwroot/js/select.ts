@@ -15,3 +15,18 @@ function handleSelect(path: string, id: string)
 
     console.log(currentlySelected);
 }
+
+function selectCopy() {
+    var data = { paths: currentlySelected };
+
+    fetch("https://localhost:7111/selectcopy/", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        },
+
+        body: JSON.stringify(data)
+    }).then(res => {
+    });
+}

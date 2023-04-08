@@ -304,6 +304,19 @@ namespace fluffyjohn.Controllers
 
             return StatusCode(200);
         }
+        // ============================== SELECT ITEMS ACTION ==============================
+
+        [Route("/selectcopy/")]
+        public IActionResult SelectCopy([FromBody] SelectCopyModel data) 
+        {
+            foreach (var path in data.paths)
+            {
+                Log(path);
+            }
+
+            return Ok();
+        }
+
         #endregion
         #region Utility
         // ==================================== UTILITY ====================================
