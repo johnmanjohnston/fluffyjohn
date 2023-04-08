@@ -333,8 +333,6 @@ namespace fluffyjohn.Controllers
 
             foreach (var path in data.paths)
             {
-                Log(path);
-
                 // All dirs end with "/". If it path doesn't, then it's a file
                 if (!path.EndsWith("/"))
                 {
@@ -345,15 +343,14 @@ namespace fluffyjohn.Controllers
                 
                 else
                 {
-                    Log(path);
-                    DirectoryInfo copyDirInfo = new(userRootDir + path);
-                    Log(copyDirInfo.FullName);
-
-                    CopyDirectory(userRootDir + path, userRootDir + "/.fluffyjohn/clipboard/");
+                    if (!CopyDirectory(userRootDir + path, userRootDir + "/.fluffyjohn/clipboard/"))
+                    {
+                        return StatusCode(500);
+                    }
                 }
             }
 
-            return Ok();
+            return StatusCode(200);
         }
 
         #endregion
