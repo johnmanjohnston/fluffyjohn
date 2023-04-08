@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.StaticFiles;
 using System.Text.RegularExpressions;
 
 using fluffyjohn.Models;
+using System.IO;
 
 namespace fluffyjohn.Controllers
 {
@@ -309,9 +310,47 @@ namespace fluffyjohn.Controllers
         [Route("/selectcopy/")]
         public IActionResult SelectCopy([FromBody] SelectCopyModel data) 
         {
+            string userRootDir = Directory.GetCurrentDirectory() + "/UserFileStorer/" + SecurityUtils.MD5Hash(User.Identity!.Name!) + "/";
+
+            if (!Directory.Exists(userRootDir + ".fluffyjohn/clipboard"))
+            {
+                Directory.CreateDirectory(userRootDir + ".fluffyjohn/clipboard");
+            }
+
+            // Clear clipboard and write
+            DirectoryInfo dirInfo = new(userRootDir + ".fluffyjohn/clipboard");
+            foreach (var file in dirInfo.GetFiles())
+            {
+                file.Delete();
+            }
+
+            var dirs = Directory.GetDirectories(userRootDir + ".fluffyjohn/clipboard");
+
+            foreach (var dir in dirs)
+            {
+                Directory.Delete(dir, true);
+            }
+
             foreach (var path in data.paths)
             {
                 Log(path);
+
+                // All dirs end with "/". If it path doesn't, then it's a file
+                if (!path.EndsWith("/"))
+                {
+                    FileInfo fInfo = new(userRootDir + path);
+                    if (!fInfo.Exists) { return StatusCode(404); }
+                    fInfo.CopyTo(userRootDir + ".fluffyjohn/clipboard/" + Path.GetFileName(fInfo.FullName), true);
+                }
+                
+                else
+                {
+                    Log(path);
+                    DirectoryInfo copyDirInfo = new(userRootDir + path);
+                    Log(copyDirInfo.FullName);
+
+                    CopyDirectory(userRootDir + path, userRootDir + "/.fluffyjohn/clipboard/");
+                }
             }
 
             return Ok();
