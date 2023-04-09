@@ -85,12 +85,8 @@
 @{
     for (int i = 0; i <  dirEntryCount; i++)
     {
-        if (reqDirPath == "/")
-            if (dirEntries[i] == ".fluffyjohn")
-                continue;
-
         string targetHref = $"/viewfiles/{reqDirPath}/{dirEntries[i]}/";
-        int id = (fileEntryCount - 1) + i;
+        int id = (fileEntryCount) + i;
 
         <div>
         <div id="item-@id" class="item-entry-wrapper itype-dir" onclick="javascript:window.location.href = '@Utility.ConfigureDirHref(targetHref)'" >

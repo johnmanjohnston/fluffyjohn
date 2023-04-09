@@ -368,6 +368,11 @@ namespace fluffyjohn.Controllers
 
         private static bool CopyDirectory(string source, string dest) 
         {
+            if (!Directory.Exists(dest)) 
+            {
+                Directory.CreateDirectory(dest); 
+            }
+
             try
             {
                 foreach (string dPath in Directory.GetDirectories(source, "*", SearchOption.AllDirectories))
