@@ -2,6 +2,6 @@
 {
     public class SelectCopyModel
     {
-        public string[] paths { get; set; }
+        public string[]? Paths { get; set; }
     }
 }

@@ -332,7 +332,7 @@ namespace fluffyjohn.Controllers
                 Directory.Delete(dir, true);
             }
 
-            foreach (var path in data.paths)
+            foreach (var path in data.Paths)
             {
                 // All dir paths end with "/". If the path doesn't, then it's a file
                 if (!path.EndsWith("/"))
