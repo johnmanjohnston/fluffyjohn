@@ -111,8 +111,8 @@ namespace fluffyjohn.Controllers
         [Route("/delete/")]
         public IActionResult Delete([FromBody] DeleteModel data) 
         {
-            string path = data.path;
-            bool isFile = data.isFile;
+            string path = data.Path;
+            bool isFile = data.IsFile;
 
             if (!PathFormatter.ValidateEntryPath(path) || !User.Identity!.IsAuthenticated)
             {
@@ -240,8 +240,8 @@ namespace fluffyjohn.Controllers
         [Route("/copy/")]
         public IActionResult CopyItem([FromBody] CopyModel data) 
         {
-            var path = data.path;
-            var isFile = data.isFile;
+            var path = data.Path;
+            var isFile = data.IsFile;
 
             // Validate
             if (!User.Identity!.IsAuthenticated) { return Redirect("~/login/"); }

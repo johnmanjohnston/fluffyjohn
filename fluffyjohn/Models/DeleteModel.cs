@@ -2,7 +2,7 @@
 {
     public class DeleteModel
     {
-        public string path { get; set; }
-        public bool isFile { get; set; }
+        public string? Path { get; set; }
+        public bool IsFile { get; set; }
     }
 }
