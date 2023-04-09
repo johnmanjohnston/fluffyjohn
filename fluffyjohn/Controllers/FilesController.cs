@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.StaticFiles;
 using System.Text.RegularExpressions;
+using System.Linq;
 
 using fluffyjohn.Models;
-using System.IO;
 
 namespace fluffyjohn.Controllers
 {
@@ -311,6 +311,7 @@ namespace fluffyjohn.Controllers
         public IActionResult SelectCopy([FromBody] SelectCopyModel data) 
         {
             string userRootDir = Directory.GetCurrentDirectory() + "/UserFileStorer/" + SecurityUtils.MD5Hash(User.Identity!.Name!) + "/";
+            int failedCopies = 0;
 
             if (!Directory.Exists(userRootDir + ".fluffyjohn/clipboard"))
             {
@@ -339,8 +340,21 @@ namespace fluffyjohn.Controllers
                     FileInfo fInfo = new(userRootDir + path);
                     // If one or more files are missing, don't return an error code and interrupt other 
                     // file copies, just continue
-                    if (!fInfo.Exists) { continue; }
-                    fInfo.CopyTo(userRootDir + ".fluffyjohn/clipboard/" + Path.GetFileName(fInfo.FullName), true);
+                    if (!fInfo.Exists) 
+                    { 
+                        failedCopies++;
+                        continue; 
+                    }
+
+                    try
+                    {
+                        fInfo.CopyTo(userRootDir + ".fluffyjohn/clipboard/" + Path.GetFileName(fInfo.FullName), true);
+                    } 
+                    
+                    catch
+                    {
+                        failedCopies++;
+                    }
                 }
                 
                 else
@@ -349,13 +363,28 @@ namespace fluffyjohn.Controllers
 
                     // Again, if one or more directories don't exist, just continue, to
                     // not interrupt the copying for other directories
-                    if (!dInfo.Exists) { continue; }
+                    if (!dInfo.Exists)
+                    { 
+                        continue; 
+                    }
 
                     if (!CopyDirectory(userRootDir + path, userRootDir + "/.fluffyjohn/clipboard/"))
                     {
-                        return StatusCode(500);
+                        failedCopies++;
                     }
                 }
+            }
+
+            if (failedCopies > 0)
+            {
+                // https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/207
+                // 207 Multi-Status
+
+                // Use 207 to inform browser that althought most of the transaction went
+                // smoothly, some things went wrong. In this case, missing files
+                // and use copyInfo to provide info on how many files went successfully,
+                // and how many copies failed
+                return StatusCode(207, failedCopies);
             }
 
             return StatusCode(200);
