@@ -333,7 +333,7 @@ namespace fluffyjohn.Controllers
 
             foreach (var path in data.paths)
             {
-                // All dirs end with "/". If it path doesn't, then it's a file
+                // All dir paths end with "/". If the path doesn't, then it's a file
                 if (!path.EndsWith("/"))
                 {
                     FileInfo fInfo = new(userRootDir + path);
