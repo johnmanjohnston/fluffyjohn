@@ -238,7 +238,7 @@ namespace fluffyjohn.Controllers
         }
 
         [Route("/copy/")]
-        public IActionResult CopyFile([FromBody] CopyModel data) 
+        public IActionResult CopyItem([FromBody] CopyModel data) 
         {
             var path = data.path;
             var isFile = data.isFile;
