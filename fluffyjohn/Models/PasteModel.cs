@@ -2,6 +2,6 @@
 {
     public class PasteModel
     {
-        public string route { get; set; }
+        public string? Route { get; set; }
     }
 }

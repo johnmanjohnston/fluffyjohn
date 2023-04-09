@@ -288,7 +288,7 @@ namespace fluffyjohn.Controllers
         [Route("/paste/")]
         public IActionResult Paste([FromBody] PasteModel data) 
         {
-            string targetPasteRoute = data.route + "/";
+            string targetPasteRoute = data.Route + "/";
             string userRootDir = Directory.GetCurrentDirectory() + "/UserFileStorer/" + SecurityUtils.MD5Hash(User.Identity!.Name!) + "/";
 
             try
