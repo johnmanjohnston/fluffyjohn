@@ -358,7 +358,7 @@ namespace fluffyjohn.Controllers
         // ==================================== UTILITY ====================================
         private void Log(string msg) => System.Diagnostics.Debug.WriteLine(msg);
 
-        private bool CopyDirectory(string source, string dest) 
+        private static bool CopyDirectory(string source, string dest) 
         {
             try
             {
