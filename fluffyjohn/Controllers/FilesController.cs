@@ -337,12 +337,20 @@ namespace fluffyjohn.Controllers
                 if (!path.EndsWith("/"))
                 {
                     FileInfo fInfo = new(userRootDir + path);
-                    if (!fInfo.Exists) { return StatusCode(404); }
+                    // If one or more files are missing, don't return an error code and interrupt other 
+                    // file copies, just continue
+                    if (!fInfo.Exists) { continue; }
                     fInfo.CopyTo(userRootDir + ".fluffyjohn/clipboard/" + Path.GetFileName(fInfo.FullName), true);
                 }
                 
                 else
                 {
+                    DirectoryInfo dInfo = new(userRootDir + path);
+
+                    // Again, if one or more directories don't exist, just continue, to
+                    // not interrupt the copying for other directories
+                    if (!dInfo.Exists) { continue; }
+
                     if (!CopyDirectory(userRootDir + path, userRootDir + "/.fluffyjohn/clipboard/"))
                     {
                         return StatusCode(500);
