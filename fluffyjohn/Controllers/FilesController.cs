@@ -154,9 +154,9 @@ namespace fluffyjohn.Controllers
             Log("RenameFile() called");
             if (!User.Identity!.IsAuthenticated) { return Redirect("~/login"); }
 
-            var orginalPath = data.orginalPath;
+            var orginalPath = data.OrginalPath;
             var newpath = data.newPath;
-            var isFile = data.isFile;
+            var isFile = data.IsFile;
 
             string absolutePath = Directory.GetCurrentDirectory() + "/UserFileStorer/" + SecurityUtils.MD5Hash(User.Identity!.Name!) + "/";
 

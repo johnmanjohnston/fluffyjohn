@@ -2,8 +2,8 @@
 {
     public class RenameItemModel
     {
-        public string orginalPath { get; set; }
-        public string newPath { get; set; }
-        public bool isFile { get; set; }
+        public string? OrginalPath { get; set; }
+        public string? NewPath { get; set; }
+        public bool IsFile { get; set; }
     }
 }
