@@ -149,7 +149,7 @@ namespace fluffyjohn.Controllers
 
         [HttpPost]
         [Route("/rename/")]    
-        public IActionResult RenameFile([FromBody] RenameItemModel data) 
+        public IActionResult RenameItem([FromBody] RenameItemModel data) 
         {
             Log("RenameFile() called");
             if (!User.Identity!.IsAuthenticated) { return Redirect("~/login"); }
