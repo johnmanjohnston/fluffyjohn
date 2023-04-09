@@ -154,14 +154,16 @@ namespace fluffyjohn.Controllers
             Log("RenameFile() called");
             if (!User.Identity!.IsAuthenticated) { return Redirect("~/login"); }
 
-            var orginalPath = data.OrginalPath;
-            var newpath = data.NewPath;
-            var isFile = data.IsFile;
+            string? orginalPath = data.OrginalPath;
+            string? newPath = data.NewPath;
+            bool isFile = data.IsFile;
+
+            if (orginalPath == null || newPath == null) { return StatusCode(400); }
 
             string absolutePath = Directory.GetCurrentDirectory() + "/UserFileStorer/" + SecurityUtils.MD5Hash(User.Identity!.Name!) + "/";
 
             string fullOrginalPath = absolutePath + orginalPath;
-            string fullNewPath = absolutePath + newpath;
+            string fullNewPath = absolutePath + newPath;
 
             if (isFile)
             {
@@ -180,7 +182,7 @@ namespace fluffyjohn.Controllers
                 }
             }
 
-            if (!fullNewPath.Contains(SecurityUtils.MD5Hash(User.Identity!.Name!)) || newpath.Contains('#'))
+            if (!fullNewPath.Contains(SecurityUtils.MD5Hash(User.Identity!.Name!)) || newPath.Contains('#'))
             {
                 return StatusCode(400);
             }
