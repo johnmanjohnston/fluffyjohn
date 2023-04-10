@@ -111,8 +111,13 @@ namespace fluffyjohn.Controllers
         [Route("/delete/")]
         public IActionResult Delete([FromBody] DeleteModel data) 
         {
-            string path = data.Path;
+            string? path = data.Path;
             bool isFile = data.IsFile;
+
+            if (path == null || path.Length == 0 || path == string.Empty) 
+            {
+                return StatusCode(400);
+            }
 
             if (!PathFormatter.ValidateEntryPath(path) || !User.Identity!.IsAuthenticated)
             {
@@ -221,8 +226,7 @@ namespace fluffyjohn.Controllers
 
             FileContentResult? fData = GetFileData(fpath, false);
 
-            if (fData != null) { return fData; }
-            else { return StatusCode(404, "404 Not Found"); }
+            return fData != null ? fData : StatusCode(404, "404 Not Found");
         }
 
         [Route("/downloadfile/{**fpath}")]
@@ -235,8 +239,7 @@ namespace fluffyjohn.Controllers
 
             FileContentResult? fData = GetFileData(fpath, true);
 
-            if (fData != null) { return fData; }
-            else { return StatusCode(404, "404 Not Found"); }
+            return fData != null ? fData : StatusCode(404, "404 Not Found");
         }
 
         [Route("/copy/")]
@@ -334,7 +337,7 @@ namespace fluffyjohn.Controllers
                 Directory.Delete(dir, true);
             }
 
-            foreach (var path in data.Paths)
+            foreach (var path in data.Paths!)
             {
                 // All dir paths end with "/". If the path doesn't, then it's a file
                 if (!path.EndsWith("/"))
