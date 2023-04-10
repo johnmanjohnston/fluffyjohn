@@ -3,18 +3,24 @@
 #include <stdlib.h>
 #include <string>
 #include <thread>
+#include <signal.h>
 
-// Variable definitions
-int iteration = 0;
-int iterationCap = 2;
+int iteration;
+int iterationCap = 200;
+int sleepTime = 1;
 
 bool capIterations = false;
 bool countLogs = true;
 
-// Functions
+// Exit handler
+void HandleExit(int sig) {
+    std::cout << "Exiting with " << iteration << " log(s)";
+    exit(0);
+}
+
 void Sleep() 
 {
-    std::this_thread::sleep_for(std::chrono::seconds(5));
+    std::this_thread::sleep_for(std::chrono::seconds(sleepTime));
 }
 
 void RecursiveRun() 
@@ -33,13 +39,31 @@ void RecursiveRun()
         std::cout << "Running iteration " << iteration << "...\n";
     }
 
-    system("sass storage.scss storage.css"); // Main
+    system("sass storage.scss storage.css");
     Sleep();
 
     RecursiveRun();
 }
 
-int main() 
+int main(int argc, char *argv[])
 {
+    signal(SIGINT, HandleExit);
+
+    // 0              1           2
+    // ./periodic-run <sleepTime> <iterationCap>
+
+    if (argc < 2) 
+    {
+        std::cout << "Insufficient arguments, using default values\n";
+    } 
+
+    else 
+    {
+        sleepTime = std::stoi(argv[1]);
+        iterationCap = std::stoi(argv[2]);
+    }
+
+    std::cout << "sleepTime: " << sleepTime << "; iterationCap: " << iterationCap << "\n";
+
     RecursiveRun();
 }
