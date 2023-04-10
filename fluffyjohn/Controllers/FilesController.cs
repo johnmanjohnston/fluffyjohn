@@ -51,14 +51,7 @@ namespace fluffyjohn.Controllers
                 Response.Cookies.Append("toast-content", $"upload-success.{fCount}");
             }
 
-            if (Request.Headers.Referer != string.Empty)
-            {
-                return Redirect(Request.Headers.Referer);
-            }
-            else
-            {
-                return Redirect("~/viewfiles");
-            }
+            return Request.Headers.Referer != string.Empty ? Redirect(Request.Headers.Referer) : Redirect("~/viewfiles");
         }
 
         [HttpPost]
@@ -67,10 +60,7 @@ namespace fluffyjohn.Controllers
         {
             if (dirname == null || dirname == string.Empty)
             {
-                if (Request.Headers.Referer != string.Empty)
-                { return Redirect(Request.Headers.Referer); }
-                else
-                { return Redirect("~/viewfiles"); }
+                return Request.Headers.Referer != string.Empty ? Redirect(Request.Headers.Referer) : Redirect("~/viewfiles");
             }
 
             if (!User.Identity!.IsAuthenticated) { return Redirect("~/login/"); }
@@ -94,18 +84,12 @@ namespace fluffyjohn.Controllers
             {
                 Response.Cookies.Append("toast-content", "invalid-dirname");
 
-                if (Request.Headers.Referer != string.Empty)
-                { return Redirect(Request.Headers.Referer); }
-                else
-                { return Redirect("~/viewfiles"); }
+                return Request.Headers.Referer != string.Empty ? Redirect(Request.Headers.Referer) : Redirect("~/viewfiles");
             }
 
             dirInfo.Create();
 
-            if (Request.Headers.Referer != string.Empty)
-            { return Redirect(Request.Headers.Referer); }
-            else
-            { return Redirect("~/viewfiles"); }
+            return Request.Headers.Referer != string.Empty ? Redirect(Request.Headers.Referer) : Redirect("~/viewfiles");
         }
 
         [Route("/delete/")]
@@ -221,7 +205,7 @@ namespace fluffyjohn.Controllers
             // Validate and get file path and name
             if (!PathFormatter.ValidateEntryPath(fpath) || !User.Identity!.IsAuthenticated)
             {
-                return Redirect("~/viewfiles/");
+                return Request.Headers.Referer != string.Empty ? Redirect(Request.Headers.Referer) : Redirect("~/viewfiles");
             }
 
             FileContentResult? fData = GetFileData(fpath, false);
