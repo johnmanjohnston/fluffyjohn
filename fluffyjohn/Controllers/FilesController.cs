@@ -11,12 +11,7 @@ namespace fluffyjohn.Controllers
         [Route("/viewfiles/{**dirpath}")]
         public IActionResult Index()
         {
-            if (!User.Identity!.IsAuthenticated)
-            {
-                return Redirect("~/login");
-            }
-
-            return View();
+            return !User.Identity!.IsAuthenticated ? Redirect("~/login/") : View();
         }
 
         #region Main
