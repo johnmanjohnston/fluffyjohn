@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.StaticFiles;
 using System.Text.RegularExpressions;
-using System.Linq;
 
 using fluffyjohn.Models;
 
@@ -362,9 +361,8 @@ namespace fluffyjohn.Controllers
                 // 207 Multi-Status
 
                 // Use 207 to inform browser that althought most of the transaction went
-                // smoothly, some things went wrong. In this case, missing files
-                // and use copyInfo to provide info on how many files went successfully,
-                // and how many copies failed
+                // smoothly, some things went wrong. In this case, we inform the browser
+                // how many files failed to copy.
                 return StatusCode(207, failedCopies);
             }
 
