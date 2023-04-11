@@ -70,7 +70,7 @@ namespace fluffyjohn.Controllers
             string userSubDir = ((string)Request.Headers.Referer).Split("viewfiles")[1] + "/";
             string userDir = Directory.GetCurrentDirectory() + "/UserFileStorer/" + SecurityUtils.MD5Hash(User.Identity!.Name!) + "/" + userSubDir;
 
-            if (Directory.Exists($"{userDir}/{dirname}") == true)
+            if (Directory.Exists($"{userDir}/{dirname}"))
             {
                 return Redirect(Request.Headers.Referer);
             }
@@ -411,7 +411,7 @@ namespace fluffyjohn.Controllers
 
         private FileContentResult? GetFileData(string? fpath, bool download = false)
         {
-            if (User.Identity!.IsAuthenticated == false) 
+            if (!User.Identity!.IsAuthenticated) 
             {
                 return null;
             }
