@@ -417,24 +417,16 @@ namespace fluffyjohn.Controllers
             }
 
             string absolutePath = Directory.GetCurrentDirectory() + "/UserFileStorer/" + SecurityUtils.MD5Hash(User.Identity!.Name!) + "/" + fpath;
-            string fname = fpath!;
+            string? fname = fpath!;
 
             char dirSplitter = '/';
-            if (fname.Contains(dirSplitter))
-            {
-                fname = fpath!.Split(dirSplitter)[fname.Split(dirSplitter).Length - 1];
-            }
-
-            else
-            {
-                fname = fpath!;
-            }
+            fname = fname.Contains(dirSplitter) ? fpath!.Split(dirSplitter)[fname.Split(dirSplitter).Length - 1] : fpath;
 
             if (System.IO.File.Exists(absolutePath))
             {
                 // Return file
                 byte[] fData = System.IO.File.ReadAllBytes(absolutePath);
-                new FileExtensionContentTypeProvider().TryGetContentType(fname, out string? fmType);
+                new FileExtensionContentTypeProvider().TryGetContentType(fname!, out string? fmType);
 
                 var cd = new System.Net.Mime.ContentDisposition
                 {
