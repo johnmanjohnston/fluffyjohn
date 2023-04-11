@@ -41,10 +41,7 @@ namespace fluffyjohn.Controllers
                 await fl.CopyToAsync(inputStream);
             }
 
-            if (fCount != 0)
-            {
-                Response.Cookies.Append("toast-content", $"upload-success.{fCount}");
-            }
+            Response.Cookies.Append("toast-content", $"upload-success.{fCount}");
 
             return Request.Headers.Referer != string.Empty ? Redirect(Request.Headers.Referer) : Redirect("~/viewfiles");
         }
@@ -55,7 +52,7 @@ namespace fluffyjohn.Controllers
         {
             if (dirname == null || dirname == string.Empty)
             {
-                return Request.Headers.Referer != string.Empty ? Redirect(Request.Headers.Referer) : Redirect("~/viewfiles");
+                return Request.Headers.Referer != string.Empty ? Redirect(Request.Headers.Referer) : StatusCode(400);
             }
 
             if (!User.Identity!.IsAuthenticated) { return Redirect("~/login/"); }
