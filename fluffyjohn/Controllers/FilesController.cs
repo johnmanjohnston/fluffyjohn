@@ -90,7 +90,7 @@ namespace fluffyjohn.Controllers
             string? path = data.Path;
             bool isFile = data.IsFile;
 
-            if (path == null || path.Length == 0 || path == string.Empty) 
+            if (string.IsNullOrEmpty(path)) 
             {
                 return StatusCode(400);
             }
@@ -132,14 +132,13 @@ namespace fluffyjohn.Controllers
         [Route("/rename/")]    
         public IActionResult RenameItem([FromBody] RenameItemModel data) 
         {
-            Log("RenameFile() called");
             if (!User.Identity!.IsAuthenticated) { return Redirect("~/login"); }
 
             string? orginalPath = data.OrginalPath;
             string? newPath = data.NewPath;
             bool isFile = data.IsFile;
 
-            if (orginalPath == null || newPath == null) { return StatusCode(400); }
+            if (string.IsNullOrEmpty(orginalPath) || string.IsNullOrEmpty(newPath)) { return StatusCode(400); }
 
             string absolutePath = Directory.GetCurrentDirectory() + "/UserFileStorer/" + SecurityUtils.MD5Hash(User.Identity!.Name!) + "/";
 
@@ -195,7 +194,7 @@ namespace fluffyjohn.Controllers
         public IActionResult ViewFileContent(string? fpath)
         {
             // Validate and get file path and name
-            if (!PathFormatter.ValidateEntryPath(fpath) || !User.Identity!.IsAuthenticated)
+            if (!PathFormatter.ValidateEntryPath(fpath) || !User.Identity!.IsAuthenticated || string.IsNullOrEmpty(fpath))
             {
                 return Request.Headers.Referer != string.Empty ? Redirect(Request.Headers.Referer) : Redirect("~/viewfiles");
             }
@@ -208,7 +207,7 @@ namespace fluffyjohn.Controllers
         [Route("/downloadfile/{**fpath}")]
         public IActionResult DownloadFile(string? fpath)
         {
-            if (!PathFormatter.ValidateEntryPath(fpath) || !User.Identity!.IsAuthenticated)
+            if (!PathFormatter.ValidateEntryPath(fpath) || !User.Identity!.IsAuthenticated || string.IsNullOrEmpty(fpath))
             {
                 return Redirect("~/viewfiles/");
             }
@@ -224,7 +223,7 @@ namespace fluffyjohn.Controllers
             var path = data.Path;
             var isFile = data.IsFile;
 
-            // Validate
+            // Authenticate user
             if (!User.Identity!.IsAuthenticated) { return Redirect("~/login/"); }
 
             // Create clipboard dir
