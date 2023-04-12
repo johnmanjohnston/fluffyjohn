@@ -22,16 +22,17 @@ namespace fluffyjohn.Controllers
                 return Redirect("~/viewfiles/");
             }
 
-            string userSubDir = ((string)Request.Headers.Referer).Split("viewfiles")[1] + "/";
-            string userDir = Directory.GetCurrentDirectory() + "/UserFileStorer/" + SecurityUtils.MD5Hash(User.Identity!.Name!) + "/" + userSubDir;
             IFormFileCollection files = Request.Form.Files;
-
             int fCount = files.Count;
 
             if (fCount == 0)
             {
                 return Redirect("~/viewfiles/");
             }
+
+            string userSubDir = ((string)Request.Headers.Referer).Split("viewfiles")[1] + "/";
+            string userDir = Directory.GetCurrentDirectory() + "/UserFileStorer/" + SecurityUtils.MD5Hash(User.Identity!.Name!) + "/" + userSubDir;
+
 
             for (int i = 0; i < fCount; i++)
             {
@@ -49,12 +50,12 @@ namespace fluffyjohn.Controllers
         [Route("/files/newdir/")]
         public IActionResult NewDir(string? dirname)
         {
-            if (dirname == null || dirname == string.Empty)
+            if (!User.Identity!.IsAuthenticated) { return Redirect("~/login/"); }
+
+            if (string.IsNullOrEmpty(dirname))
             {
                 return Request.Headers.Referer != string.Empty ? Redirect(Request.Headers.Referer) : StatusCode(400);
             }
-
-            if (!User.Identity!.IsAuthenticated) { return Redirect("~/login/"); }
 
             dirname = dirname!.Replace(" ", "-");
 
