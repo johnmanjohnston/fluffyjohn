@@ -32,4 +32,4 @@ FluffyJohn is still in progress, but here are some demo screenshots as of 5/4/20
 FluffyJohn is still under development, and is not yet completed.
 
 ## License
-FluffyJohn is licensed under the MIT License. More information can be found in the [LICENSE](https://github.com/johnmanjohnston/fluffyjohn/blob/master/LICENSE) file.
+FluffyJohn is licensed under the [MIT License](https://opensource.org/license/mit/). More information can be found in the [LICENSE](https://github.com/johnmanjohnston/fluffyjohn/blob/master/LICENSE) file.
