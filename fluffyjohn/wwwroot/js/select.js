@@ -13,6 +13,10 @@ function handleSelect(path, id) {
     console.log(currentlySelected);
 }
 function selectCopy() {
+    if (currentlySelected.length == 0) {
+        createToast("No items selected");
+        return;
+    }
     var data = { paths: currentlySelected };
     fetch("https://localhost:7111/selectcopy/", {
         method: "POST",
@@ -25,6 +29,10 @@ function selectCopy() {
     });
 }
 function deleteCopy() {
+    if (currentlySelected.length == 0) {
+        createToast("No items selected");
+        return;
+    }
     var data = { paths: currentlySelected };
     fetch("https://localhost:7111/deletecopy/", {
         method: "POST",
