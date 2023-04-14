@@ -111,6 +111,7 @@ namespace fluffyjohn.Controllers
                     FileInfo fileInfo = new(absolutePath);
                     fileInfo.Delete();
                 }
+
                 else 
                 {
                     DirectoryInfo dirInfo = new(absolutePath);
@@ -315,40 +316,40 @@ namespace fluffyjohn.Controllers
             foreach (var path in data.Paths!)
             {
                 // All dir paths end with "/". If the path doesn't, then it's a file
-                if (!path.EndsWith("/"))
+                if (path.EndsWith("/"))
+                {
+                    DirectoryInfo dInfo = new(userRootDir + path);
+
+                    // If one or more directories don't exist, just continue, to
+                    // not interrupt the copying for other directories
+                    if (!dInfo.Exists)
+                    {
+                        continue;
+                    }
+
+                    if (!CopyDirectory(userRootDir + path, userRootDir + "/.fluffyjohn/clipboard/"))
+                    {
+                        failedCopies++;
+                    }
+                }
+
+                else
                 {
                     FileInfo fInfo = new(userRootDir + path);
                     // If one or more files are missing, don't return an error code and interrupt other 
                     // file copies, just continue
-                    if (!fInfo.Exists) 
-                    { 
+                    if (!fInfo.Exists)
+                    {
                         failedCopies++;
-                        continue; 
+                        continue;
                     }
 
                     try
                     {
                         fInfo.CopyTo(userRootDir + ".fluffyjohn/clipboard/" + Path.GetFileName(fInfo.FullName), true);
-                    } 
-                    
+                    }
+
                     catch
-                    {
-                        failedCopies++;
-                    }
-                }
-                
-                else
-                {
-                    DirectoryInfo dInfo = new(userRootDir + path);
-
-                    // Again, if one or more directories don't exist, just continue, to
-                    // not interrupt the copying for other directories
-                    if (!dInfo.Exists)
-                    { 
-                        continue; 
-                    }
-
-                    if (!CopyDirectory(userRootDir + path, userRootDir + "/.fluffyjohn/clipboard/"))
                     {
                         failedCopies++;
                     }
@@ -384,7 +385,7 @@ namespace fluffyjohn.Controllers
 
                 else 
                 {
-                    FileInfo fileInfo = new FileInfo(userRootDir + path);
+                    FileInfo fileInfo = new(userRootDir + path);
 
                     try { fileInfo.Delete(); }
                     catch { failedDeletes++; }
