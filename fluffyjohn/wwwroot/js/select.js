@@ -24,4 +24,18 @@ function selectCopy() {
     }).then(function (res) {
     });
 }
+function deleteCopy() {
+    var data = { paths: currentlySelected };
+    fetch("https://localhost:7111/deletecopy/", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        },
+        body: JSON.stringify(data)
+    }).then(function (res) {
+        if (res.ok)
+            location.reload();
+    });
+}
 //# sourceMappingURL=select.js.map

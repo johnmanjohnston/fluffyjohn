@@ -355,18 +355,50 @@ namespace fluffyjohn.Controllers
                 }
             }
 
-            if (failedCopies > 0)
-            {
-                // https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/207
-                // 207 Multi-Status
+            // https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/207
+            // 207 Multi-Status
 
-                // Use 207 to inform browser that althought most of the transaction went
-                // smoothly, some things went wrong. In this case, we inform the browser
-                // how many files failed to copy.
-                return StatusCode(207, failedCopies);
+            // Use 207 to inform browser that althought most of the transaction went
+            // smoothly, some things went wrong. In this case, we inform the browser
+            // how many files failed to copy, and in this case we only return 207
+            // if failedCopies == 0
+            return failedCopies == 0 ? StatusCode(200) : StatusCode(207);
+        }
+
+        [Route("/deletecopy/")]
+        public IActionResult DeleteCopy([FromBody] DeleteCopyModel data) 
+        {
+            string userRootDir = Directory.GetCurrentDirectory() + "/UserFileStorer/" + SecurityUtils.MD5Hash(User.Identity!.Name!) + "/";
+            int failedDeletes = 0;
+
+            foreach (var path in data.Paths!)
+            {
+                // If path ends with "/", then it's a directory, else it's a file
+                if (path.EndsWith("/"))
+                {
+                    DirectoryInfo dirInfo = new(userRootDir + path);
+
+                    try { dirInfo.Delete(true); }
+                    catch { failedDeletes++; }
+                }
+
+                else 
+                {
+                    FileInfo fileInfo = new FileInfo(userRootDir + path);
+
+                    try { fileInfo.Delete(); }
+                    catch { failedDeletes++; }
+                }
             }
 
-            return StatusCode(200);
+            // https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/207
+            // 207 Multi-Status
+
+            // Use 207 to inform browser that althought most of the transaction went
+            // smoothly, some things went wrong. In this case, we inform the browser
+            // how many files failed to copy, and in this case we only return 207
+            // if failedDeletes == 0
+            return failedDeletes == 0 ? StatusCode(200) : StatusCode(207);
         }
 
         #endregion

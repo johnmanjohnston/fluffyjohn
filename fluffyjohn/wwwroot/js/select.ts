@@ -30,3 +30,19 @@ function selectCopy() {
     }).then(res => {
     });
 }
+
+function deleteCopy() {
+    var data = { paths: currentlySelected };
+
+    fetch("https://localhost:7111/deletecopy/", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        },
+
+        body: JSON.stringify(data)
+    }).then(res => {
+        if (res.ok) location.reload();
+    });
+}
