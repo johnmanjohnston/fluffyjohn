@@ -26,6 +26,11 @@ function selectCopy() {
         },
         body: JSON.stringify(data)
     }).then(function (res) {
+        res.json().then(function (failedCopies) {
+            if (failedCopies > 0) {
+                createToast("Couldn't copy ".concat(failedCopies, " file(s)"));
+            }
+        });
     });
 }
 function deleteCopy() {
