@@ -324,6 +324,7 @@ namespace fluffyjohn.Controllers
                     // not interrupt the copying for other directories
                     if (!dInfo.Exists)
                     {
+                        failedCopies++;
                         continue;
                     }
 
