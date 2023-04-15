@@ -31,7 +31,9 @@ function selectCopy() {
         body: JSON.stringify(data)
     }).then(res => {
         res.json().then(failedCopies => {
-             createToast(`Couldn't copy ${failedCopies} file(s)`);
+            if (Number(failedCopies) > 0) {
+                createToast(`Couldn't copy ${failedCopies} file(s)`);
+            }
         });
     });
 }

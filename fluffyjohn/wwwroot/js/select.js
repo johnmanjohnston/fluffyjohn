@@ -27,7 +27,9 @@ function selectCopy() {
         body: JSON.stringify(data)
     }).then(function (res) {
         res.json().then(function (failedCopies) {
-            createToast("Couldn't copy ".concat(failedCopies, " file(s)"));
+            if (Number(failedCopies) > 0) {
+                createToast("Couldn't copy ".concat(failedCopies, " file(s)"));
+            }
         });
     });
 }

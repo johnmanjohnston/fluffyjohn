@@ -363,7 +363,7 @@ namespace fluffyjohn.Controllers
             // smoothly, some things went wrong. In this case, we inform the browser
             // how many files failed to copy, and in this case we only return 207
             // if failedCopies == 0
-            return failedCopies == 0 ? StatusCode(200) : StatusCode(207, failedCopies);
+            return failedCopies == 0 ? StatusCode(200, failedCopies) : StatusCode(207, failedCopies);
         }
 
         [Route("/deletecopy/")]
