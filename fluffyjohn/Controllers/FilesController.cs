@@ -452,7 +452,7 @@ namespace fluffyjohn.Controllers
                 byte[] fData = System.IO.File.ReadAllBytes(absolutePath);
                 new FileExtensionContentTypeProvider().TryGetContentType(fname!, out string? fmType);
 
-                fmType ??= "text/plain";
+                fmType ??= "application/octet-stream";
 
                 var cd = new System.Net.Mime.ContentDisposition
                 {
