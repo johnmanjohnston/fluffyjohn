@@ -26,13 +26,8 @@ function selectCopy() {
         },
         body: JSON.stringify(data)
     }).then(function (res) {
-        if (JSON.stringify(res.json()) == "{}") {
-            return;
-        }
         res.json().then(function (failedCopies) {
-            if (failedCopies > 0) {
-                createToast("Couldn't copy ".concat(failedCopies, " file(s)"));
-            }
+            createToast("Couldn't copy ".concat(failedCopies, " file(s)"));
         });
     });
 }

@@ -30,14 +30,8 @@ function selectCopy() {
 
         body: JSON.stringify(data)
     }).then(res => {
-        if (JSON.stringify(res.json()) == "{}") {
-            return;
-        }
-
         res.json().then(failedCopies => {
-            if (failedCopies > 0) {
-                createToast(`Couldn't copy ${failedCopies} file(s)`);
-            }
+             createToast(`Couldn't copy ${failedCopies} file(s)`);
         });
     });
 }
