@@ -7,6 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="UserFileStorer\27f711055116c6\**" />
+    <Content Remove="UserFileStorer\27f711055116c6\**" />
+    <EmbeddedResource Remove="UserFileStorer\27f711055116c6\**" />
+    <None Remove="UserFileStorer\27f711055116c6\**" />
+    <TypeScriptCompile Remove="UserFileStorer\27f711055116c6\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="wwwroot\js\dirselect.ts" />
   </ItemGroup>
 
@@ -26,11 +34,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="UserFileStorer\27f711055116c6\testdir\UPPERCASENAME\anotherdir\" />
+    <TypeScriptCompile Include="wwwroot\js\dirselect.ts" />
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Include="wwwroot\js\dirselect.ts" />
+    <Folder Include="UserFileStorer\" />
   </ItemGroup>
 
 </Project>
