@@ -14,7 +14,7 @@ namespace fluffyjohn.Controllers
         }
 
         public IActionResult Index() => View();
-        public IActionResult Privacy() => View();
+        [Route("/help/")] public IActionResult Help() => View();
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         [Route("/Error")]
