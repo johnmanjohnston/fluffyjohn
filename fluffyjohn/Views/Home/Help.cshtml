@@ -2,9 +2,30 @@
     ViewData["Title"] = "Help";
 }
 
+<style>code { padding: 0.3em 0.6em; margin: 0.4em; background: rgba(20, 20, 20, 0.3); border-radius: 0.3em; }</style>
+
 <div class="container-md">
-    <h1>@ViewData["Title"]</h1>
+    <h1>Help</h1>
     <p>
-        This is FluffyJohn. A file-syncronization utility that stores your files securely.
+        This is <span class="fj-title">FluffyJohn</span>. A file-syncronization utility that stores your files.
+        This project is entirely free to use, and is open-source, available <a href="https://github.com/johnmanjohnston/fluffyjohn">here</a>.
+        
+        <br />
+
+        Once you sign up for an account, you can go to <code><url></url>/viewfiles/</code> to view your files.
+
+        <br />
+
+        When you register you won't any files in your storage. You can upload files by clicking <button>Choose Files</button> button,
+        then clicking <button>Submit</button>.
     </p>
 </div>
+
+<script>
+    const urlElemes = document.getElementsByTagName("url");
+    const absoluteURL = `${location.protocol}//${location.host}`;
+
+    for (var i = 0; i < urlElemes.length; i++) {
+        urlElemes[i].innerHTML = absoluteURL
+    }
+</script>
