@@ -1,6 +1,6 @@
 
 # fluffyjohn
-Secure, and open source file storage and synchronization utility 
+Secure, and open-source file storage and synchronization utility 
 
 ![image](https://user-images.githubusercontent.com/97091148/218325579-5e4835b6-ec84-47c7-a004-6a48908e78f8.png)
 
@@ -29,7 +29,7 @@ FluffyJohn is still in progress, but here are some demo screenshots as of 5/4/20
 ![image](https://user-images.githubusercontent.com/97091148/230358307-03c02101-27e2-4f6a-98d4-9c1324923976.png)
 
 ## Progress
-FluffyJohn is still under development, and is not yet completed.
+FluffyJohn is still under development. It's almost done, but not yet complete.
 
 ## License
 FluffyJohn is licensed under the [MIT License](https://opensource.org/license/mit/). More information can be found in the [LICENSE](https://github.com/johnmanjohnston/fluffyjohn/blob/master/LICENSE) file.
