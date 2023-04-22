@@ -87,10 +87,6 @@ namespace fluffyjohn.Areas.Identity.Pages.Account.Manage
                 }
             }
 
-            System.Diagnostics.Debug.WriteLine("Deleting user...");
-            System.Diagnostics.Debug.WriteLine(user.UserName);
-            System.Diagnostics.Debug.WriteLine(user.Id);
-
             var result = await _userManager.DeleteAsync(user);
             var userId = await _userManager.GetUserIdAsync(user);
             if (!result.Succeeded)
