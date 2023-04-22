@@ -98,6 +98,16 @@ namespace fluffyjohn.Areas.Identity.Pages.Account.Manage
                 throw new InvalidOperationException($"Unexpected error occurred deleting user.");
             }
 
+            else 
+            {
+                // User is deleted from database, now delete their files
+                string userRootDir = Directory.GetCurrentDirectory() + "/UserFileStorer/" + SecurityUtils.MD5Hash(User.Identity!.Name!) + "/";
+                DirectoryInfo userDirInfo = new (userRootDir);
+
+                if (userDirInfo.Exists)
+                userDirInfo.Delete(true);
+            }
+
             await _signInManager.SignOutAsync();
 
             _logger.LogInformation("User with ID '{UserId}' deleted themselves.", userId);
