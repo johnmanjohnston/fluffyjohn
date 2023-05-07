@@ -11,6 +11,7 @@ This project is entirely free to use, and is open-source.
 ## Installation/Setup Instructions
 Dependencies:
 > ASP.NET Core
+
 > ASP.NET Core Identity
 
 ## Demo
