@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.StaticFiles;
 using System.Text.RegularExpressions;
 
 using fluffyjohn.Models;
+using System.Net;
 
 namespace fluffyjohn.Controllers
 {
@@ -30,7 +31,7 @@ namespace fluffyjohn.Controllers
                 return Redirect("~/viewfiles/");
             }
 
-            string userSubDir = ((string)Request.Headers.Referer).Split("viewfiles")[1] + "/";
+            string userSubDir = WebUtility.UrlDecode(Request.Headers.Referer).Split("viewfiles")[1] + "/";
             string userDir = Directory.GetCurrentDirectory() + "/UserFileStorer/" + SecurityUtils.MD5Hash(User.Identity!.Name!) + "/" + userSubDir;
 
 
@@ -59,7 +60,7 @@ namespace fluffyjohn.Controllers
 
             dirname = dirname!.Replace(" ", "-");
 
-            string userSubDir = ((string)Request.Headers.Referer).Split("viewfiles")[1] + "/";
+            string userSubDir = WebUtility.UrlDecode(Request.Headers.Referer).Split("viewfiles")[1] + "/";
             string userDir = Directory.GetCurrentDirectory() + "/UserFileStorer/" + SecurityUtils.MD5Hash(User.Identity!.Name!) + "/" + userSubDir;
 
             if (Directory.Exists($"{userDir}/{dirname}"))

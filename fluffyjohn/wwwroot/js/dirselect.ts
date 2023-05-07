@@ -8,5 +8,5 @@ for (var dirindex = 0; dirindex < dirs.length; dirindex++) {
     path_progression += `${dirs[dirindex]}/`
 
     if (dirs[dirindex].toString() !== "")
-        DIR_SELECT_EL.innerHTML += `<a class="dir-select" href="/viewfiles${path_progression}">${dirs[dirindex]}/</a>`
+        DIR_SELECT_EL.innerHTML += `<a class="dir-select" href="/viewfiles${path_progression}">${decodeURI(dirs[dirindex])}/</a>`
 }

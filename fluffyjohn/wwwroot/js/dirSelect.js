@@ -5,6 +5,6 @@ var path_progression = "";
 for (var dirindex = 0; dirindex < dirs.length; dirindex++) {
     path_progression += "".concat(dirs[dirindex], "/");
     if (dirs[dirindex].toString() !== "")
-        DIR_SELECT_EL.innerHTML += "<a class=\"dir-select\" href=\"/viewfiles".concat(path_progression, "\">").concat(dirs[dirindex], "/</a>");
+        DIR_SELECT_EL.innerHTML += "<a class=\"dir-select\" href=\"/viewfiles".concat(path_progression, "\">").concat(decodeURI(dirs[dirindex]), "/</a>");
 }
 //# sourceMappingURL=dirselect.js.map
