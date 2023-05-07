@@ -80,7 +80,15 @@ namespace fluffyjohn.Controllers
                 return Request.Headers.Referer != string.Empty ? Redirect(Request.Headers.Referer) : Redirect("~/viewfiles");
             }
 
-            dirInfo.Create();
+            try
+            {
+                dirInfo.Create();
+            } 
+
+            catch (IOException)
+            {
+                // Toast
+            }
 
             return Request.Headers.Referer != string.Empty ? Redirect(Request.Headers.Referer) : Redirect("~/viewfiles");
         }
