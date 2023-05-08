@@ -98,9 +98,9 @@
             <a href=@Utility.ConfigureDirHref(targetHref)>@dirEntries[i]/</a>
         </div>
 
-        <a onclick="renameItem('@reqDirPath/@dirEntries[i]', false)" class="item-action-btn"> <img class="icon" src="~/svg/edit.svg" /> </a>
+        <a href="#" onclick="renameItem('@reqDirPath/@dirEntries[i]', false)" class="item-action-btn"> <img class="icon" src="~/svg/edit.svg" /> </a>
         <a onclick="confirmDelete('@dirEntries[i]', '@reqDirPath@dirEntries[i]', false)" href="#" class="item-action-btn"> <img class="icon del-icon" src="~/svg/delete.svg" /> </a>
-        <a onclick="copy('@reqDirPath/@dirEntries[i]', false);" class="item-action-btn"> <img class="icon" src="~/svg/copy.svg" /></a>
+        <a href="#" onclick="copy('@reqDirPath/@dirEntries[i]', false);" class="item-action-btn"> <img class="icon" src="~/svg/copy.svg" /></a>
 
         <a onclick="javascript:handleSelect('@reqDirPath@dirEntries[i]/', 'item-@id')" class="item-action-btn">S</a>
 
