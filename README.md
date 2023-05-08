@@ -5,10 +5,14 @@ Secure, and open-source file storage and synchronization utility
 ![image](https://user-images.githubusercontent.com/97091148/218325579-5e4835b6-ec84-47c7-a004-6a48908e78f8.png)
 
 ## About
-TODO
+This is FluffyJohn. A file-syncronization utility that stores your files.
+This project is entirely free to use, and is open-source.
 
 ## Installation/Setup Instructions
-TODO
+Dependencies:
+> ASP.NET Core
+
+> ASP.NET Core Identity
 
 ## Demo
 FluffyJohn is still in progress, but here are some demo screenshots as of 5/4/2023
