@@ -38,7 +38,7 @@ namespace fluffyjohn.Controllers
             for (int i = 0; i < fCount; i++)
             {
                 IFormFile fl = files[i];
-                using FileStream inputStream = new(userDir + fl.FileName, FileMode.Create);
+                using FileStream inputStream = new(userDir + Path.GetFileName(fl.FileName), FileMode.Create);
                 await fl.CopyToAsync(inputStream);
             }
 
