@@ -53,7 +53,7 @@ namespace fluffyjohn.Controllers
         {
             if (!User.Identity!.IsAuthenticated) { return Redirect("~/login/"); }
 
-            if (string.IsNullOrEmpty(dirname))
+            if (string.IsNullOrEmpty(dirname) || dirname[0] == '.')
             {
                 return Request.Headers.Referer != string.Empty ? Redirect(Request.Headers.Referer) : StatusCode(400);
             }
