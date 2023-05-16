@@ -4,35 +4,44 @@
     ViewData["Title"] = "Register";
 }
 
-<h1>Register for FluffyJohn</h1>
+<head>
+    <link rel="stylesheet" href="~/css/auth.css" />
+</head>
 
+<h1 class="text-center">Register for <span class="fj-title">FluffyJohn</span></h1>
+<br />
 <div class="row">
-    <div class="col-md-4">
+    <div class="row" style="width: 25%; position: absolute; left: 50%; transform:translateX(-50%); background: rgba(200, 200, 200, 0.05); padding: 2em 2.5em; border-radius: 2em; border: 2px solid rgba(200, 200, 200, 0.2);">
         <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <hr />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <h3>Username: </h3>
             <div class="form-floating">
-                <input asp-for="Input.Username" class="form-control" autocomplete="username" aria-required="true" />
+                <input asp-for="Input.Username" class="form-control credential-input" autocomplete="username" aria-required="true" />
                 <label asp-for="Input.Username"></label>
                 <span asp-validation-for="Input.Username" class="text-danger"></span>
             </div> <br />
 
             <h3>Password: </h3>
             <div class="form-floating">
-                <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" />
+                <input asp-for="Input.Password" class="form-control credential-input" autocomplete="new-password" aria-required="true" />
                 <label asp-for="Input.Password"></label>
                 <span asp-validation-for="Input.Password" class="text-danger"></span>
             </div> <br />
 
             <h3>Confirm Password: </h3>
             <div class="form-floating">
-                <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" />
+                <input asp-for="Input.ConfirmPassword" class="form-control credential-input" autocomplete="new-password" aria-required="true" />
                 <label asp-for="Input.ConfirmPassword"></label>
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div> <br />
             <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+            <div class="text-center"> <br />
+                <p>
+                    Already have an account for <span class="fj-title">FluffyJohn</span>? You can
+                    <a asp-page="./Login" asp-route-returnUrl="@Model!.ReturnUrl">log in to your existing account!</a>!
+                </p>
+            </div>
         </form>
     </div>
 </div>

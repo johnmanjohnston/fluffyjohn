@@ -85,7 +85,7 @@ namespace fluffyjohn.Controllers
                 dirInfo.Create();
             } 
 
-            catch (IOException)
+            catch
             {
                 // Toast
             }
