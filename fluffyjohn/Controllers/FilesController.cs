@@ -32,14 +32,26 @@ namespace fluffyjohn.Controllers
             }
 
             string userSubDir = WebUtility.UrlDecode(Request.Headers.Referer).Split("viewfiles")[1] + "/";
+            string userRoot = Directory.GetCurrentDirectory() + "/UserFileStorer/" + SecurityUtils.MD5Hash(User.Identity!.Name!) + "/";
             string userDir = Directory.GetCurrentDirectory() + "/UserFileStorer/" + SecurityUtils.MD5Hash(User.Identity!.Name!) + "/" + userSubDir;
 
 
             for (int i = 0; i < fCount; i++)
             {
                 IFormFile fl = files[i];
-                using FileStream inputStream = new(userDir + Path.GetFileName(fl.FileName), FileMode.Create);
-                await fl.CopyToAsync(inputStream);
+
+                // Copy to version control dir before replacing file
+                if (System.IO.File.Exists(userDir + Path.GetFileName(fl.FileName)))
+                {
+                    string vcDir = userRoot + "/.fluffyjohn/vc/" + userSubDir;
+                    Log($"vcdir: ${vcDir}");
+
+                    Directory.CreateDirectory(vcDir);
+                    System.IO.File.Copy(userDir + Path.GetFileName(fl.FileName), vcDir + Path.GetFileName(fl.FileName), true);
+                }
+
+                using FileStream fileStream = new(userDir + Path.GetFileName(fl.FileName), FileMode.Create);
+                await fl.CopyToAsync(fileStream);
             }
 
             Response.Cookies.Append("toast-content", $"upload-success.{fCount}");
