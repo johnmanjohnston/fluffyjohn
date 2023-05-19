@@ -47,13 +47,19 @@
     <link rel="stylesheet" href="~/css/icons.css" />
 
     <style>
-        input[type=submit], input[type=text] {
+        input[type=submit], input[type=text], .multi-file-actions {
             border-radius: 0.4em;
-            padding: 0.2em 1.4em;
-            margin: 0 1em;
+            padding: 0.3em 1.5em;
             font-weight: 500;
+            margin-right: 0.8em;
+            margin-top: 0.5em;
             border: 0;
-            outline: 2px solid whitesmoke;
+            outline: 2px solid rgba(255, 255, 255, 0.4);
+            background: rgb(60, 60, 60);
+        }
+
+        input[type=submit]:hover, input[type=text]:hover, .multi-file-actions:hover {
+            background: rgb(80, 80, 80);
         }
     </style>
 </head>
@@ -63,13 +69,11 @@
 <h1>Upload</h1>
 <section>
     <form action="/files/upload" method="post" enctype="multipart/form-data">
-        <label>Upload file(s): </label>
-        <input type="file" name="uploads" multiple /> <br />
+        <input type="file" name="uploads" multiple />
         <input type="submit" value="Upload File(s)">
     </form>
     <br /> 
     <form action="/files/newdir" method="post">
-        <label style="font-size: 1.5em; margin: 0.1em;">Directory name: </label> 
         <input style="padding-left: 0.5em;" placeholder="Directory name" type="text" name="dirname" />
         <input type="submit" value="Create" />
     </form>
@@ -137,10 +141,9 @@
 
 <br /> <br />
 
-<button onclick="paste()">Paste</button>
-
-<button onclick="selectCopy()">Copy Selected Item(s)</button>
-<button onclick="deleteCopy()">Delete Selected Item(s)</button>
+<button class="multi-file-actions" onclick="paste()">Paste</button>
+<button class="multi-file-actions" onclick="selectCopy()">Copy Selected Item(s)</button>
+<button class="multi-file-actions" onclick="deleteCopy()">Delete Selected Item(s)</button>
 
 <!--Make space for footer-->
 <br />
