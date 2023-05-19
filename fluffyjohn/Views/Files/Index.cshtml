@@ -47,17 +47,13 @@
     <link rel="stylesheet" href="~/css/icons.css" />
 
     <style>
-        input[type=submit] {
-            outline: 2px solid white;
+        input[type=submit], input[type=text] {
             border-radius: 0.4em;
-            padding: 0.2em 1.2em;
+            padding: 0.2em 1.4em;
             margin: 0 1em;
             font-weight: 500;
-        }
-
-        input[type=submit]:active {
-        position: relative;
-            top: 1px;    
+            border: 0;
+            outline: 2px solid whitesmoke;
         }
     </style>
 </head>
@@ -74,7 +70,7 @@
     <br /> 
     <form action="/files/newdir" method="post">
         <label style="font-size: 1.5em; margin: 0.1em;">Directory name: </label> 
-        <input type="text" name="dirname" />
+        <input style="padding-left: 0.5em;" placeholder="Directory name" type="text" name="dirname" />
         <input type="submit" value="Create" />
     </form>
 </section>
