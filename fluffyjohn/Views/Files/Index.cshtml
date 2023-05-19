@@ -45,22 +45,39 @@
     <link rel="stylesheet" href="~/css/storage.css" />
     <link rel="stylesheet" href="~/css/toast.css" />
     <link rel="stylesheet" href="~/css/icons.css" />
+
+    <style>
+        input[type=submit] {
+            outline: 2px solid white;
+            border-radius: 0.4em;
+            padding: 0.2em 1.2em;
+            margin: 0 1em;
+            font-weight: 500;
+        }
+
+        input[type=submit]:active {
+        position: relative;
+            top: 1px;    
+        }
+    </style>
 </head>
 
 <div id="toast-container"></div>
 
-
-<form action="/files/upload" method="post" enctype="multipart/form-data">
-    <label>Upload file(s): </label>
-    <input type="file" name="uploads" multiple />
-    <input type="submit" />
-</form>
-
-<form action="/files/newdir" method="post">
-    <label>Directory name: </label>  <br />
-    <input type="text" name="dirname" />
-    <input type="submit" value="Create Directory" />
-</form>
+<h1>Upload</h1>
+<section>
+    <form action="/files/upload" method="post" enctype="multipart/form-data">
+        <label>Upload file(s): </label>
+        <input type="file" name="uploads" multiple /> <br />
+        <input type="submit" value="Upload File(s)">
+    </form>
+    <br /> 
+    <form action="/files/newdir" method="post">
+        <label style="font-size: 1.5em; margin: 0.1em;">Directory name: </label> 
+        <input type="text" name="dirname" />
+        <input type="submit" value="Create" />
+    </form>
+</section>
 
 <br /> 
 <div id="dir-selector">
