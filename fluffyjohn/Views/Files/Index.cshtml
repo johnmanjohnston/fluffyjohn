@@ -47,19 +47,18 @@
     <link rel="stylesheet" href="~/css/icons.css" />
 
     <style>
-        input[type=submit], input[type=text], .multi-file-actions {
+        input[type=submit], input[type=text], .multi-file-actions, input[type=file]::file-selector-button {
             border-radius: 0.4em;
             padding: 0.3em 1.5em;
             font-weight: 500;
-            margin-right: 0.8em;
-            margin-top: 0.5em;
+            margin: 0.9em;
             border: 0;
             outline: 2px solid rgba(255, 255, 255, 0.3);
             background: rgb(60, 60, 60);
             color: rgba(255, 255, 255, 0.7);
         }
 
-        input[type=submit]:hover, input[type=text]:hover, .multi-file-actions:hover {
+            input[type=submit]:hover, input[type=text]:hover, .multi-file-actions:hover, input[type=file]::file-selector-button:hover {
             background: rgb(80, 80, 80);
             outline: 2px solid rgba(255, 255, 255, 0.5);
             color: whitesmoke;
