@@ -68,23 +68,6 @@
 
 <div id="toast-container"></div>
 
-<h1>Upload</h1>
-<section style="width: 45%;">
-    <form action="/files/upload" method="post" enctype="multipart/form-data">
-        <input type="file" name="uploads" multiple />
-        <input type="submit" value="Upload File(s)">
-    </form>
-    <div style="font-weight: 700; color: rgba(255, 255, 255, 0.3); margin: 0 50%; font-size: 0.7em;">OR</div>
-    <form action="/files/newdir" method="post">
-        <input style="padding-left: 0.5em;" placeholder="Directory name" type="text" name="dirname" />
-        <input type="submit" value="Create" />
-    </form>
-</section>
-
-<div id="dir-selector">
-    <a class="dir-select" href="/viewfiles/">Home/</a>
-
-</div> <br />
 
 @{
     if (!routeExists)
@@ -93,6 +76,25 @@
         <div>You're entered a file path which does not exist.</div>
         return;
     }
+
+    <h1>Upload</h1>
+    <section style="width: 45%;">
+        <form action="/files/upload" method="post" enctype="multipart/form-data">
+            <input type="file" name="uploads" multiple />
+            <input type="submit" value="Upload File(s)">
+        </form>
+        <div style="font-weight: 700; color: rgba(255, 255, 255, 0.3); margin: 0 50%; font-size: 0.7em;">OR</div>
+        <form action="/files/newdir" method="post">
+            <input style="padding-left: 0.5em;" placeholder="Directory name" type="text" name="dirname" />
+            <input type="submit" value="Create" />
+        </form>
+    </section>
+
+    <div id="dir-selector">
+        <a class="dir-select" href="/viewfiles/">Home/</a>
+
+    </div> <br />
+
 
     <h1>Files</h1>
 
