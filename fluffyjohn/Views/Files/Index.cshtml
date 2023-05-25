@@ -78,49 +78,55 @@
     </div> <br />
 
 
-    <h1>Files</h1>
-
-    for (int i = 0; i < fileEntryCount; i++)
+    if (fileEntryCount > 1)
     {
-        string viewContentPath = $"viewcontent{reqDirPath}{fileEntries[i]}";
-        string downloadFilePath = $"downloadfile{reqDirPath}{fileEntries[i]}";
-        viewContentPath.Replace("//", "/");
-        downloadFilePath.Replace("//", "/");
+        <h1>Files</h1>
 
-        <div>
-            <div id="item-@i" class="item-entry-wrapper" onclick="javascript:document.location.href='/viewcontent\@reqDirPath@fileEntries[i]'"><a href="/viewcontent\@reqDirPath@fileEntries[i]" target="_blank">@fileEntries[i]</a></div>
+        for (int i = 0; i < fileEntryCount; i++)
+        {
+            string viewContentPath = $"viewcontent{reqDirPath}{fileEntries[i]}";
+            string downloadFilePath = $"downloadfile{reqDirPath}{fileEntries[i]}";
+            viewContentPath.Replace("//", "/");
+            downloadFilePath.Replace("//", "/");
 
-            <a href="javascript:void(0);" onclick="renameItem('@reqDirPath@fileEntries[i]')" class="item-action-btn"> <img class="icon" src="~/svg/edit.svg" /> </a>
-            <a href="javascript:void(0);" onclick="confirmDelete('@fileEntries[i]', '@reqDirPath@fileEntries[i]', true)" class="item-action-btn"> <img class="icon del-icon" src="~/svg/delete.svg" /> </a>
-            <a class="item-action-btn" href="/@downloadFilePath"> <img class="icon" src="~/svg/download.svg" /> </a>
-            <a class="item-action-btn" href="/@viewContentPath"> <img class="icon" src="~/svg/view.svg" /> </a>
-            <a href="javascript:void(0);" onclick="copy('@reqDirPath@fileEntries[i]');" class="item-action-btn"> <img class="icon" src="~/svg/copy.svg" /></a>
-            <a href="javascript:void(0);" onclick="javascript:handleSelect('@reqDirPath@fileEntries[i]', 'item-@i')" class="item-action-btn">S</a>
+            <div>
+                <div id="item-@i" class="item-entry-wrapper" onclick="javascript:document.location.href='/viewcontent\@reqDirPath@fileEntries[i]'"><a href="/viewcontent\@reqDirPath@fileEntries[i]" target="_blank">@fileEntries[i]</a></div>
 
-            <br />
-        </div>
+                <a href="javascript:void(0);" onclick="renameItem('@reqDirPath@fileEntries[i]')" class="item-action-btn"> <img class="icon" src="~/svg/edit.svg" /> </a>
+                <a href="javascript:void(0);" onclick="confirmDelete('@fileEntries[i]', '@reqDirPath@fileEntries[i]', true)" class="item-action-btn"> <img class="icon del-icon" src="~/svg/delete.svg" /> </a>
+                <a class="item-action-btn" href="/@downloadFilePath"> <img class="icon" src="~/svg/download.svg" /> </a>
+                <a class="item-action-btn" href="/@viewContentPath"> <img class="icon" src="~/svg/view.svg" /> </a>
+                <a href="javascript:void(0);" onclick="copy('@reqDirPath@fileEntries[i]');" class="item-action-btn"> <img class="icon" src="~/svg/copy.svg" /></a>
+                <a href="javascript:void(0);" onclick="javascript:handleSelect('@reqDirPath@fileEntries[i]', 'item-@i')" class="item-action-btn">S</a>
+
+                <br />
+            </div>
+        }
     }
 
     <br />
-    <h1>Folders</h1>
-
-    for (int i = 0; i <  dirEntryCount; i++)
+    if (dirEntryCount > 0)
     {
-        string targetHref = $"/viewfiles/{reqDirPath}/{dirEntries[i]}/";
-        int id = (fileEntryCount) + i;
+        <h1>Folders</h1>
 
-        <div>
-        <div id="item-@id" class="item-entry-wrapper itype-dir" onclick="javascript:window.location.href = '@Utility.ConfigureDirHref(targetHref)'" >
-            <a href=@Utility.ConfigureDirHref(targetHref)>@dirEntries[i]/</a>
-        </div>
+        for (int i = 0; i < dirEntryCount; i++)
+        {
+            string targetHref = $"/viewfiles/{reqDirPath}/{dirEntries[i]}/";
+            int id = (fileEntryCount) + i;
 
-        <a href="javascript:void(0);" onclick="renameItem('@reqDirPath/@dirEntries[i]', false)" class="item-action-btn"> <img class="icon" src="~/svg/edit.svg" /> </a>
-        <a onclick="confirmDelete('@dirEntries[i]', '@reqDirPath@dirEntries[i]', false)" href="#" class="item-action-btn"> <img class="icon del-icon" src="~/svg/delete.svg" /> </a>
-        <a href="javascript:void(0);" onclick="copy('@reqDirPath/@dirEntries[i]', false);" class="item-action-btn"> <img class="icon" src="~/svg/copy.svg" /></a>
+            <div>
+                <div id="item-@id" class="item-entry-wrapper itype-dir" onclick="javascript:window.location.href = '@Utility.ConfigureDirHref(targetHref)'" >
+                    <a href=@Utility.ConfigureDirHref(targetHref)>@dirEntries[i]/</a>
+                </div>
 
-        <a onclick="javascript:handleSelect('@reqDirPath@dirEntries[i]/', 'item-@id')" class="item-action-btn">S</a>
+                <a href="javascript:void(0);" onclick="renameItem('@reqDirPath/@dirEntries[i]', false)" class="item-action-btn"> <img class="icon" src="~/svg/edit.svg" /> </a>
+                <a onclick="confirmDelete('@dirEntries[i]', '@reqDirPath@dirEntries[i]', false)" href="#" class="item-action-btn"> <img class="icon del-icon" src="~/svg/delete.svg" /> </a>
+                <a href="javascript:void(0);" onclick="copy('@reqDirPath/@dirEntries[i]', false);" class="item-action-btn"> <img class="icon" src="~/svg/copy.svg" /></a>
 
-        </div>
+                <a onclick="javascript:handleSelect('@reqDirPath@dirEntries[i]/', 'item-@id')" class="item-action-btn">S</a>
+
+            </div>
+        }
     }
 }
 
