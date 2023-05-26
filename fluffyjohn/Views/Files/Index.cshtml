@@ -113,7 +113,7 @@
         {
             string targetHref = $"/viewfiles/{reqDirPath}/{dirEntries[i]}/";
             string configuredHref = Utility.ConfigureDirHref(targetHref);
-            int id = (fileEntryCount) + i;
+            int id = fileEntryCount + i;
 
             <div>
                 <div id="item-@id" class="item-entry-wrapper itype-dir" onclick="javascript:window.location.href = '@configuredHref'" >
