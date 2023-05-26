@@ -37,3 +37,11 @@ body, html {
 .slight-dark {
     background: rgba(0, 0, 10, 0.25);
 }
+
+.nav-link {
+    transition: 0s;
+}
+
+.nav-link:hover {
+    transition: 0s;
+}
