@@ -70,8 +70,6 @@ namespace fluffyjohn.Controllers
                 return Request.Headers.Referer != string.Empty ? Redirect(Request.Headers.Referer) : StatusCode(400);
             }
 
-            dirname = dirname!.Replace(" ", "-");
-
             string userSubDir = WebUtility.UrlDecode(Request.Headers.Referer).Split("viewfiles")[1] + "/";
             string userDir = Directory.GetCurrentDirectory() + "/UserFileStorer/" + SecurityUtils.MD5Hash(User.Identity!.Name!) + "/" + userSubDir;
 

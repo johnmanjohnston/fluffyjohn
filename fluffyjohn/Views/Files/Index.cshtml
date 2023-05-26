@@ -59,7 +59,7 @@
         return;
     }
 
-    <h1>Upload</h1>
+    <h1>New</h1>
     <section style="width: 45%;">
         <form action="/files/upload" method="post" enctype="multipart/form-data">
             <input type="file" name="uploads" multiple />
@@ -80,7 +80,7 @@
 
     if (fileEntryCount > 1)
     {
-        <h1>Files</h1>
+        <h1>Files (@fileEntryCount)</h1>
 
         for (int i = 0; i < fileEntryCount; i++)
         {
@@ -107,7 +107,7 @@
     <br />
     if (dirEntryCount > 0)
     {
-        <h1>Folders</h1>
+        <h1>Folders (@dirEntryCount)</h1>
 
         for (int i = 0; i < dirEntryCount; i++)
         {
@@ -116,7 +116,9 @@
 
             <div>
                 <div id="item-@id" class="item-entry-wrapper itype-dir" onclick="javascript:window.location.href = '@Utility.ConfigureDirHref(targetHref)'" >
-                    <a href=@Utility.ConfigureDirHref(targetHref)>@dirEntries[i]/</a>
+                // john you literal monkey. wanna know why dirs with spaces weren't working before?
+                // you forgot the DAMN QUOTATION MARKS in the href attribute.
+                <a href='@Utility.ConfigureDirHref(targetHref)'>@dirEntries[i]/</a>
                 </div>
 
                 <a href="javascript:void(0);" onclick="renameItem('@reqDirPath/@dirEntries[i]', false)" class="item-action-btn"> <img class="icon" src="~/svg/edit.svg" /> </a>
