@@ -14,6 +14,9 @@ Dependencies:
 
 > ASP.NET Core Identity
 
+Note: If you install FluffyJohn and you get an error saying you couldn't connect to the database,
+open a NuGet Console and run `update-database`
+
 ## Demo
 FluffyJohn is still in progress, but here are some demo screenshots as of 5/4/2023
 
