@@ -60,6 +60,20 @@ namespace fluffyjohn.Controllers
         }
 
         [HttpPost]
+        public IActionResult Revert([FromBody] RevertModel data)
+        {
+            string? curPath = data.currentFilePath;
+            string? oldPath = data.oldFilePath;
+
+            string absolutePath = Directory.GetCurrentDirectory() + "/UserFileStorer/" + SecurityUtils.MD5Hash(User.Identity!.Name!) + "/";
+
+            Log(absolutePath);
+            Log(oldPath!);
+
+            return Ok();
+        }
+
+        [HttpPost]
         [Route("/files/newdir/")]
         public IActionResult NewDir(string? dirname)
         {

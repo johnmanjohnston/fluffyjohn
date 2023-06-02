@@ -98,7 +98,7 @@
                 <a class="item-action-btn" href="/@viewContentPath"> <img class="icon" src="~/svg/view.svg" /> </a>
                 <a href="javascript:void(0);" onclick="copy('@reqDirPath@fileEntries[i]');" class="item-action-btn"> <img class="icon" src="~/svg/copy.svg" /></a>
                 <a href="javascript:void(0);" onclick="javascript:handleSelect('@reqDirPath@fileEntries[i]', 'item-@i')" class="item-action-btn">S</a>
-
+                <a href="javascript:void(0);" onclick="revert('@reqDirPath@fileEntries[i]', '/.fluffyjohn/vc/@reqDirPath@fileEntries[i]')" class="item-action-btn">R</a>
                 <br />
             </div>
         }
@@ -154,3 +154,4 @@
 <script src="~/js/copy.js"></script>
 <script src="~/js/paste.js"></script>
 <script src="~/js/select.js"></script>
+<script src="~/js/revert.js"></script>
