@@ -60,6 +60,7 @@ namespace fluffyjohn.Controllers
         }
 
         [HttpPost]
+        [Route("/revert/")]
         public IActionResult Revert([FromBody] RevertModel data)
         {
             string? curPath = data.currentFilePath;
@@ -67,8 +68,10 @@ namespace fluffyjohn.Controllers
 
             string absolutePath = Directory.GetCurrentDirectory() + "/UserFileStorer/" + SecurityUtils.MD5Hash(User.Identity!.Name!) + "/";
 
-            Log(absolutePath);
-            Log(oldPath!);
+            string fullCurPath = absolutePath + curPath;
+            string fullOldPath = absolutePath + oldPath;
+
+            // Swap content of file in fullCurPath and fullOldPath
 
             return Ok();
         }
