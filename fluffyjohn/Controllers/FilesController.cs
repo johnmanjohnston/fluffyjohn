@@ -72,6 +72,18 @@ namespace fluffyjohn.Controllers
             string fullOldPath = absolutePath + oldPath;
 
             // Swap content of file in fullCurPath and fullOldPath
+            FileInfo curInfo = new(fullCurPath);
+            FileInfo oldInfo = new(fullOldPath);
+
+            // Write old file to .fluffyjohn/temp
+            if (!Directory.Exists($"{absolutePath}/.fluffyjohn/temp")) { Directory.CreateDirectory($"{absolutePath}/.fluffyjohn/temp"); }
+
+            curInfo.CopyTo($"{absolutePath}/.fluffyjohn/temp/{curInfo.Name}", true);
+
+            oldInfo.CopyTo(fullCurPath, true);
+
+            // Copy temp to old location
+            System.IO.File.Copy($"{absolutePath}/.fluffyjohn/temp/{curInfo.Name}", fullOldPath, true);
 
             return Ok();
         }
