@@ -90,6 +90,10 @@ namespace fluffyjohn.Controllers
             // Copy temp to old location
             System.IO.File.Copy($"{absolutePath}/.fluffyjohn/temp/{curInfo.Name}", fullOldPath, true);
 
+            // Cleanup .fluffyjohn/temp/
+            FileInfo tempFileInfo = new($"{absolutePath}/.fluffyjohn/temp/{curInfo.Name}");
+            tempFileInfo.Delete();
+
             return Ok();
         }
 
