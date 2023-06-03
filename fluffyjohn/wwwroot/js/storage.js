@@ -23,5 +23,9 @@ if (getCookie("toast-content")) {
         createToast("Invalid directory name");
         eraseCookie("toast-content");
     }
+    if (val.match("dircreate-exception")) {
+        createToast("An error occured when creating that folder");
+        eraseCookie("toast-content");
+    }
 }
 //# sourceMappingURL=storage.js.map

@@ -135,7 +135,7 @@ namespace fluffyjohn.Controllers
 
             catch
             {
-                // Toast
+                Response.Cookies.Append("toast-content", "dircreate-exception");
             }
 
             return Request.Headers.Referer != string.Empty ? Redirect(Request.Headers.Referer) : Redirect("~/viewfiles");
