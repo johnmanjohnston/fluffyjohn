@@ -12,6 +12,16 @@ function revert(orginalFilePath, oldFilePath) {
             "Accept": "application/json",
         },
         body: JSON.stringify(data)
+    }).then(function (res) {
+        if (res.ok) {
+            createToast("File successfully reverted");
+        }
+        else if (res.status == 404) {
+            createToast("Previous file version not found");
+        }
+        else {
+            createToast("Something went wrong when trying to revert (HTTP ".concat(res.status, ")"));
+        }
     });
 }
 //# sourceMappingURL=revert.js.map

@@ -71,6 +71,11 @@ namespace fluffyjohn.Controllers
             string fullCurPath = absolutePath + curPath;
             string fullOldPath = absolutePath + oldPath;
 
+            if (!System.IO.File.Exists(fullOldPath))
+            {
+                return StatusCode(404); // File to replace doesn't exist. Return 404.
+            }
+
             // Swap content of file in fullCurPath and fullOldPath
             FileInfo curInfo = new(fullCurPath);
             FileInfo oldInfo = new(fullOldPath);
