@@ -89,6 +89,8 @@
             viewContentPath.Replace("//", "/");
             downloadFilePath.Replace("//", "/");
 
+            bool previousFileVersionExists = System.IO.File.Exists($"{rootUserDir}/.fluffyjohn/vc/{reqDirPath}/{fileEntries[i]}");
+
             <div>
                 <div id="item-@i" class="item-entry-wrapper" onclick="javascript:document.location.href='/viewcontent\@reqDirPath@fileEntries[i]'"><a href="/viewcontent\@reqDirPath@fileEntries[i]" target="_blank">@fileEntries[i]</a></div>
 
@@ -98,7 +100,13 @@
                 <a class="item-action-btn" href="/@viewContentPath"> <img class="icon" src="~/svg/view.svg" /> </a>
                 <a href="javascript:void(0);" onclick="copy('@reqDirPath@fileEntries[i]');" class="item-action-btn"> <img class="icon" src="~/svg/copy.svg" /></a>
                 <a href="javascript:void(0);" onclick="javascript:handleSelect('@reqDirPath@fileEntries[i]', 'item-@i')" class="item-action-btn">S</a>
-                <a href="javascript:void(0);" onclick="revert('@reqDirPath@fileEntries[i]', '/.fluffyjohn/vc/@reqDirPath@fileEntries[i]')" class="item-action-btn">R</a>
+                @{
+                    if (previousFileVersionExists)
+                    {
+                        <a href="javascript:void(0);" onclick="revert('@reqDirPath@fileEntries[i]', '/.fluffyjohn/vc/@reqDirPath@fileEntries[i]')" class="item-action-btn">R</a>
+                    }
+                }
+                
                 <br />
             </div>
         }
