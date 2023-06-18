@@ -2,15 +2,15 @@
     border-radius: 0.4em;
     padding: 0.3em 1.5em;
     font-weight: 500;
-    margin: 0.9em;
+    margin: 0.9em 0.9em 0.9em 2px;
     border: 0;
     outline: 2px solid rgba(255, 255, 255, 0.3);
     background: rgb(60, 60, 60);
     color: rgba(255, 255, 255, 0.7);
 }
 
-    input[type=submit]:hover, input[type=text]:hover, .multi-file-actions:hover, input[type=file]::file-selector-button:hover {
-        background: rgb(90, 90, 90);
-        outline: 2px solid rgba(255, 255, 255, 0.5);
-        color: whitesmoke;
-    }
+input[type=submit]:hover, input[type=text]:hover, .multi-file-actions:hover, input[type=file]::file-selector-button:hover {
+    background: rgb(90, 90, 90);
+    outline: 2px solid rgba(255, 255, 255, 0.5);
+    color: whitesmoke;
+}
