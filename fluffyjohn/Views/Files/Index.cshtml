@@ -55,7 +55,7 @@
     if (!routeExists)
     {
         <h1 class="text-danger">Route does not exist</h1>
-        <div>You're entered a file path which does not exist.</div>
+        <div>You've entered a route which does not exist, or a route which you don't have access to. Double check the route, then try agian.</div>
         return;
     }
 
@@ -126,10 +126,10 @@
             int id = fileEntryCount + i;
 
             <div>
-                <div id="item-@id" class="item-entry-wrapper itype-dir" onclick="javascript:window.location.href = '@configuredHref'" >
+                <div id="item-@id" class="item-entry-wrapper itype-dir" onclick="javascript:document.getElementById('link-@id').click()" >
                     <!-- john you literal monkey. wanna know why dirs with spaces weren't working before?
                     you forgot the DAMN QUOTATION MARKS in the href attribute. -->
-                    <a href='@configuredHref'>@dirEntries[i]/</a>
+                    <a id="link-@id" href='@configuredHref'>@dirEntries[i]/</a>
                 </div>
 
                 <a href="javascript:void(0);" onclick="renameItem('@reqDirPath/@dirEntries[i]', false)" class="item-action-btn"> <img class="icon" src="~/svg/edit.svg" /> </a>
