@@ -94,7 +94,7 @@
             bool previousFileVersionExists = System.IO.File.Exists($"{rootUserDir}/.fluffyjohn/vc/{reqDirPath}/{fileEntries[i]}");
 
             <div>
-                <div id="item-@i" class="item-entry-wrapper" onclick="javascript:document.location.href='/viewcontent\@reqDirPath@fileEntries[i]'"><a href="/viewcontent\@reqDirPath@fileEntries[i]" target="_blank">@fileEntries[i]</a></div>
+                <div id="item-@i" class="item-entry-wrapper" onclick="javascript:document.getElementById('link-@i').click()"><a id="link-@i" href="/viewcontent\@reqDirPath@fileEntries[i]" target="_blank">@fileEntries[i]</a></div>
 
                 <a href="javascript:void(0);" onclick="renameItem('@reqDirPath@fileEntries[i]')" class="item-action-btn"> <img class="icon" src="~/svg/edit.svg" /> </a>
                 <a href="javascript:void(0);" onclick="confirmDelete('@fileEntries[i]', '@reqDirPath@fileEntries[i]', true)" class="item-action-btn"> <img class="icon del-icon" src="~/svg/delete.svg" /> </a>
