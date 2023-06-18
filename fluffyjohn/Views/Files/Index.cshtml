@@ -59,8 +59,9 @@
         return;
     }
 
-    <h1>New</h1>
-    <section style="width: 45%;">
+    <div class="h1" style="display: inline-block;">New</div>
+    <a style="cursor: pointer; text-decoration: none; padding: 0.2em 0.5em; position: relative; bottom: 0.25em;" class="multi-file-actions" data-bs-toggle="collapse" data-bs-target="#upload-section" aria-expanded="false" aria-controls="upload-section">▼</a>
+    <section style="width: 45%;" id="upload-section" class="collapse">
         <form action="/files/upload" method="post" enctype="multipart/form-data">
             <input type="file" name="uploads" multiple />
             <input type="submit" value="Upload File(s)">
@@ -77,6 +78,7 @@
 
     </div> <br />
 
+    
 
     if (fileEntryCount > 0)
     {
