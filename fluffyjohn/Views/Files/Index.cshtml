@@ -60,7 +60,7 @@
     }
 
     <div class="h1" style="display: inline-block;">New</div>
-    <a style="cursor: pointer; text-decoration: none; padding: 0.2em 0.5em; position: relative; bottom: 0.25em; left: 0.7em;" class="multi-file-actions" data-bs-toggle="collapse" data-bs-target="#upload-section" aria-expanded="false" aria-controls="upload-section">▼</a>
+    <a style="cursor: pointer; text-decoration: none; padding: 0.2em 0.5em; position: relative; bottom: 0.25em; left: 0.7em;" class="multi-file-actions" data-bs-toggle="collapse" data-bs-target="#upload-section" aria-expanded="false" aria-controls="upload-section" onclick="toggleDropdownShowProperty()">▼</a>
     <section style="width: 45%;" id="upload-section" class="collapse">
         <form action="/files/upload" method="post" enctype="multipart/form-data">
             <input type="file" name="uploads" multiple />
@@ -165,3 +165,4 @@
 <script src="~/js/paste.js"></script>
 <script src="~/js/select.js"></script>
 <script src="~/js/revert.js"></script>
+<script src="~/js/uploaddropdown.js"></script>
