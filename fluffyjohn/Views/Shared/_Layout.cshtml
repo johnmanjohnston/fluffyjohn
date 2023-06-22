@@ -1,4 +1,30 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var path = (string)Url!.RouteUrl(ViewContext!.RouteData!.Values!).ToLower()!;
+    var subRoute = "";
+
+    for (int i = 0; i < path.Split("/").Length; i++)
+    {
+        path = path.Replace("//", "/");
+    }
+
+    if (path.StartsWith("/identity/account"))
+    {
+        subRoute = path.Replace("/identity/account", "");
+
+        if (subRoute == "/manage" || subRoute == "/manage/personaldata")
+        {
+            // ok
+        } 
+
+        else
+        {
+            // dropkick that moron back to the entrance
+            Context.Response.Redirect("/identity/account/manage/");
+        }
+    }
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
