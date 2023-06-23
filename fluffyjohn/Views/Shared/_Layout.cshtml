@@ -3,24 +3,24 @@
     var subRoute = "";
 
     for (int i = 0; i < path.Split("/").Length; i++)
-    {
+        {
         path = path.Replace("//", "/");
     }
 
     if (path.StartsWith("/identity/account"))
-    {
+        {
         subRoute = path.Replace("/identity/account", "");
 
-        if (subRoute == "/manage" || subRoute == "/manage/personaldata")
+        if (subRoute == "/manage" || subRoute == "/manage/personaldata" || subRoute == "/manage/deletepersonaldata")
         {
-            // ok
-        } 
+        // ok
+        }
 
-        else
-        {
+            else
+            {
             // dropkick that moron back to the entrance
             Context.Response.Redirect("/identity/account/manage/");
-        }
+    }
     }
 }
 
