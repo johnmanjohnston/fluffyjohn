@@ -1,0 +1,31 @@
+﻿@page
+@using fluffyjohn
+@model IndexModel
+@{
+    ViewData["Title"] = "Profile";
+    ViewData["ActivePage"] = ManageNavPages.Index;
+
+    string username = User!.Identity!.Name!;
+
+    string? hashedUsername = SecurityUtils.MD5Hash(User.Identity!.Name!);
+    string? rootUserDir = $"{Directory.GetCurrentDirectory()}/UserFileStorer/{hashedUsername}/";
+
+    DirectoryInfo rootUserDirInfo = new(rootUserDir);
+
+    long userStorageSize = Utility.GetDirectorySize(rootUserDirInfo);
+    float mb = (float)userStorageSize / 1000000;
+
+    int numFiles = Utility.GetFilesCount(rootUserDirInfo);
+    int numDirs = Utility.GetDirectoryCount(rootUserDirInfo);
+}
+
+<h3>Account stats:</h3>
+<div>Username: @username</div>
+<div>Occupied Storage: @String.Format("{0:0.00}", mb) megabytes</div>
+<div>Files count: @numFiles</div>
+<div>Folders count: @numDirs</div>
+<partial name="_StatusMessage" for="StatusMessage" />
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
