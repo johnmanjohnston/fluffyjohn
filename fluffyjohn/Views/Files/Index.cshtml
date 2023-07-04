@@ -13,6 +13,8 @@
     string? reqDirPath = (string)Url!.RouteUrl(ViewContext.RouteData.Values)!.Substring("viewfiles".Length + 1).Replace("//", "/");
     reqDirPath = WebUtility.UrlDecode(reqDirPath);
 
+    string encodedReqDirPath = WebUtility.UrlEncode(reqDirPath);
+
     foreach (var character in reqDirPath) {
         reqDirPath = reqDirPath.Replace("//", "/");
     }
@@ -86,6 +88,10 @@
 
         for (int i = 0; i < fileEntryCount; i++)
         {
+            // WebUtility
+            string displayFileName = fileEntries[i];
+            fileEntries[i] = WebUtility.UrlEncode(fileEntries[i]);
+
             string viewContentPath = $"viewcontent{reqDirPath}{fileEntries[i]}";
             string downloadFilePath = $"downloadfile{reqDirPath}{fileEntries[i]}";
             viewContentPath.Replace("//", "/");
@@ -94,18 +100,18 @@
             bool previousFileVersionExists = System.IO.File.Exists($"{rootUserDir}/.fluffyjohn/vc/{reqDirPath}/{fileEntries[i]}");
 
             <div>
-                <div id="item-@i" class="item-entry-wrapper" onclick="javascript:document.getElementById('link-@i').click()"><a id="link-@i" href="/viewcontent\@reqDirPath@fileEntries[i]" target="_blank" onclick="event.stopPropagation();">@fileEntries[i]</a></div>
+                <div id="item-@i" class="item-entry-wrapper" onclick="javascript:document.getElementById('link-@i').click()"><a id="link-@i" href="/viewcontent\@reqDirPath@fileEntries[i]" target="_blank" onclick="event.stopPropagation();">@displayFileName</a></div>
 
-                <a href="javascript:void(0);" onclick="renameItem('@reqDirPath@fileEntries[i]')" class="item-action-btn"> <img class="icon" src="~/svg/edit.svg" /> </a>
-                <a href="javascript:void(0);" onclick="confirmDelete('@fileEntries[i]', '@reqDirPath@fileEntries[i]', true)" class="item-action-btn"> <img class="icon del-icon" src="~/svg/delete.svg" /> </a>
+                <a href="javascript:void(0);" onclick="renameItem('@encodedReqDirPath@fileEntries[i]')" class="item-action-btn"> <img class="icon" src="~/svg/edit.svg" /> </a>
+                <a href="javascript:void(0);" onclick="confirmDelete('@fileEntries[i]', '@encodedReqDirPath@fileEntries[i]', true)" class="item-action-btn"> <img class="icon del-icon" src="~/svg/delete.svg" /> </a>
                 <a class="item-action-btn" href="/@downloadFilePath"> <img class="icon" src="~/svg/download.svg" /> </a>
                 <a class="item-action-btn" href="/@viewContentPath"> <img class="icon" src="~/svg/view.svg" /> </a>
-                <a href="javascript:void(0);" onclick="copy('@reqDirPath@fileEntries[i]');" class="item-action-btn"> <img class="icon" src="~/svg/copy.svg" /></a>
-                <a href="javascript:void(0);" onclick="javascript:handleSelect('@reqDirPath@fileEntries[i]', 'item-@i')" class="item-action-btn">S</a>
+                <a href="javascript:void(0);" onclick="copy('@encodedReqDirPath@fileEntries[i]');" class="item-action-btn"> <img class="icon" src="~/svg/copy.svg" /></a>
+                <a href="javascript:void(0);" onclick="javascript:handleSelect('@encodedReqDirPath@fileEntries[i]', 'item-@i')" class="item-action-btn">S</a>
                 @{
                     if (previousFileVersionExists)
                     {
-                        <a href="javascript:void(0);" onclick="revert('@reqDirPath@fileEntries[i]', '/.fluffyjohn/vc/@reqDirPath@fileEntries[i]')" class="item-action-btn">R</a>
+                        <a href="javascript:void(0);" onclick="revert('@encodedReqDirPath@fileEntries[i]', '/.fluffyjohn/vc/@encodedReqDirPath@fileEntries[i]')" class="item-action-btn">R</a>
                     }
                 }
                 
@@ -125,6 +131,8 @@
             string configuredHref = Utility.ConfigureDirHref(targetHref);
             int id = fileEntryCount + i;
 
+            string encodedDirectoryEntry = WebUtility.UrlEncode(dirEntries[i]);
+
             <div>
                 <div id="item-@id" class="item-entry-wrapper itype-dir" onclick="javascript:document.getElementById('link-@id').click()" >
                     <!-- john you literal monkey. wanna know why dirs with spaces weren't working before?
@@ -132,11 +140,11 @@
                     <a id="link-@id" href='@configuredHref'>@dirEntries[i]/</a>
                 </div>
 
-                <a href="javascript:void(0);" onclick="renameItem('@reqDirPath/@dirEntries[i]', false)" class="item-action-btn"> <img class="icon" src="~/svg/edit.svg" /> </a>
-                <a onclick="confirmDelete('@dirEntries[i]', '@reqDirPath@dirEntries[i]', false)" href="#" class="item-action-btn"> <img class="icon del-icon" src="~/svg/delete.svg" /> </a>
-                <a href="javascript:void(0);" onclick="copy('@reqDirPath/@dirEntries[i]', false);" class="item-action-btn"> <img class="icon" src="~/svg/copy.svg" /></a>
+                <a href="javascript:void(0);" onclick="renameItem('@WebUtility.UrlEncode(reqDirPath+@dirEntries[i])', false)" class="item-action-btn"> <img class="icon" src="~/svg/edit.svg" /> </a>
+                <a onclick="confirmDelete('@WebUtility.UrlEncode(dirEntries[i])', '@WebUtility.UrlEncode(reqDirPath)@WebUtility.UrlEncode(dirEntries[i])', false)" href="javascript:void(0)" class="item-action-btn"> <img class="icon del-icon" src="~/svg/delete.svg" /> </a>
+                <a href="javascript:void(0);" onclick="copy('@WebUtility.UrlEncode(reqDirPath+'/'+dirEntries[i])', false);" class="item-action-btn"> <img class="icon" src="~/svg/copy.svg" /></a>
 
-                <a onclick="javascript:handleSelect('@reqDirPath@dirEntries[i]/', 'item-@id')" class="item-action-btn">S</a>
+                <a onclick="javascript:handleSelect('@WebUtility.UrlEncode(reqDirPath+dirEntries[i])/', 'item-@id')" class="item-action-btn">S</a>
 
             </div>
         }

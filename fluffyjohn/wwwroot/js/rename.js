@@ -1,7 +1,7 @@
 function renameItem(fullPath, isFile) {
     if (isFile === void 0) { isFile = true; }
     var brokenPath = fullPath.split("/");
-    var filename = brokenPath[brokenPath.length - 1];
+    var filename = decodeURIComponent(brokenPath[brokenPath.length - 1]);
     var newName = prompt("What do you want to rename ".concat(filename, " to?"), filename);
     if (newName == null) {
         return;

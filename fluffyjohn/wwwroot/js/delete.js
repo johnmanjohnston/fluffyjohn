@@ -1,5 +1,5 @@
 function confirmDelete(contentName, contentPath, isFile) {
-    if (confirm("Are you sure you want to delete ".concat(contentName, "? This is not reversable.")) === true) {
+    if (confirm("Are you sure you want to delete ".concat(decodeURIComponent(contentName), "? This is not reversable.")) === true) {
         var data = {
             path: contentPath,
             isFile: isFile

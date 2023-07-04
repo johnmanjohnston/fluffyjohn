@@ -1,7 +1,7 @@
 ﻿function renameItem(fullPath: string, isFile: boolean = true)
 {
-    var brokenPath = fullPath.split("/");
-    var filename: string = brokenPath[brokenPath.length - 1]
+    var brokenPath =  fullPath.split("/");
+    var filename: string = decodeURIComponent(brokenPath[brokenPath.length - 1]);
     var newName: string = prompt(`What do you want to rename ${filename} to?`, filename);
 
     if (newName == null) { return; }

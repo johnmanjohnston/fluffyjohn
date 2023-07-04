@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 
 using fluffyjohn.Models;
 using System.Net;
+using System.Web;
 
 namespace fluffyjohn.Controllers
 {
@@ -63,8 +64,8 @@ namespace fluffyjohn.Controllers
         [Route("/revert/")]
         public IActionResult Revert([FromBody] RevertModel data)
         {
-            string? curPath = data.currentFilePath;
-            string? oldPath = data.oldFilePath;
+            string? curPath = WebUtility.UrlDecode(data.currentFilePath);
+            string? oldPath = WebUtility.UrlDecode(data.oldFilePath);
 
             string absolutePath = Directory.GetCurrentDirectory() + "/UserFileStorer/" + SecurityUtils.MD5Hash(User.Identity!.Name!) + "/";
 
@@ -147,6 +148,8 @@ namespace fluffyjohn.Controllers
             string? path = data.Path;
             bool isFile = data.IsFile;
 
+            path = WebUtility.UrlDecode(path);
+
             if (string.IsNullOrEmpty(path)) 
             {
                 return StatusCode(400);
@@ -195,6 +198,9 @@ namespace fluffyjohn.Controllers
             string? orginalPath = data.OrginalPath;
             string? newPath = data.NewPath;
             bool isFile = data.IsFile;
+
+            orginalPath = WebUtility.UrlDecode(orginalPath);
+            newPath = WebUtility.UrlDecode(newPath);
 
             if (string.IsNullOrEmpty(orginalPath) || string.IsNullOrEmpty(newPath)) { return StatusCode(400); }
 
@@ -251,6 +257,8 @@ namespace fluffyjohn.Controllers
         [Route("/viewcontent/{**fpath}")]
         public IActionResult ViewFileContent(string? fpath)
         {
+           fpath = HttpUtility.UrlDecode(fpath);
+
             // Validate and get file path and name
             if (!PathFormatter.ValidateEntryPath(fpath) || !User.Identity!.IsAuthenticated || string.IsNullOrEmpty(fpath))
             {
@@ -265,6 +273,8 @@ namespace fluffyjohn.Controllers
         [Route("/downloadfile/{**fpath}")]
         public IActionResult DownloadFile(string? fpath)
         {
+            fpath = HttpUtility.UrlDecode(fpath);
+
             if (!PathFormatter.ValidateEntryPath(fpath) || !User.Identity!.IsAuthenticated || string.IsNullOrEmpty(fpath))
             {
                 return Redirect("~/viewfiles/");
@@ -280,6 +290,8 @@ namespace fluffyjohn.Controllers
         {
             var path = data.Path;
             var isFile = data.IsFile;
+
+            path = WebUtility.UrlDecode(path);
 
             // Authenticate user
             if (!User.Identity!.IsAuthenticated) { return Redirect("~/login/"); }
@@ -326,7 +338,7 @@ namespace fluffyjohn.Controllers
         [Route("/paste/")]
         public IActionResult Paste([FromBody] PasteModel data) 
         {
-            string targetPasteRoute = data.Route + "/";
+            string targetPasteRoute = WebUtility.UrlDecode(data.Route) + "/";
             string userRootDir = Directory.GetCurrentDirectory() + "/UserFileStorer/" + SecurityUtils.MD5Hash(User.Identity!.Name!) + "/";
 
             try
@@ -372,10 +384,12 @@ namespace fluffyjohn.Controllers
 
             foreach (var path in data.Paths!)
             {
+                var formattedPath = WebUtility.UrlDecode(path);
+
                 // All dir paths end with "/". If the path doesn't, then it's a file
-                if (path.EndsWith("/"))
+                if (formattedPath.EndsWith("/"))
                 {
-                    DirectoryInfo dInfo = new(userRootDir + path);
+                    DirectoryInfo dInfo = new(userRootDir + formattedPath);
 
                     // If one or more directories don't exist, just continue, to
                     // not interrupt the copying for other directories
@@ -385,7 +399,7 @@ namespace fluffyjohn.Controllers
                         continue;
                     }
 
-                    if (!CopyDirectory(userRootDir + path, userRootDir + "/.fluffyjohn/clipboard/"))
+                    if (!CopyDirectory(userRootDir + formattedPath, userRootDir + "/.fluffyjohn/clipboard/"))
                     {
                         failedCopies++;
                     }
@@ -393,7 +407,7 @@ namespace fluffyjohn.Controllers
 
                 else
                 {
-                    FileInfo fInfo = new(userRootDir + path);
+                    FileInfo fInfo = new(userRootDir + formattedPath);
                     // If one or more files are missing, don't return an error code and interrupt other 
                     // file copies, just continue
                     if (!fInfo.Exists)
@@ -432,10 +446,12 @@ namespace fluffyjohn.Controllers
 
             foreach (var path in data.Paths!)
             {
+                var formattedPaths = WebUtility.UrlDecode(path);
+
                 // If path ends with "/", then it's a directory, else it's a file
-                if (path.EndsWith("/"))
+                if (formattedPaths.EndsWith("/"))
                 {
-                    DirectoryInfo dirInfo = new(userRootDir + path);
+                    DirectoryInfo dirInfo = new(userRootDir + formattedPaths);
 
                     try { dirInfo.Delete(true); }
                     catch { failedDeletes++; }
@@ -443,7 +459,7 @@ namespace fluffyjohn.Controllers
 
                 else 
                 {
-                    FileInfo fileInfo = new(userRootDir + path);
+                    FileInfo fileInfo = new(userRootDir + formattedPaths);
 
                     try { fileInfo.Delete(); }
                     catch { failedDeletes++; }
