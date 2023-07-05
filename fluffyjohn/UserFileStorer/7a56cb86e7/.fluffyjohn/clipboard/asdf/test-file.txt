@@ -1,2 +1,0 @@
-This is some test inside of test-file.txt
-This file is now modified!
