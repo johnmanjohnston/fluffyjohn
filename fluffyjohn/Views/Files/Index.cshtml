@@ -107,11 +107,11 @@
                 <a class="item-action-btn" href="/@downloadFilePath"> <img class="icon" src="~/svg/download.svg" /> </a>
                 <a class="item-action-btn" href="/@viewContentPath"> <img class="icon" src="~/svg/view.svg" /> </a>
                 <a href="javascript:void(0);" onclick="copy('@encodedReqDirPath@fileEntries[i]');" class="item-action-btn"> <img class="icon" src="~/svg/copy.svg" /></a>
-                <a href="javascript:void(0);" onclick="javascript:handleSelect('@encodedReqDirPath@fileEntries[i]', 'item-@i')" class="item-action-btn">S</a>
+                <a href="javascript:void(0);" onclick="javascript:handleSelect('@encodedReqDirPath@fileEntries[i]', 'item-@i')" class="item-action-btn"><img style="border-radius: 0.3em;" class="icon" src="~/svg/select.svg"/></a>
                 @{
                     if (previousFileVersionExists)
                     {
-                        <a href="javascript:void(0);" onclick="revert('@encodedReqDirPath@fileEntries[i]', '/.fluffyjohn/vc/@encodedReqDirPath@fileEntries[i]')" class="item-action-btn">R</a>
+                        <a href="javascript:void(0);" onclick="revert('@encodedReqDirPath@fileEntries[i]', '/.fluffyjohn/vc/@encodedReqDirPath@fileEntries[i]')" class="item-action-btn"><img class="icon" src="~/svg/revert.svg" /></a>
                     }
                 }
                 
