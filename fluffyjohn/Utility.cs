@@ -24,9 +24,10 @@
         {
             long bytes = 0;
 
-            foreach (FileInfo fileInfo in dirInfo.GetFiles("*.*", SearchOption.AllDirectories))
+            FileInfo[] filesInfo = dirInfo.GetFiles("*.*", SearchOption.AllDirectories);
+            for (int i = 0; i  < filesInfo.Length; i++)
             {
-                bytes += (long)fileInfo.Length;
+                bytes += filesInfo[i].Length;
             }
 
             return bytes;
@@ -34,24 +35,16 @@
 
         public static int GetFilesCount(DirectoryInfo dirInfo)
         {
-            int count = 0;
-
-            foreach (FileInfo fileInfo in dirInfo.GetFiles("*.*", SearchOption.AllDirectories))
-            {
-                count++;
-            }
+            FileInfo[] filesInfo = dirInfo.GetFiles("*.*", SearchOption.AllDirectories);
+            int count = filesInfo.Length;
                 
             return count;
         }
 
         public static int GetDirectoryCount(DirectoryInfo dirInfo)
         {
-            int count = 0;
-
-            foreach (DirectoryInfo subDirInfo in dirInfo.GetDirectories("*.*", SearchOption.AllDirectories))
-            {
-                count++;
-            }
+            DirectoryInfo[] dirsInfo = dirInfo.GetDirectories("*.*", SearchOption.AllDirectories);
+            int count = dirsInfo.Length;
 
             return count;
         }
