@@ -1,16 +1,16 @@
 
-# fluffyjohn
-Secure, and open-source file storage and synchronization utility 
+# FluffyJohn
+A secure, and open-source file storage and synchronization utility 
 
 ![image](https://user-images.githubusercontent.com/97091148/218325579-5e4835b6-ec84-47c7-a004-6a48908e78f8.png)
 
 ## About
-This is FluffyJohn. A file-syncronization utility that stores your files.
-This project is entirely free to use, and is open-source.
+This is FluffyJohn. Similar to Google Drive, FluffyJohn is a file-synchronization utility that stores your files.
+This project is entirely free to use and is open-source.
 
 ## Installation/Setup Instructions
-Dependencies:
-> ASP.NET Core
+Packages Used:
+> ASP.NET Core MVC
 
 > ASP.NET Core Identity
 
@@ -34,9 +34,6 @@ FluffyJohn is still in progress, but here are some demo screenshots as of 5/4/20
 
 /ViewFiles/abc on uploading 2 files
 ![image](https://user-images.githubusercontent.com/97091148/230358307-03c02101-27e2-4f6a-98d4-9c1324923976.png)
-
-## Progress
-FluffyJohn is still under development. It's almost done, but not yet complete.
 
 ## License
 FluffyJohn is licensed under the [MIT License](https://opensource.org/license/mit/). More information can be found in the [LICENSE](https://github.com/johnmanjohnston/fluffyjohn/blob/master/LICENSE) file.
